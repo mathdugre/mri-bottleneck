@@ -1,0 +1,19 @@
+### Project specific ###
+# Vtune output
+vtune_output/
+
+### Python ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.env
+.venv
+
+# mypy
+.mypy_cache/
+
+### Other ###
+.DS_Store
