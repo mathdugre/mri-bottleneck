@@ -1,0 +1,148 @@
+\documentclass[conference,draft]{IEEEtran}
+
+\usepackage{cite}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=black,citecolor=blue,filecolor=black,urlcolor=blue}
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+
+\newcommand{\TG}[1]{\color{red}\textsc{From Tristan: }#1\color{black}}
+\newcommand{\MD}[1]{\color{magenta}\textsc{From Tristan: }#1\color{black}}
+\newcommand{\HL}[1]{\hl{#1}}
+
+\title{Surveying the Performance Bottleneck of Neuroimaging Pre-Processing}
+
+\author{Mathieu Dugr\'e, Tristan Glatard}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	% TODO
+																											
+\end{abstract}
+
+
+\section{Introduction}
+% TODO
+
+% MRI preprocessing
+
+% Motivate the need to profile the bottleneck of applications.
+% * Major part of neuroimaging study
+% * Faster pre-processing would enable larger study and more clinical use.
+% Identifying the major bottleneck will let us know what to optimize down the line. (compute, compression, etc.)
+% Reduced precision + Compression ?
+
+\section{Background}
+% TODO
+\subsection{MRI Pre-Processing}
+% MRI modalities
+% Pre-processing tools
+% Pre-processing step (fMRIPrep figure, + something for DIPY)
+
+
+\subsection{Profiling (VTune)}
+% Either profiling in general, or VTune in particular.
+
+% VTune
+% Lightweight profiler
+% Info on function and module runtime
+
+\subsection{Reduced Precision}
+% Quickly motivate the need for this paper
+% Summarize the advantages and disavantages of using reduced precison.
+% Talk about the potential benefits it could have to the field of neurorimaging,
+% but that profiling the application hotspot is required to perform it.
+
+\subsection{Compression}
+% How it can help with intermediate file.
+% Link to reduced precision, which could enable a sort of compression by of it self.
+
+\section{Methods}
+\subsection{Infrastructure}
+% ??? Should we include that ???
+% Doesn't really mattter for this paper, I think.
+% But doesn't harm either. For example, the performance could vary depending on architecture.
+
+\subsection{Dataset}
+% TODO
+% size
+% distribution: age, sex, race?, etc.
+% Look into CoRR and HPC datasets.
+% Need to have quality, yet not prestine, data with subject info for at least age and sex.
+
+\subsection{Pipelines}
+% TODO 
+% Motivation for those pipelines:
+
+% MRI modalities
+% fMRIprep (full) + sub-pipelines (sMRI + fMRI)
+% DIPY pipelines (dMRI)
+
+% Use case from papers
+% LivingPark pipelines (sMRI)
+
+\section{Results}
+% TODO
+% 2-step approach:
+% 1. Which pipeline constitute the long execution time in preprocessing?
+% 2. For those, which functions take the most time to execute? (hotspot)
+
+\subsection{Makespan}
+% Identify which tools take the longest to execute.
+
+% ###    FIGURE    ###
+%  Bar chart with the total makespan of the pipeline execution (mean + std)
+% ### END FIGURE ####
+% This will let us decided which pipeline to investigate more.
+
+\subsection{Hotspot}
+% (1-2 pages)
+% TopK (approx. 10) longest makepsan application. The rest can go in supplemental.
+% ###    FIGURE    ###
+% (Large pipeline)
+% fMRIPrep
+% sMRIPrep
+% DIPY
+% 
+% (Pipeline components)
+% FreeSurfer
+% ANTs ??
+% SPM DARTEL
+% ### END FIGURE ####
+
+% Supplementary figure for the sub-components of large pipelines.
+
+\section{Discussion}
+% TODO
+% Principal Bottlenecks
+
+% Limitation
+% Can only perform profiling of open-source pipelines
+% Or pipelines with debug-info.
+
+% Opportunity for optimisation (future work)
+% Reduced precision for: Compute or Compression
+
+\section{Conclusion}
+% TODO
+
+\section*{Acknowledgement}
+% TODO
+
+\section*{Data Availability}
+% TODO
+
+\section*{Conflict of Interests}
+The authors report no conflict of interests.
+
+\section*{Supplementary Figures}
+% Pipelines' hotspot with bottomK makespan
+
+\bibliographystyle{IEEEtran}
+\bibliography{IEEEabrv, paper.bib}
+
+
+\end{document}
