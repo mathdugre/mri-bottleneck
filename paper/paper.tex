@@ -1,4 +1,4 @@
-\documentclass[conference,draft]{IEEEtran}
+\documentclass[conference]{IEEEtran}
 
 \usepackage{cite}
 \usepackage{xcolor}
@@ -11,7 +11,7 @@
 \newcommand{\MD}[1]{\color{magenta}\textsc{From Tristan: }#1\color{black}}
 \newcommand{\HL}[1]{\hl{#1}}
 
-\title{Surveying the Performance Bottleneck of Neuroimaging Pre-Processing}
+\title{A Detailed Analysis of Performance Bottlenecks in MRI Pre-Processing}
 
 \author{Mathieu Dugr\'e, Tristan Glatard}
 
@@ -20,54 +20,94 @@
 
 \begin{abstract}
 	% TODO
-																											
+																																																											
 \end{abstract}
 
 
 \section{Introduction}
-% TODO
+Magnetic Resonance Imaging (MRI) is a standard tool used by neuroscientists to
+perform clinical diagnosis and for researchers to develop a better understanding
+of the brain.
+Three main MRI techniques exist: strutural MRI (sMRI), functional MRI (fMRI),
+and diffusion MRI (dMRI).
+While other modalities such as EEG, CT, and PET exist, we focus on MRIs for
+their broad adoption and non-invasive property.
+However, MRI data analysis is challeging due to computionally expensive
+pre-processing and large output and intermediate data size.
 
-% MRI preprocessing
+Many toolboxes have been developed to tackle the challenging task of
+pre-processing MRI data.
+Among those, some openly available and commonly accepted emerged:
+AFNI~\cite{Cox1996-sl}, ANTs~\cite{Avants_undated-fu},
+FreeSurfer~\cite{Fischl2012-bp}, FSL~\cite{Jenkinson2012-cq}, and
+SPM~\cite{Friston2007-ag}.
+While the previous pipelines focuse on specific steps of MRI pre-processing,
+tools like fMRIPrep~\cite{Esteban2019-og} and DIPY~\cite{Garyfallidis2014-ve}
+combine various pipelines to produce an end-to-end pre-processing workflow.
 
-% Motivate the need to profile the bottleneck of applications.
-% * Major part of neuroimaging study
-% * Faster pre-processing would enable larger study and more clinical use.
-% Identifying the major bottleneck will let us know what to optimize down the line. (compute, compression, etc.)
-% Reduced precision + Compression ?
+The MRI pre-processing of a subject can take several hours preventing the
+clinical use where data analysis might be required in timely manner.
+Furthermore, the lenghty pre-processing hinders researcher with limited 
+computational resources to perform research on large cohorts.
+
+The first step to improve performance of an application is to understand its
+performance bottleneck.
+Following, efforts can be focused on those performance critical parts.
+For example, better algorithm design or usage of hardware accelerator can 
+reduce computation time.
+Moreover, compression techniques can be used to lower data transfer time for
+output and intermediate data.
+Lastly, reduced precision arithmetic can lower computation time,
+memory footprint, and storage size.
+While these techniques can provide significant performance improvements, their
+implementation can require substantial effort.
+Therefore, it is critical to understand the performance bottleneck of MRI
+pre-processing pipelines to improve their performance.
+
+To the best of our knowledge, there are no comprehensive study of the
+bottlenecks in MRI pre-processing.
+In this paper, we characterize computational and I/O cost of several commonly
+adopted MRI pre-processing pipelines.
+The results of our analysis serve as a reference for future efforts to optimise
+the MRI pre-processing workflow.
 
 \section{Background}
-% TODO
+
 \subsection{MRI Pre-Processing}
-% MRI modalities
-% Pre-processing tools
-% Pre-processing step (fMRIPrep figure, + something for DIPY)
+% Discussion of the pre-processing steps.
+% Explain their computation and I/O requirements.
+
+% sMRI
 
 
-\subsection{Profiling (VTune)}
-% Either profiling in general, or VTune in particular.
+% fMRI
 
-% VTune
-% Lightweight profiler
+
+% dMRI
+
+
+\subsection{Intel VTune profiler}
+% Requirements for profiling the Neuroimaging field.
+% Multi-language support
+% Lightweight
 % Info on function and module runtime
 
-\subsection{Reduced Precision}
-% Quickly motivate the need for this paper
-% Summarize the advantages and disavantages of using reduced precison.
-% Talk about the potential benefits it could have to the field of neurorimaging,
-% but that profiling the application hotspot is required to perform it.
+% VTune
 
-\subsection{Compression}
-% How it can help with intermediate file.
-% Link to reduced precision, which could enable a sort of compression by of it self.
+% Challenges remaining
+% Debug information when compiling, for valuable information
+% Combining the results from multiple analysis. Different input data can 
+% vary the analysis significantly. (due to application branching and convergence)
+
+
 
 \section{Methods}
 \subsection{Infrastructure}
-% ??? Should we include that ???
-% Doesn't really mattter for this paper, I think.
-% But doesn't harm either. For example, the performance could vary depending on architecture.
+% TODO
 
 \subsection{Dataset}
 % TODO
+% !!! TBD !!!
 % size
 % distribution: age, sex, race?, etc.
 % Look into CoRR and HPC datasets.
@@ -75,6 +115,7 @@
 
 \subsection{Pipelines}
 % TODO 
+% !!! TBD !!!
 % Motivation for those pipelines:
 
 % MRI modalities
@@ -83,6 +124,12 @@
 
 % Use case from papers
 % LivingPark pipelines (sMRI)
+
+\subsection{Profiling}
+% How we did the profiling.
+% Code to repository
+% Aggregation of the results from different subjects.
+
 
 \section{Results}
 % TODO
@@ -134,6 +181,10 @@
 
 \section*{Data Availability}
 % TODO
+The code to compile, profile, and execute the pipelines is publicly available at:
+
+\href{https://github.com/mathdugre/neuro-bottleneck}{https://github.com/mathdugre/neuro-bottleneck}
+% TODO Update URL to slashbin org, when created.
 
 \section*{Conflict of Interests}
 The authors report no conflict of interests.
@@ -142,7 +193,8 @@ The authors report no conflict of interests.
 % Pipelines' hotspot with bottomK makespan
 
 \bibliographystyle{IEEEtran}
-\bibliography{IEEEabrv, paper.bib}
+% \bibliography{IEEEabrv, paper}
+\bibliography{paper}
 
 
 \end{document}
