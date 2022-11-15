@@ -20,60 +20,24 @@
 
 \begin{abstract}
 	% TODO
-																																																											
+		
 \end{abstract}
 
-
 \section{Introduction}
-Magnetic Resonance Imaging (MRI) is a standard tool used by neuroscientists to
-perform clinical diagnosis and for researchers to develop a better understanding
-of the brain.
-Three main MRI techniques exist: strutural MRI (sMRI), functional MRI (fMRI),
-and diffusion MRI (dMRI).
-While other modalities such as EEG, CT, and PET exist, we focus on MRIs for
-their broad adoption and non-invasive property.
-However, MRI data analysis is challeging due to computionally expensive
-pre-processing and large output and intermediate data size.
+Magnetic Resonance Imaging (MRI) is a standard tool used by neuroscientists to perform clinical diagnosis and for researchers to develop a better understanding of the brain. Three main MRI techniques exist: structural MRI (sMRI), functional MRI (fMRI), and diffusion MRI (dMRI). While other modalities such as EEG, CT, and PET exist, we focus on MRIs for their broad adoption and non-invasive property. However, MRI data analysis is challenging due to computationally expensive pre-processing and large output and intermediate data size.
 
-Many toolboxes have been developed to tackle the challenging task of
-pre-processing MRI data.
-Among those, some openly available and commonly accepted emerged:
-AFNI~\cite{Cox1996-sl}, ANTs~\cite{Avants_undated-fu},
-FreeSurfer~\cite{Fischl2012-bp}, FSL~\cite{Jenkinson2012-cq}, and
-SPM~\cite{Friston2007-ag}.
-While the previous pipelines focuse on specific steps of MRI pre-processing,
-tools like fMRIPrep~\cite{Esteban2019-og} and DIPY~\cite{Garyfallidis2014-ve}
-combine various pipelines to produce an end-to-end pre-processing workflow.
+Neuroscientists developed various toolboxes to tackle the challenging task of pre-processing MRI data. Among those, some openly available and commonly accepted emerged: AFNI~\cite{Cox1996-sl}, ANTs~\cite{Avants_undated-fu}, FreeSurfer~\cite{Fischl2012-bp}, FSL~\cite{Jenkinson2012-cq}, and SPM~\cite{Friston2007-ag}. While the previous pipelines focus on specific steps of MRI pre-processing, tools like fMRIPrep~\cite{Esteban2019-og} and DIPY~\cite{Garyfallidis2014-ve} combine various pipelines to produce a complete pre-processing workflow.
 
-The MRI pre-processing of a subject can take several hours preventing the
-clinical use where data analysis might be required in timely manner.
-Furthermore, the lenghty pre-processing hinders researcher with limited 
-computational resources to perform research on large cohorts.
+The MRI pre-processing of a subject can take several hours, preventing the clinical use where data analysis might be required in timely manner. The lengthy pre-processing hinders researchers with limited computational resources to perform research on large cohorts.
 
-The first step to improve performance of an application is to understand its
-performance bottleneck.
-Following, efforts can be focused on those performance critical parts.
-For example, better algorithm design or usage of hardware accelerator can 
-reduce computation time.
-Moreover, compression techniques can be used to lower data transfer time for
-output and intermediate data.
-Lastly, reduced precision arithmetic can lower computation time,
-memory footprint, and storage size.
-While these techniques can provide significant performance improvements, their
-implementation can require substantial effort.
-Therefore, it is critical to understand the performance bottleneck of MRI
-pre-processing pipelines to improve their performance.
+The first step to improve performance of an application is to understand its performance bottleneck. Following, we can focus our efforts on the performance critical components. For example, better algorithm designs or usage of hardware accelerator can reduce computation time. Compression techniques can lower data transfer time for output and intermediate data. At last, reduced precision arithmetic can lower computation time, memory footprint, and storage size. While these techniques can provide significant performance improvements, their implementation can require substantial effort. Therefore, it is critical to understand the performance bottleneck of MRI pre-processing pipelines to improve their performance.
 
-To the best of our knowledge, there are no comprehensive study of the
-bottlenecks in MRI pre-processing.
-In this paper, we characterize computational and I/O cost of several commonly
-adopted MRI pre-processing pipelines.
-The results of our analysis serve as a reference for future efforts to optimise
-the MRI pre-processing workflow.
+To the best of our knowledge, there is no comprehensive study of the bottlenecks in MRI pre-processing. In this paper, we characterize computational and I/O cost of several commonly adopted MRI pre-processing pipelines. The results of our analysis serve as a reference for future efforts to optimize the MRI pre-processing workflow.
 
 \section{Background}
 
 \subsection{MRI Pre-Processing}
+% Look at the benchamrked tool and the information needed to abstract those tools.
 % Discussion of the pre-processing steps.
 % Explain their computation and I/O requirements.
 
@@ -110,7 +74,7 @@ the MRI pre-processing workflow.
 % !!! TBD !!!
 % size
 % distribution: age, sex, race?, etc.
-% Look into CoRR and HPC datasets.
+% Look into **CoRR** (more representative for this project) and HPC datasets.
 % Need to have quality, yet not prestine, data with subject info for at least age and sex.
 
 \subsection{Pipelines}
