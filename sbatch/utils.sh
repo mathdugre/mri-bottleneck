@@ -25,7 +25,7 @@ then
     module load singularity
     mdoule load python/3.10
 fi
-[[ -z ${SLURM_TMPDIR:+x} ]] && export SLURM_TMPDIR=/disk5/${USER}
+[[ -z ${SLURM_TMPDIR:+x} ]] && export SLURM_TMPDIR=/disk5/${USER}/mri-bottleneck
 NTHREAD=$(nproc)
 
 # Parse arguments
@@ -42,15 +42,15 @@ while (( $# )); do
   case $1 in
     -h | --help)
       echo "${USAGE}" && exit 0;;
-    -i | --input | --input=)
+    -i | --input )
         validate_opt $@
         INPUT_DIR=$2
         shift 2;;
-    -j | --nthread | --ntrhead=)
+    -j | --nthread)
         validate_opt $@
         NTHREAD=$(($2>NTHREAD ? NTRHEAD : $2))
         shift 2;;
-    -o | --output | --output=)
+    -o | --output)
         validate_opt $@
         OUTPUT_DIR=$2
         shift 2;;
