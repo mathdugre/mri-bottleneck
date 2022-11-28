@@ -85,3 +85,18 @@ export SIF_IMG
 export INPUT_DIR
 export OUTPUT_DIR
 export NTHREAD
+export DATASET=$(basename ${INPUT_DIR})
+export SUBJECT_ID=$(sed -n $(( 1 + ${SLURM_ARRAY_TASK_ID} ))p ${INPUT_DIR}/participants.tsv | cut -f1)
+
+echo "---------------------
+Profiling information
+
+Pipeline: $FUNC
+SIF_IMG: $SIF_IMG
+INPUT_DIR: $INPUT_DIR
+OUTPUT_DIR: $OUTPUT_DIR
+NTHREAD: $NTHREAD
+DATASET: $DATASET
+SUBJECT_ID: $SUBJECT_ID
+---------------------
+"
