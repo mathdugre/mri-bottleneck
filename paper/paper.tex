@@ -66,9 +66,10 @@ To the best of our knowledge, there is no comprehensive study of the bottlenecks
 
 
 \section{Methods}
-In this section, we explain our choice of pipelines and dataset. Furthermore, we describe the methods used for profiling the dataset with the different applications.
+In this section, we explain our choice of pipelines and dataset. We describe the methods used for profiling the dataset with the different applications.
 
-For a detailed view of our methods, we redirect the reader to our GitHub repository (see \ref{data-availability}) which contains the code for:
+For a detailed view of our methods, we redirect the reader to our GitHub repository (see Section~\ref{data-availability}), which contains the code for:
+
 \begin{itemize}
 	\item Acquiring the datasets.
 	\item Building the containerized image for the pipelines.
@@ -77,25 +78,23 @@ For a detailed view of our methods, we redirect the reader to our GitHub reposit
 \end{itemize}
 
 \subsection{Pipelines}
-In this analysis, we aim at covering the pre-processing performance for different MRI modalities. We study the performance bottleneck of large toolboxes as well as individual pipelines. Moreover, we use the pipelines from the LivingPark project as a real use case of MRI pre-processing.
+In this analysis, we aim to cover the pre-processing performance for different MRI modalities. We study the performance bottleneck of large toolboxes and individual pipelines. We use the pipelines from the LivingPark project as a real use case of MRI pre-processing.
 % TODO citation for LivingPark project. 
 % Q: Ask Tristan about it.
 
 First, we choose these commonly accepted workflows: fMRIPrep anatomical only without and without FreeSurfer, fMRIPrep complete workflow, and DIPY. This let us study the coarse grain performance of workflows for anatomical, functional, and diffusion MRI pre-processing. 
 
-Second, we perform a finer grain analysis of the afore mentioned workflows' sub-components. The fMRIPrep anatomical workflow use these pipelines: \textit{ANTS Brain Extraction}, \textit{FSL FAST}, and \textit{FreeSurfer recon-all}.
-The fMRIPrep Bold workflow use those: \textit{AFNI 3dTShift}, \textit{FSL MELODIC}, \textit{FSL MCFLIRT}, and \textit{FSL FLIRT}.
-DIPY uses the following pipelines: \dots
+Second, we perform a finer grain analysis of the aforementioned workflows' sub-components. The fMRIPrep anatomical workflow uses these pipelines: ANTS Brain Extraction, FSL FAST, and FreeSurfer recon-all. The fMRIPrep Bold workflow use those: AFNI 3dTShift, FSL MELODIC, FSL MCFLIRT, and FSL FLIRT. DIPY uses the following pipelines: \dots
 % TODO Decide on workflow sub-components.
 
-Last, the LivingPark project replicate several papers on Parkinson's Disease with a broad range of analysis. The following pipelines are used in the study: \textit{FSL SIENA}, \textit{SPM DARTEL}, and \textit{SPM DBM}.
+Last, the LivingPark project replicates several papers on Parkinson's Disease with a broad range of analysis. The study uses the following pipelines: FSL SIENA, SPM DARTEL, and SPM DBM.
 % TODO Validate which pipelines are used in the project.
 % Ideally use all the LivingPark pipelines. If some cannot be used, explain why.
 
 \subsection{Dataset}
-To ensure the performance profile of the application derived from our work are inclusive to different population, we use dataset with a wide range of age and equal distribution of sex (biological). Using a diverse dataset should help to prevent finding of potential performance bottleneck associated to a specific population.
+To ensure the performance profile of the application derived from our work is inclusive of different population, we use dataset with a wide range of age and equal distribution of sex (biological). Using a diverse dataset should help to prevent findings of potential performance bottleneck associated to a specific population.
 
-For the sMRI and fMRI pipelines, we use the Consortium for Reliability and Reproducibility (CoRR) dataset~\cite{Zuo2014-xa} publicly available on Datalad\footnote{\href{https://datasets.datalad.org/?dir=/corr/RawDataBIDS}{https://datasets.datalad.org/?dir=/corr/RawDataBIDS}}. The CoRR dataset contains 1629 subjects resting state fMRI (rfMRI) data (5093 rfMRI scans) collected across 18 international sites. For computational feasibility, we limit ourselves to the \textit{LMU 2} site. We chose the \textit{LMU 2} site for its diversity with 40 subjects of age 20-79 (mean 50.8) and female-to-male ratio of 45\%.
+For the sMRI and fMRI pipelines, we use the Consortium for Reliability and Reproducibility (CoRR) dataset~\cite{Zuo2014-xa} publicly available on Datalad\footnote{\href{https://datasets.datalad.org/?dir=/corr/RawDataBIDS}{https://datasets.datalad.org/?dir=/corr/RawDataBIDS}}. The CoRR dataset contains 1629 subjects resting state fMRI (rfMRI) data (5093 rfMRI scans) collected across 18 international sites. For computational feasibility, we limit ourselves to the LMU 2 site. We chose the LMU 2 site for its diversity, with 40 subjects of age 20-79 (mean 50.8) and a female-to-male ratio of 45\%.
 % Q: Might want to discuss the data size and type (anat, func, dwi).
 
 % TODO Choose dataset for dMRI pipelines.
@@ -104,13 +103,13 @@ For the sMRI and fMRI pipelines, we use the Consortium for Reliability and Repro
 % TODO Discuss the PPMI dataset.
 
 \subsection{Profiling}
-We use the Intel VTune profile for our analysis. On the one hand, it has a low performance overhead and offers reporting profiling data at various granularity. On the hand, it requires the debug information of a given application to make sense of its profiling data. Otherwise, function name are not available. Therefore, as a first step, we re-compiled each pipeline with debug information in a Docker image. For use on HPC systems, created Singularity images using Docker2Singularity.
+We use the Intel VTune profile for our analysis. On the one hand, it has a low performance overhead and offers reporting profiling data at various granularities. On the hand, it requires the debug information of an application to make sense of its profiling data. Otherwise, function names are not available. Therefore, as a first step, we re-compiled each pipeline with debug information in a Docker image. For use on HPC systems, created Singularity images using Docker2Singularity.
 
-Afterwards, we profile a pipeline by mounting the VTune binary to the Singularity image at execution. The profiling result for each (pipeline, subject) pair is stored. Combining the Pareto's law and VTune bottom-up report, we identify the top 20\% of function calls that approximately account for 80\% of the pipeline execution time. This heuristic allow us to focus our efforts on the performance critical sections of a pipeline.
-% TODO Add code snippet to illustrate Vtune profiling of Singularity pipeline.
+Afterwards, we profile a pipeline by mounting the VTune binary to the Singularity image at execution. We store the profiling result for each (pipeline, subject) pair. Combining the Pareto's law and VTune bottom-up report, we identify the top 20\% of function calls that approximately account for 80\% of the pipeline execution time. This heuristic allows us to focus our efforts on the performance critical sections of a pipeline.
+% TODO Add code snippet to illustrate VTune profiling of Singularity pipeline.
 
 Finally, the execution branching of pipeline can vary based on the input data. Therefore, we aggregate the profiling results of each pipeline across all subjects. We calculate the mean and standard deviation of total execution time of all top 20\% functions and modules of the pipeline.
-% TODO Decide how the mean is calculated.\
+% TODO Decide how the mean is calculated.
 % Either total number of subjects or only with function.
 
 \subsection{Infrastructure}
