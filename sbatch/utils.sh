@@ -20,12 +20,23 @@ Usage: sh ${FUNC} <SIF_IMG> -i <INPUT_DIR> -o <OUTPUT_DIR> [-j <NTHREAD>]
 "
 
 # Initalize env loading on either Slashbin and Compute Canada
-if ! command -v module &>/dev/null
-then 
-    module load singularity
-    mdoule load python/3.10
-fi
 [[ -z ${SLURM_TMPDIR:+x} ]] && export SLURM_TMPDIR=/disk5/${USER}/mri-bottleneck
+
+if command -v module &>/dev/null
+then 
+    module is-availl singularity && module load singularity
+    module is-availl python/3.10 && mdoule load python/3.10
+fi
+if ! command -v singularity &>/dev/null
+then
+    echo "[ERROR] singularity: command not found."
+    exit 127
+fi
+if ! command -v python &>/dev/null
+then
+    echo "[ERROR] python: command not found."
+    exit 127
+fi
 
 # Parse arguments
 function validate_opt(){
