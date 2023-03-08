@@ -8,7 +8,6 @@ RUN : \
     && apt-get install -y --no-install-recommends \
       apt-utils \
       apt-transport-https \
-      build-essential \
       ca-certificates \
       gnupg \
       wget \
@@ -28,6 +27,4 @@ RUN : \
     && apt-get install -y --no-install-recommends \
       cmake=${CMAKE_VERSION} \
       cmake-data=${CMAKE_VERSION} \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && :
