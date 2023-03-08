@@ -2,9 +2,10 @@
 set -e
 set -u
 
+TOOLKIT=$1; shift
 FUNC=$1; shift
 USAGE="
-Usage: sh ${FUNC} <SIF_IMG> -i <INPUT_DIR> -o <OUTPUT_DIR> [-j <NTHREAD>]
+Usage: sh ${TOOLKIT} ${FUNC} <SIF_IMG> -i <INPUT_DIR> -o <OUTPUT_DIR> [-j <NTHREAD>]
 
     SIF_IMG: Path to the Singularity image to profile.
 
@@ -12,11 +13,11 @@ Usage: sh ${FUNC} <SIF_IMG> -i <INPUT_DIR> -o <OUTPUT_DIR> [-j <NTHREAD>]
 
     -h: print this help message.
 
-    -i INPUT_DIR: Root of the input dataset.
+    -i INPUT_DIR: Path to the input dataset.
 
     -j NTHREAD: Number of threads used for the application. By default use all.
 
-    -o OUTPUT_DIR: Path to the output directory.
+    -o OUTPUT_DIR: Path to the project directory.
 "
 
 # Initalize env loading on either Slashbin and Compute Canada
@@ -47,8 +48,8 @@ function validate_opt(){
     fi
 }
 
+# Default parameters
 NTHREAD=$(nproc)
-PROFILING_DIR="vtune_output"
 
 PARAMS=""
 while (( $# )); do
@@ -78,7 +79,18 @@ while (( $# )); do
   esac
 done
 eval set -- ${PARAMS}
+
+# Ensure singularity image is passed.
+if [[ -z ${1:+x} ]]; then
+    echo "ERROR: missing argument: SIF_IMG"
+    echo "${USAGE}"
+    exit 1
+fi
 SIF_IMG=$1
+if [[ ! -f ${SIF_IMG} ]]; then
+    echo "Error: SIF_IMG path does not exist: ${SIF_IMG} "
+    exit 1
+fi
 
 # Validate arguments
 if [[ -z ${INPUT_DIR} || -z  ${OUTPUT_DIR}  || -z ${SIF_IMG} ]]; then
@@ -89,27 +101,44 @@ if [[ ! -d ${INPUT_DIR} ]]; then
     echo "Error: INPUT_DIR direcotry does not exist: ${INPUT_DIR} "
     exit 1
 fi
-if [[ ! -f ${SIF_IMG} ]]; then
-    echo "Error: SIF_IMG path does not exist: ${SIF_IMG} "
-    exit 1
-fi
 
+# Set variables for external use.
 export SIF_IMG
 export INPUT_DIR
-export OUTPUT_DIR
 export NTHREAD
 export DATASET=$(basename ${INPUT_DIR})
+export PROJECT_DIR=$(realpath ${OUTPUT_DIR})
+export OUTPUT_DIR=${PROJECT_DIR}/${TOOLKIT}/${FUNC}
+
+
+[[ -z ${SLURM_ARRAY_TASK_ID:+x} ]] && SLURM_ARRAY_TASK_ID=1
 export SUBJECT_ID=$(sed -n $(( 1 + ${SLURM_ARRAY_TASK_ID} ))p ${INPUT_DIR}/participants.tsv | cut -f1)
+
+RANDOM_STRING=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+export PROFILING_DIR=${PROJECT_DIR}/"vtune_output"/${TOOLKIT}/${FUNC}/${DATASET}/sub-${SUBJECT_ID}/${RANDOM_STRING}
 
 echo "---------------------
 Profiling information
 
-Pipeline: ${FUNC}
+Pipeline: ${TOOLKIT} ${FUNC}
+DATASET: ${DATASET}
+SUBJECT_ID: ${SUBJECT_ID}
+
 SIF_IMG: ${SIF_IMG}
 INPUT_DIR: ${INPUT_DIR}
 OUTPUT_DIR: ${OUTPUT_DIR}
+
 NTHREAD: ${NTHREAD}
-DATASET: ${DATASET}
-SUBJECT_ID: ${SUBJECT_ID}
+
+PROJECT_DIR: ${PROJECT_DIR}
+PROFILING_DIR: ${PROFILING_DIR}
 ---------------------
 "
+mkdir -p ${OUTPUT_DIR}
+mkdir -p ${PROFILING_DIR}
+
+# Transfer dataset to compute node.
+mkdir -p ${SLURM_TMPDIR}/input/sub-${SUBJECT_ID}
+rsync -aLq --info=progress2 \
+    ${INPUT_DIR}/sub-${SUBJECT_ID}/ \
+    ${SLURM_TMPDIR}/input/sub-${SUBJECT_ID}/
