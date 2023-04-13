@@ -20,12 +20,23 @@ singularity exec --cleanenv \
     -report-output ${PROFILING_DIR}.csv \
     -format csv \
     -csv-delimiter tab \
-    -group-by module,function
+    -group-by module,function \
+    -loop-mode function-only
+
 
 # Tarball VTune profiling data to reduce inode usage.
 tar czf ${PROFILING_DIR}.tar.gz -C $(dirname ${PROFILING_DIR}) $(basename ${PROFILING_DIR})
 rm -r ${PROFILING_DIR}
 
 # Transfer pipeline output to storage node.
-rsync -aq --info=progress2 --exclude "input" ${SLURM_TMPDIR}/ ${OUTPUT_DIR}/
+mkdir -p ${OUTPUT_DIR}
+rsync -aLq --info=progress2 ${SLURM_TMPDIR}/output/ ${OUTPUT_DIR}/
 rm -rf ${SLURM_TMPDIR}
+
+# Transfer `participant.tsv` file for further use.
+rsync -aLq --info=progress2 \
+    ${DATA_DIR}/participants.tsv \
+    ${OUTPUT_DIR}/participants.tsv
+
+# Delete temporary script
+rm ${TMP_SCRIPT}/${RANDOM_STRING}.sh

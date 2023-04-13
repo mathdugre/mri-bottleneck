@@ -1,6 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 set -u
+
+echo "Command to profile: $@"
 
 singularity exec --cleanenv \
     -B ~/intel/oneapi/vtune/latest/:/vtune \

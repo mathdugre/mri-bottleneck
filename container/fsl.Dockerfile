@@ -1,49 +1,45 @@
-FROM centos:centos7.9.2009
+FROM ubuntu:focal-20221019
+
+ENV DEBIAN_FRONTEND="noninteractive" \
+LANG="en_US.UTF-8" \
+LC_ALL="en_US.UTF-8"
 
 RUN : \
-    && yum -y update \
-    && yum install -y epel-release \
-    && yum repolist \
-    && yum install -y \
-      dnf \
-      expat-devel \
-      libX11-devel \
-      mesa-libGL-devel \
-      openblas-devel \
-      python3 \
-      vtk-devel \
-      zlib-devel \
-    && dnf group install -y "Development Tools" \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+      ca-certificates \
+      python2 \
+      git \
+      wget \
+    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && :
 
-ARG FSL_VERSION="6.0.5.2"
+RUN wget https://fsl.fmrib.ox.ac.uk/fsldownloads/fslconda/releases/fslinstaller.py
+RUN python2 fslinstaller.py -V 6.0.6.4 -d /opt/fsl
+
+SHELL ["/bin/bash", "-c"]
+ENV FSLDIR=/opt/fsl \
+    FSLDEVDIR=/opt/fsl-dev
+ENV PATH="$FSLDIR/share/fsl/bin:${PATH}"
 RUN : \
-    && echo "Downloading FSL ..." \
-    && mkdir -p /tmp/fsl \
-    && curl -fsSL https://fsl.fmrib.ox.ac.uk/fsldownloads/fsl-${FSL_VERSION}-sources.tar.gz \
-    | tar -xz -C /tmp/fsl --strip-components 1 \
+    && source $FSLDIR/etc/fslconf/fsl.sh \
+    && source $FSLDIR/etc/fslconf/fsl-devel.sh \
+    && source $FSLDIR/bin/activate \
+    && for f in $(ls -d $FSLDIR/src/*/ | grep -v fsl-znzlib) ; do cd $f; make CFLAGS=-g && make install; done \
     && :
-
-RUN : \
-    && export FSL_CONFIG="/tmp/fsl/config" \
-    && sed -i 's:VTKDIR_INC = .*:VTKDIR_INC = /usr/include/vtk:g' ${FSL_CONFIG}/buildSettings.mk \
-    && sed -i 's:VTKDIR_LIB = .*:VTKDIR_LIB = /usr/lib64/vtk:g' ${FSL_CONFIG}/buildSettings.mk \
-    && sed -i 's:VTKSUFFIX = .*:VTKSUFFIX = "":g' ${FSL_CONFIG}/buildSettings.mk \
-    && sed -i 's:${MAKE} -k ${MAKEOPTIONS}:${MAKE} -k ${MAKEOPTIONS} debug:g' ${FSL_CONFIG}/common/buildproj \
-    && sed -i 's:fdt_MASTERBUILD     = COMPILE_GPU = 1:fdt_MASTERBUILD     = COMPILE_GPU = 0:g' ${FSL_CONFIG}/buildSettings.mk \
-    && sed -i 's:ptx2_MASTERBUILD    = COMPILE_GPU = 1:ptx2_MASTERBUILD    = COMPILE_GPU = 0:g' ${FSL_CONFIG}/buildSettings.mk \
-    && alternatives --install /usr/bin/python python /usr/bin/python2 50 \
-    && alternatives --install /usr/bin/python python /usr/bin/python3 60 \
-    && alternatives --set python /usr/bin/python3 \
-    && :
-
-# # FSL FEEDS (Testing suite)
-# RUN curl -fsSL https://fsl.fmrib.ox.ac.uk/fsldownloads/fsl-${FSL_VERSION}-feeds.tar.gz \
-#     | tar -xz -C /tmp/fsl-${FSL_VERSION}-feeds
 
 RUN : \
-    && cd /tmp/fsl \
-    && ./build \
+    && echo 'export FSLDIR=/opt/fsl' >> /etc/bash.bashrc \
+    && echo 'export FSLDEVDIR=/opt/fsl-dev' >> /etc/bash.bashrc \
+    && echo 'source $FSLDIR/etc/fslconf/fsl.sh' >> /etc/bash.bashrc \
+    && echo 'source $FSLDIR/etc/fslconf/fsl-devel.sh' >> /etc/bash.bashrc \
+    && echo 'source $FSLDIR/bin/activate' >> /etc/bash.bashrc \
     && :
 
-# TODO Use multi-stage to reduce image size.
+RUN : \
+    && echo 'export FSLDIR=/opt/fsl' >> /fsl_env.sh \
+    && echo 'export FSLDEVDIR=/opt/fsl-dev' >> /fsl_env.sh \
+    && echo 'source $FSLDIR/etc/fslconf/fsl.sh' >> /fsl_env.sh \
+    && echo 'source $FSLDIR/etc/fslconf/fsl-devel.sh' >> /fsl_env.sh \
+    && echo 'source $FSLDIR/bin/activate' >> /fsl_env.sh \
+    && :
