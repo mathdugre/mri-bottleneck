@@ -136,9 +136,21 @@ mkdir -p ${PROJECT_DIR}
 rm -rf ${SLURM_TMPDIR}
 mkdir -p ${SLURM_TMPDIR}/sub-${SUBJECT_ID}
 rsync -aLq --info=progress2 \
-    --exclude "derivatives" \
     ${DATA_DIR}/sub-${SUBJECT_ID}/ \
     ${SLURM_TMPDIR}/sub-${SUBJECT_ID}/
+
+# Transfer derivatives for a given subject, excluding the potential cache of
+# current pipeline.
+mkdir -p ${SLURM_TMPDIR}/derivatives
+rsync -aLq \
+    --exclude=${TOOLKIT}/${PIPELINE} \
+    --include="**/sub-${SUBJECT_ID}/***" \
+    --exclude="**/sub-*/" \
+    --include "*/" \
+    --exclude="*" \
+    ${DATA_DIR}/derivatives/ \
+    ${SLURM_TMPDIR}/derivatives/
+
 
 # Create temp directory for pipeline scripts.
 export TMP_SCRIPT=tmp-scripts
