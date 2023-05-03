@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH -J ants-BrainExtraction
+#SBATCH -J ants-brainExtraction
 #SBATCH --array=1
 #SBATCH --time=2:00:00
 #SBATCH --exclusive
@@ -23,10 +23,10 @@ TMPLT="/opt/templates/OASIS"
 
 antsBrainExtraction.sh \
     -d 3 \
-    -a /data/input/sub-${SUBJECT_ID}/ses-1/anat/sub-${SUBJECT_ID}_ses-1_run-1_T1w.nii.gz \
-    -e ${TMPLT}/T_template0.nii.gz \
-    -m ${TMPLT}/T_template0_BrainCerebellumProbabilityMask.nii.gz \
-    -o /data/output/sub-${SUBJECT_ID}/
+    -a /data/sub-${SUBJECT_ID}/ses-1/anat/sub-${SUBJECT_ID}_ses-1_run-1_T1w.nii.gz \
+    -e \${TMPLT}/T_template0.nii.gz \
+    -m \${TMPLT}/T_template0_BrainCerebellumProbabilityMask.nii.gz \
+    -o /data/derivatives/ants/brainExtraction/sub-${SUBJECT_ID}/ses-1/anat/
 EOT
 
 export SINGULARITYENV_ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS=$NTHREAD

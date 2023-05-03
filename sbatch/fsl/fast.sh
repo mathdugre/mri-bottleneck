@@ -20,10 +20,9 @@ source ./sbatch/pre_run.sh fsl fast -j ${SLURM_CPUS_PER_TASK} $@
 
 cat <<EOT >> ${TMP_SCRIPT}/${RANDOM_STRING}.sh
 source /fsl_env.sh
-mkdir -p /data/output/sub-${SUBJECT_ID}/
 fast \
-    -o /data/output/sub-${SUBJECT_ID}/BrainExtractionBrain \
-    /data/input/sub-${SUBJECT_ID}/BrainExtractionBrain.nii.gz
+    -o /data/derivatives/fsl/fast/sub-${SUBJECT_ID}/ses-1/anat/BrainExtractionBrain \
+    /data/derivatives/ants/brainExtraction/sub-${SUBJECT_ID}/ses-1/anat/BrainExtractionBrain.nii.gz
 EOT
 
 export SINGULARITYENV_OMP_NUM_THREADS=$NTHREAD

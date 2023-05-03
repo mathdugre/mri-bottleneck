@@ -1,8 +1,8 @@
 #!/bin/bash
 
-#SBATCH -J ants-brainExtraction-fp
+#SBATCH -J ants-registrationSyN
 #SBATCH --array=1
-#SBATCH --time=2:00:00
+#SBATCH --time=8:00:00
 #SBATCH --exclusive
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -16,18 +16,17 @@ set -e
 set -u
 
 # Setup environment and parse args.
-source ./sbatch/pre_run.sh ants brainExtraction-fp -j ${SLURM_CPUS_PER_TASK} $@
+source ./sbatch/pre_run.sh ants registrationSyN -j ${SLURM_CPUS_PER_TASK} $@
 
+export SIF_OPTION="-B $HOME/.cache/templateflow:/templateflow"
 cat <<EOT >> ${TMP_SCRIPT}/${RANDOM_STRING}.sh
-TMPLT="/opt/templates/OASIS"
+TMPLT="/templateflow/tpl-MNI152NLin2009cAsym/"
 
-antsBrainExtraction.sh \
-    -q 1 \
+antsRegistrationSyN.sh \
     -d 3 \
-    -a /data/sub-${SUBJECT_ID}/ses-1/anat/sub-${SUBJECT_ID}_ses-1_run-1_T1w.nii.gz \
-    -e \${TMPLT}/T_template0.nii.gz \
-    -m \${TMPLT}/T_template0_BrainCerebellumProbabilityMask.nii.gz \
-    -o /data/derivatives/ants/brainExtraction-fp/sub-${SUBJECT_ID}/ses-1/anat/
+    -f \${TMPLT}/tpl-MNI152NLin2009cAsym_res-01_desc-brain_T1w.nii.gz\
+    -m /data/derivatives/fsl/fast/sub-${SUBJECT_ID}/ses-1/anat/BrainExtractionBrain_seg.nii.gz \
+    -o /data/derivatives/ants/registrationSyN/sub-${SUBJECT_ID}/ses-1/anat/
 EOT
 
 export SINGULARITYENV_ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS=$NTHREAD

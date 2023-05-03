@@ -3,9 +3,9 @@ set -e
 set -u
 
 TOOLKIT=$1; shift
-FUNC=$1; shift
+PIPELINE=$1; shift
 USAGE="
-Usage: sh ${TOOLKIT} ${FUNC} <SIF_IMG> -i <DATA_DIR> -o <PROJECT_DIR> [-j <NTHREAD>]
+Usage: sh ${TOOLKIT} ${PIPELINE} <SIF_IMG> -i <DATA_DIR> -o <PROJECT_DIR> [-j <NTHREAD>]
 
     SIF_IMG: Path to the Singularity image to profile.
 
@@ -13,11 +13,11 @@ Usage: sh ${TOOLKIT} ${FUNC} <SIF_IMG> -i <DATA_DIR> -o <PROJECT_DIR> [-j <NTHRE
 
     -h: print this help message.
 
-    -i DATA_DIR: Path to the input data directory.
+    -d DATA_DIR: Path to the input data directory.
 
     -j NTHREAD: Number of threads used for the application. By default use all.
 
-    -o PROJECT_DIR: Path to the project directory.
+    -p PROJECT_DIR: Path to the project directory.
 "
 
 # Initalize env loading on either Slashbin and Compute Canada
@@ -56,15 +56,15 @@ while (( $# )); do
   case $1 in
     -h | --help)
       echo "${USAGE}" && exit 0;;
-    -i | --input )
+    -d | --dataset)
         validate_opt $@
         DATA_DIR=$2
         shift 2;;
-    -j | --nthread)
+    -j | --NTHREAD)
         validate_opt $@
-        NTHREAD=$(($2>NTHREAD ? NTRHEAD : $2))
+        NTHREAD=$(($2>NTHREAD ? NTHREAD : $2))
         shift 2;;
-    -o | --output)
+    -p | --project)
         validate_opt $@
         PROJECT_DIR=$2
         shift 2;;
@@ -88,7 +88,7 @@ if [[ -z ${1:+x} ]]; then
 fi
 SIF_IMG=$1
 if [[ ! -f ${SIF_IMG} ]]; then
-    echo "Error: SIF_IMG path does not exist: ${SIF_IMG} "
+    echo "Error: SIF_IMG path does not exist: ${SIF_IMG}"
     exit 1
 fi
 
@@ -98,30 +98,26 @@ if [[ -z ${DATA_DIR} || -z  ${PROJECT_DIR}  || -z ${SIF_IMG} ]]; then
     exit 1
 fi
 if [[ ! -d ${DATA_DIR} ]]; then
-    echo "Error: DATA_DIR direcotry does not exist: ${DATA_DIR} "
+    echo "Error: DATA_DIR direcotry does not exist: ${DATA_DIR}"
     exit 1
 fi
 
 # Set variables for external use.
-mkdir -p ${PROJECT_DIR}
 export SIF_IMG
 export DATA_DIR
 export NTHREAD
 export DATASET=$(basename ${DATA_DIR})
-export OUTPUT_DIR=${PROJECT_DIR}/${TOOLKIT}/${FUNC}/${DATASET}
-
 
 [[ -z ${SLURM_ARRAY_TASK_ID:+x} ]] && SLURM_ARRAY_TASK_ID=1
 export SUBJECT_ID=$(sed -n $(( 1 + ${SLURM_ARRAY_TASK_ID} ))p ${DATA_DIR}/participants.tsv | cut -f1)
 
 export RANDOM_STRING=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
-export PROFILING_DIR=${PROJECT_DIR}/"vtune_output"/${TOOLKIT}/${FUNC}/${DATASET}/sub-${SUBJECT_ID}/${RANDOM_STRING}
-mkdir -p ${PROFILING_DIR}
+export PROFILING_DIR=${PROJECT_DIR}/vtune_output/${NTHREAD}-threads/${TOOLKIT}/${PIPELINE}/${DATASET}/sub-${SUBJECT_ID}/${RANDOM_STRING}
 
 echo "---------------------
 Profiling information
 
-Pipeline: ${TOOLKIT} ${FUNC}
+Pipeline: ${TOOLKIT} ${PIPELINE}
 NTHREAD: ${NTHREAD}
 
 DATASET: ${DATASET}
@@ -129,19 +125,20 @@ SUBJECT_ID: ${SUBJECT_ID}
 
 SIF_IMG: ${SIF_IMG}
 DATA_DIR: ${DATA_DIR}
-OUTPUT_DIR: ${OUTPUT_DIR}
 
 PROJECT_DIR: ${PROJECT_DIR}
 PROFILING_DIR: ${PROFILING_DIR}
 ---------------------
 "
+mkdir -p ${PROJECT_DIR}
 
 # Transfer dataset to compute node.
 rm -rf ${SLURM_TMPDIR}
-mkdir -p ${SLURM_TMPDIR}/input/sub-${SUBJECT_ID}
+mkdir -p ${SLURM_TMPDIR}/sub-${SUBJECT_ID}
 rsync -aLq --info=progress2 \
+    --exclude "derivatives" \
     ${DATA_DIR}/sub-${SUBJECT_ID}/ \
-    ${SLURM_TMPDIR}/input/sub-${SUBJECT_ID}/
+    ${SLURM_TMPDIR}/sub-${SUBJECT_ID}/
 
 # Create temp directory for pipeline scripts.
 export TMP_SCRIPT=tmp-scripts

@@ -29,14 +29,8 @@ tar czf ${PROFILING_DIR}.tar.gz -C $(dirname ${PROFILING_DIR}) $(basename ${PROF
 rm -r ${PROFILING_DIR}
 
 # Transfer pipeline output to storage node.
-mkdir -p ${OUTPUT_DIR}
-rsync -aLq --info=progress2 ${SLURM_TMPDIR}/output/ ${OUTPUT_DIR}/
+rsync -aLq --info=progress2 ${SLURM_TMPDIR}/ ${DATA_DIR}/
 rm -rf ${SLURM_TMPDIR}
-
-# Transfer `participant.tsv` file for further use.
-rsync -aLq --info=progress2 \
-    ${DATA_DIR}/participants.tsv \
-    ${OUTPUT_DIR}/participants.tsv
 
 # Delete temporary script
 rm ${TMP_SCRIPT}/${RANDOM_STRING}.sh
