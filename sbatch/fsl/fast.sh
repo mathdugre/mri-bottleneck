@@ -20,6 +20,7 @@ source ./sbatch/pre_run.sh fsl fast -j ${SLURM_CPUS_PER_TASK} $@
 
 cat <<EOT >> ${TMP_SCRIPT}/${RANDOM_STRING}.sh
 source /fsl_env.sh
+mkdir -p /data/derivatives/fsl/fast/sub-${SUBJECT_ID}/ses-1/anat/
 fast \
     -o /data/derivatives/fsl/fast/sub-${SUBJECT_ID}/ses-1/anat/BrainExtractionBrain \
     /data/derivatives/ants/brainExtraction/sub-${SUBJECT_ID}/ses-1/anat/BrainExtractionBrain.nii.gz
