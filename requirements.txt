@@ -1,4 +1,6 @@
+chromedriver-binary
 jupyterlab
 matplotlib
 numpy
 pandas
+selenium
