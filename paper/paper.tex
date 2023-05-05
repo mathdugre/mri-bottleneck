@@ -1,0 +1,211 @@
+\documentclass[conference]{IEEEtran}
+
+\usepackage{cite}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=black,citecolor=blue,filecolor=black,urlcolor=blue}
+\usepackage{graphicx}
+\graphicspath{{figures}}
+\usepackage{listings}
+\renewcommand{\lstlistingname}{Algorithm}
+\usepackage[binary-units=true]{siunitx}
+
+\newcommand{\TG}[1]{\color{red}\textsc{From Tristan: }#1\color{black}}
+\newcommand{\MD}[1]{\color{magenta}\textsc{From Tristan: }#1\color{black}}
+\newcommand{\HL}[1]{\hl{#1}}
+
+\title{A Detailed Analysis of Performance Bottlenecks in MRI Pre-Processing}
+
+\author{Mathieu Dugr\'e, Tristan Glatard}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	% TODO
+									
+\end{abstract}
+
+\section{Introduction}
+Magnetic Resonance Imaging (MRI) is a standard tool used by neuroscientists to perform clinical diagnosis and for researchers to develop a better understanding of the brain. Three main MRI techniques exist: structural MRI (sMRI), functional MRI (fMRI), and diffusion MRI (dMRI). While other modalities such as EEG, CT, and PET exist, we focus on MRIs for their broad adoption and non-invasive property. However, MRI data analysis is challenging due to computationally expensive pre-processing and large output and intermediate data size.
+
+Neuroscientists developed various toolboxes to tackle the challenging task of pre-processing MRI data. Among those, some openly available and commonly accepted emerged: AFNI~\cite{Cox1996-sl}, ANTs~\cite{Avants_undated-fu}, FreeSurfer~\cite{Fischl2012-bp}, FSL~\cite{Jenkinson2012-cq}, and SPM~\cite{Friston2007-ag}. While the previous pipelines focus on specific steps of MRI pre-processing, tools like fMRIPrep~\cite{Esteban2019-og} and DIPY~\cite{Garyfallidis2014-ve} combine various pipelines to produce a complete pre-processing workflow.
+
+The MRI pre-processing of a subject can take several hours, preventing the clinical use where data analysis might be required in timely manner. The lengthy pre-processing hinders researchers with limited computational resources to perform research on large cohorts.
+
+The first step to improve performance of an application is to understand its performance bottleneck. Following, we can focus our efforts on the performance critical components. For example, better algorithm designs or usage of hardware accelerator can reduce computation time. Compression techniques can lower data transfer time for output and intermediate data. At last, reduced precision arithmetic can lower computation time, memory footprint, and storage size. While these techniques can provide significant performance improvements, their implementation can require substantial effort. Therefore, it is critical to understand the performance bottleneck of MRI pre-processing pipelines to improve their performance.
+
+To the best of our knowledge, there is no comprehensive study of the bottlenecks in MRI pre-processing. In this paper, we characterize computational and I/O cost of several commonly adopted MRI pre-processing pipelines. The results of our analysis serve as a reference for future efforts to optimize the MRI pre-processing workflow.
+
+\section{Background}
+
+\subsection{MRI Pre-Processing}
+% Look at the benchamrked tool and the information needed to abstract those tools.
+% Discussion of the pre-processing steps.
+% Explain their computation and I/O requirements.
+
+% sMRI
+
+
+% fMRI
+
+
+% dMRI
+
+
+\subsection{Intel VTune profiler}
+% Requirements for profiling the Neuroimaging field.
+% Multi-language support
+% Lightweight
+% Info on function and module runtime
+
+% VTune
+
+% Challenges remaining
+% Debug information when compiling, for valuable information
+% Combining the results from multiple analysis. Different input data can 
+% vary the analysis significantly. (due to application branching and convergence)
+
+
+
+\section{Methods}
+In this section, we explain our choice of pipelines and dataset. We describe the methods used for profiling the dataset with the different applications.
+
+For a detailed view of our methods, we redirect the reader to our GitHub repository (see Section~\ref{data-availability}), which contains the code for:
+
+\begin{itemize}
+	\item Acquiring the datasets.
+	\item Building the containerized image for the pipelines.
+	\item Executing the pipeline locally or on a SLURM cluster.
+	\item Visualizing the profiling data.
+\end{itemize}
+
+\subsection{Pipelines}
+In this analysis, we aim to cover the pre-processing performance for different MRI modalities. We study the performance bottleneck of large toolboxes and individual pipelines. We use the pipelines from the LivingPark project as a real use case of MRI pre-processing.
+% TODO citation for LivingPark project. 
+% Q: Ask Tristan about it.
+% A: GitHub page for now
+% -> Added to paperpile
+
+First, we choose these commonly accepted workflows: fMRIPrep anatomical only without and without FreeSurfer, fMRIPrep complete workflow, and DIPY. This let us study the coarse grain performance of workflows for anatomical, functional, and diffusion MRI pre-processing. 
+
+Second, we perform a finer grain analysis of the aforementioned workflows' sub-components. The fMRIPrep anatomical workflow uses these pipelines: ANTS Brain Extraction, FSL FAST, and FreeSurfer recon-all. The fMRIPrep Bold workflow use those: AFNI 3dTShift, FSL MELODIC, FSL MCFLIRT, and FSL FLIRT. DIPY uses the following pipelines: \dots
+% TODO Decide on workflow sub-components.
+
+Last, the LivingPark project replicates several papers on Parkinson's Disease with a broad range of analysis. The study uses the following pipelines: FSL SIENA, SPM DARTEL, and SPM pairwise registration.
+% TODO Validate which pipelines are used in the project.
+% Ideally use all the LivingPark pipelines. If some cannot be used, explain why.
+
+\subsection{Dataset}
+To ensure the performance profile of the application derived from our work is inclusive of different population, we use dataset with a wide range of age and equal distribution of sex (biological). Using a diverse dataset should help to prevent findings of potential performance bottleneck associated to a specific population.
+
+For the sMRI and fMRI pipelines, we use the Consortium for Reliability and Reproducibility (CoRR) dataset~\cite{Zuo2014-xa} publicly available on Datalad\footnote{\href{https://datasets.datalad.org/?dir=/corr/RawDataBIDS}{https://datasets.datalad.org/?dir=/corr/RawDataBIDS}}. The CoRR dataset contains 1629 subjects resting state fMRI (rfMRI) data (5093 rfMRI scans) collected across 18 international sites. For computational feasibility, we limit ourselves to the LMU 2 site. We chose the LMU 2 site for its diversity, with 40 subjects of age 20-79 (mean 50.8) and a female-to-male ratio of 45\%.
+% Q: Might want to discuss the data size and type (anat, func, dwi).
+
+% TODO Choose dataset for dMRI pipelines.
+% CoRR has some sites with dwi data. Could use subjects from those sites.
+
+% TODO Discuss the PPMI dataset.
+
+\subsection{Profiling}
+We use the Intel VTune profile for our analysis. On the one hand, it has a low performance overhead and offers reporting profiling data at various granularity. On the hand, it requires the debug information of an application to make sense of its profiling data. Otherwise, function names are not available. Therefore, as a first step, we re-compiled each pipeline with debug information in a Docker image. For use on HPC systems, we created Singularity images using Docker2Singularity.
+
+\lstlistingname~\ref{vtune_example} illustrate the profiling of a pipeline by mounting the VTune binary to the Singularity image at execution. We store the profiling result for each (pipeline, subject) pair. Combining the Pareto's law and VTune bottom-up report, we identify the top 20\% of function calls that approximately account for 80\% of the pipeline execution time. This heuristic allows us to focus our efforts on the performance critical sections of a pipeline.
+
+\lstinputlisting[
+	language={bash},
+	caption={Profiling an application within a Singularity container, using VTune profiler.},
+	captionpos=b,
+	label=vtune_example,
+	numbers=left,
+	frame=single,
+	basicstyle=\footnotesize,
+	numbersep=5pt,
+	numberstyle=\tiny\color{gray},
+	rulecolor=\color{black},
+	tabsize=2,
+]{vtune-example.sh}
+
+Finally, the execution branching of pipeline can vary based on the input data. Therefore, we aggregate the profiling results of each pipeline across all subjects. We calculate the mean and standard deviation of total execution time of all top 20\% functions and modules of the pipeline.
+% TODO Decide how the mean is calculated.
+% Either total number of subjects or only with function.
+
+% TODO explain profiling with single-thread vs. multi-thread.
+We set all applications to use a single thread, while profiling. This let 
+
+\subsection{Infrastructure}
+% TODO
+% slashbin description
+For our experiments, we used the \textit{Slashbin cluster} at Concordia University. The cluster has eight compute nodes, each configured with two 16-core Intel(R) Xeon(R) Gold 6130 CPU @ \SI{2.10}{\giga\hertz}, \SI{250}{\gibi\byte} of RAM, \SI{126}{\gibi\byte} of tmpfs, six \SI{447}{\gibi\byte} SSDs with the XFS file system (no RAID enabled), CentOS~8.1 and Linux kernel \textit{4.18.0-240.1.1.el8\_lustre.x86\_64}. 
+
+Before profiling each application, we transfer the input data from the shared file system to the compute node. After profiling, we transfer back the output to the shared file system. This limits profiling variability due to I/O contingency.
+
+The data generated by the VTune profiler is written to a shared file system, for administrative reasons. Theoretically, this increase the profiling overhead. However, in practice there is no impact since the data generated by the VTune profiler is very small.
+
+\section{Results}
+% TODO
+% 2-step approach:
+% 1. Which pipeline constitute the long execution time in preprocessing?
+% 2. For those, which functions take the most time to execute? (hotspot)
+
+\subsection{Makespan}
+% Identify which tools take the longest to execute.
+
+% ###    FIGURE    ###
+%  Bar chart with the total makespan of the pipeline execution (mean + std)
+% ### END FIGURE ####
+% This will let us decided which pipeline to investigate more.
+
+\subsection{Hotspot}
+% (1-2 pages)
+% TopK (approx. 10) longest makepsan application. The rest can go in supplemental.
+% ###    FIGURE    ###
+% (Large pipeline)
+% fMRIPrep
+% sMRIPrep
+% DIPY
+% 
+% (Pipeline components)
+% SPM DARTEL
+% SPM pairwise registration
+% ### END FIGURE ####
+
+% Supplementary figure for the sub-components of large pipelines.
+% Or include them in #(Pipeline components), if space allows.
+
+\section{Discussion}
+% TODO
+% Principal Bottlenecks
+
+% Limitation
+% Can only perform profiling of open-source pipelines
+% Or pipelines with debug-info.
+
+% Opportunity for optimisation (future work)
+% Reduced precision for: Compute or Compression
+
+\section{Conclusion}
+% TODO
+
+\section{Data Availability}
+\label{data-availability}
+The code to compile, profile, and execute the pipelines is publicly available at:
+
+\href{https://github.com/mathdugre/mri-bottleneck}{https://github.com/mathdugre/mri-bottleneck}
+% TODO Update URL to slashbin org, when created.
+
+\section*{Acknowledgement}
+% TODO
+
+\section*{Conflict of Interests}
+The authors report no conflict of interests.
+
+\section*{Supplementary Figures}
+% Pipelines' hotspot with bottomK makespan
+
+\bibliographystyle{IEEEtran}
+% \bibliography{IEEEabrv, paper}
+\bibliography{paper}
+
+
+\end{document}
