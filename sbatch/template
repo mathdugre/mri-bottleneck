@@ -1,0 +1,28 @@
+#!/bin/bash
+
+#SBATCH -J toolkit-pipeline
+#SBATCH --array=1
+#SBATCH --time=4:00:00
+#SBATCH --exclusive
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=0
+# -------------------------
+#SBATCH -o log/%x-%A-%a.out
+#SBATCH -e log/%x-%A-%a.err
+# -------------------------
+set -e
+set -u
+
+# Setup environment and parse args.
+source ./sbatch/pre_run.sh toolkit pipeline -j ${SLURM_CPUS_PER_TASK} $@
+
+cat <<EOT >> ${TMP_SCRIPT}/${RANDOM_STRING}.sh
+echo "Script to execute `pipeline` from `toolkit`."
+EOT
+
+export SINGULARITYENV_ENV_VAR="ENV_VAR"
+source ./sbatch/vtune.sh bash ${TMP_SCRIPT}/${RANDOM_STRING}.sh
+
+source ./sbatch/post_run.sh
