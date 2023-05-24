@@ -1,4 +1,5 @@
-FROM cmake:focal-20221019 as builder
+# This image is used to test the FreeSurfer compilation.
+FROM cmake:focal-20221019
 
 # Prepare environment
 ENV DEBIAN_FRONTEND="noninteractive" \
@@ -117,37 +118,6 @@ RUN : \
 # Move required MNI packages to the build package
 RUN mv /tmp/freesurfer/packages/mni/current /opt/freesurfer/mni
 
-FROM ubuntu:focal-20221019
-COPY --from=builder /opt/freesurfer /opt/freesurfer
-
-ENV DEBIAN_FRONTEND="noninteractive"
-RUN : \
-    && apt-get update \
-    && apt install -y --no-install-recommends --fix-missing \
-        bc \
-        file \
-        libgtk-3-dev \
-        libnetpbm10-dev \
-        gfortran \
-        libblas-dev \
-        liblapack-dev \
-        libglu1-mesa-dev \
-        libx11-dev \
-        libxi-dev \
-        libxml2-utils \
-        libxmu-dev \
-        libxmu-headers \
-        libxt-dev \
-        python3 \
-        python3-dev \
-        python3-pip \
-        tcsh \
-        xxd \
-        zlib1g-dev \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /var/tmp/* /tmp/* \
-    && :
-
 # setup fs env
 ENV OS="Linux" \
     LD_LIBRARY_PATH="/opt/freesurfer/lib/vtk:/opt/freesurfer/lib:$LD_LIBRARY_PATH" \
@@ -174,15 +144,36 @@ ENV MINC_BIN_DIR="/opt/freesurfer/mni/bin" \
     MNI_PERL5LIB="/opt/freesurfer/mni/share/perl5" \
     PERL5LIB="/opt/freesurfer/mni/share/perl5"
 
-# Dependencies to run recon-all extern skull-strip alignment.
 RUN : \
-    && pip3 install \
-        nibabel \
-        nilearn \
-        nipype \
-        numpy \
+    && apt-get update \
+    && apt install -y --no-install-recommends \
+        bc \
+        file \
+        libgtk-3-dev \
+        libnetpbm10-dev \
+        gfortran \
+        libblas-dev \
+        liblapack-dev \
+        libglu1-mesa-dev \
+        libx11-dev \
+        libxi-dev \
+        libxml2-utils \
+        libxmu-dev \
+        libxmu-headers \
+        libxt-dev \
+        python3 \
+        python3-dev \
+        python3-pip \
+        tcsh \
+        xxd \
+        zlib1g-dev \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /var/tmp/* \
     && :
 
-WORKDIR /data
+WORKDIR /tmp/freesurfer/build
+
+# Test FreeSurfer
+# RUN make test
 
 CMD ["/bin/bash"]
