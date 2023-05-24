@@ -29,7 +29,7 @@ tar czf ${PROFILING_DIR}.tar.gz -C $(dirname ${PROFILING_DIR}) $(basename ${PROF
 rm -r ${PROFILING_DIR}
 
 # Transfer pipeline output to storage node.
-rsync -aLq --info=progress2 ${SLURM_TMPDIR}/ ${DATA_DIR}/
+rsync -aq --info=progress2 ${SLURM_TMPDIR}/ ${DATA_DIR}/
 rm -rf ${SLURM_TMPDIR}
 
 # Delete temporary script
