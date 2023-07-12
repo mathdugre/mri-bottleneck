@@ -2,9 +2,7 @@ FROM ubuntu:xenial-20210804
 
 ARG AFNI_VERSION="AFNI_22.3.07"
 
-ENV DEBIAN_FRONTEND="noninteractive" \
-    LANG="en_US.UTF-8" \
-    LC_ALL="en_US.UTF-8"
+ENV DEBIAN_FRONTEND="noninteractive"
 RUN : \
     && apt-get update \
     && apt-get install -y --no-install-recommends \

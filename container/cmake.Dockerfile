@@ -1,11 +1,9 @@
 FROM ubuntu:focal-20221019
 
-ENV DEBIAN_FRONTEND="noninteractive" \
-    LANG="en_US.UTF-8" \
-    LC_ALL="en_US.UTF-8"
+ENV DEBIAN_FRONTEND="noninteractive"
 RUN : \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends \
+    && apt update \
+    && apt install -y --no-install-recommends \
       apt-utils \
       apt-transport-https \
       ca-certificates \
@@ -23,8 +21,8 @@ RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/nul
 # Install CMAKE
 ARG CMAKE_VERSION="3.24.1-0kitware1ubuntu20.04.1"
 RUN : \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends \
+    && apt update \
+    && apt install -y --no-install-recommends \
       cmake=${CMAKE_VERSION} \
       cmake-data=${CMAKE_VERSION} \
     && :

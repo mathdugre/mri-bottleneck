@@ -1,12 +1,11 @@
 FROM cmake:focal-20221019 as builder
 
-ENV DEBIAN_FRONTEND="noninteractive" \
-    LANG="en_US.UTF-8" \
-    LC_ALL="en_US.UTF-8"
+ENV DEBIAN_FRONTEND="noninteractive"
 RUN : \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
       bc \
+      build-essential \
       ninja-build \
       git \
       software-properties-common \

@@ -1,59 +1,34 @@
-FROM cmake:focal-20221019 as builder
+FROM intel-compilers as builder
 
 # Prepare environment
-ENV DEBIAN_FRONTEND="noninteractive" \
-    LANG="en_US.UTF-8" \
-    LC_ALL="en_US.UTF-8"
+ENV DEBIAN_FRONTEND="noninteractive"
 RUN : \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
-      build-essential \
-      ca-certificates \
-      gfortran \
-      git \
-      git-annex \
-      libblas-dev \
-      liblapack-dev \
-      libglu1-mesa-dev \
-      libx11-dev \
-      libxi-dev \
-      libxmu-dev \
-      libxmu-headers \
-      libxt-dev \
-      python2 \
-      python2-dev \
-      python3 \
-      python3-dev \
-      python3-distutils \
-      python3-pip \
-      tcsh \
-      xxd \
-      wget \
-      zlib1g-dev \
+        gfortran \
+        git \
+        git-annex \
+        libblas-dev \
+        liblapack-dev \
+        libglu1-mesa-dev \
+        libx11-dev \
+        libxi-dev \
+        libxmu-dev \
+        libxmu-headers \
+        libxt-dev \
+        python2 \
+        python2-dev \
+        python3 \
+        python3-dev \
+        python3-distutils \
+        python3-pip \
+        tcsh \
+        xxd \
+        wget \
+        zlib1g-dev \
     && :
 
-# Ideally, freesurfer should be compiled with gcc 4.8
-# ref: https://surfer.nmr.mgh.harvard.edu/fswiki/BuildRequirements
-
-# gcc-8 was used recently to build on Ubuntu20
-#ref: https://github.com/freesurfer/freesurfer/issues/951
-RUN : \
-    # && echo "deb http://archive.ubuntu.com/ubuntu focal main restricted universe multiverse" \
-    #   | tee /etc/apt/sources.list.d/focal.list \
-    # && apt-get update \
-    && apt-get install -y --no-install-recommends \
-      g++-8 \
-      gcc-8 \
-      gfortran-8 \
-    && update-alternatives \
-      --install /usr/bin/gcc gcc /usr/bin/gcc-8 80 \
-      --slave /usr/bin/g++ g++ /usr/bin/g++-8 \
-      --slave /usr/bin/gcov gcov /usr/bin/gcov-8 \
-      --slave /usr/bin/gfortran gfortran /usr/bin/gfortran-8 \
-    && update-alternatives --set gcc /usr/bin/gcc-8 \
-    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-    && :
-
+# Get FreeSurfer source
 ARG FS_VERSION="v7.3.3"
 ENV FS_SOURCE=/tmp/freesurfer/source
 RUN : \
@@ -99,17 +74,26 @@ RUN : \
     && sed -i "s:surfa==0.0.12:surfa==0.4.2:" ${FS_SOURCE}/python/requirements.txt \
     && :
 
+RUN : \
+    && sed -i 's:-nofor_main:-nofor-main:g' ${FS_SOURCE}/talairach_avi/CMakeLists.txt \
+    && :
+
 # Build FreeSurfer
 RUN : \
-&& mkdir -p /tmp/freesurfer/build \
-&& cd /tmp/freesurfer/build \
-&& mkdir -p /opt/freesurfer \
-&& cmake \
-  -DBUILD_GUIS=OFF \
-  -DFS_PACKAGES_DIR=/tmp/freesurfer/packages \
-  -DCMAKE_INSTALL_PREFIX=/opt/freesurfer \
-  -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-  /tmp/freesurfer/source \
+    && mkdir -p /tmp/freesurfer/build \
+    && cd /tmp/freesurfer/build \
+    && mkdir -p /opt/freesurfer \
+    && . /opt/intel/oneapi/setvars.sh --force \
+    && cmake \
+    -DBUILD_GUIS=OFF \
+    -DFS_PACKAGES_DIR=/tmp/freesurfer/packages \
+    -DCMAKE_INSTALL_PREFIX=/opt/freesurfer \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DCMAKE_C_COMPILER=icx \
+    -DCMAKE_CXX_COMPILER=icpx \
+    -DCMAKE_FORTRAN_COMPILER=ifx \
+    -DWARNING_AS_ERROR=OFF \
+    /tmp/freesurfer/source \
     && make -j \
     && make install \
     && :
@@ -117,7 +101,7 @@ RUN : \
 # Move required MNI packages to the build package
 RUN mv /tmp/freesurfer/packages/mni/current /opt/freesurfer/mni
 
-FROM ubuntu:focal-20221019
+FROM intel-compilers
 COPY --from=builder /opt/freesurfer /opt/freesurfer
 
 ENV DEBIAN_FRONTEND="noninteractive"
@@ -182,6 +166,9 @@ RUN : \
         nipype \
         numpy \
     && :
+
+# Setup Intel OpenMP
+ENV LD_LIBRARY_PATH="/opt/intel/oneapi/compiler/2023.1.0/linux/compiler/lib/intel64_lin:$LD_LIBRARY_PATH"
 
 WORKDIR /data
 
