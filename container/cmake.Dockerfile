@@ -6,6 +6,7 @@ RUN : \
     && apt install -y --no-install-recommends \
       apt-utils \
       apt-transport-https \
+      build-essential \
       ca-certificates \
       gnupg \
       wget \

@@ -109,7 +109,7 @@ export NTHREAD
 export DATASET=$(basename ${DATA_DIR})
 
 [[ -z ${SLURM_ARRAY_TASK_ID:+x} ]] && SLURM_ARRAY_TASK_ID=1
-export SUBJECT_ID=$(sed -n $(( 1 + ${SLURM_ARRAY_TASK_ID} ))p ${DATA_DIR}/participants.tsv | cut -f1)
+export SUBJECT_ID=$(find ${DATA_DIR} -maxdepth 1 -name "sub-*" -exec basename {} \;| sed -n 5p | sed -e "s/^sub-//")
 
 export RANDOM_STRING=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 export PROFILING_DIR=${PROJECT_DIR}/vtune_output/${NTHREAD}-threads/${TOOLKIT}/${PIPELINE}/${DATASET}/sub-${SUBJECT_ID}/${RANDOM_STRING}
@@ -138,6 +138,12 @@ mkdir -p ${SLURM_TMPDIR}/sub-${SUBJECT_ID}
 rsync -aLq --info=progress2 \
     ${DATA_DIR}/sub-${SUBJECT_ID}/ \
     ${SLURM_TMPDIR}/sub-${SUBJECT_ID}/
+# Transfer dataset metadata to compute node.
+count=`ls -1 ${DATA_DIR}/*.tsv 2>/dev/null | wc -l`
+[[ $count != 0 ]] && scp ${DATA_DIR}/*.tsv ${SLURM_TMPDIR}
+
+count=`ls -1 ${DATA_DIR}/*.json 2>/dev/null | wc -l`
+[[ $count != 0 ]] && scp ${DATA_DIR}/*.json ${SLURM_TMPDIR}
 
 # Transfer derivatives for a given subject, excluding the potential cache of
 # current pipeline.

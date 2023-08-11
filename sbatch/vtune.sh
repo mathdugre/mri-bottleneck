@@ -14,7 +14,9 @@ singularity exec --cleanenv \
     ${SIF_IMG} \
     /vtune/bin64/vtune \
     -collect hpc-performance \
+    -no-auto-finalize \
+    -data-limit=0 \
     -knob enable-stack-collection=true \
-    -knob analyze-openmp=false \
+    -knob analyze-openmp=true \
     -result-dir ${PROFILING_DIR} \
     $@

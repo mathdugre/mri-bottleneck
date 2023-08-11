@@ -3,7 +3,7 @@ FROM cmake:focal-20221019 as builder
 ENV DEBIAN_FRONTEND="noninteractive"
 RUN : \
     && apt-get update \
-    && apt-get install -y --no-install-recommends \
+    && apt-get install -y --no-install-recommends --fix-missing \
       bc \
       build-essential \
       ninja-build \
