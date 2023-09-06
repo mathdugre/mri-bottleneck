@@ -14,28 +14,33 @@
 \usepackage[binary-units=true]{siunitx}
 \usepackage{csvsimple}
 
-\newcommand{\TG}[1]{\color{red}\textsc{From Tristan: }#1\color{black}}
-\newcommand{\MD}[1]{\color{magenta}\textsc{From Tristan: }#1\color{black}}
+\newcommand{\TG}[1]{\color{blue}\textsc{From Tristan: }#1\color{black}}
+\newcommand{\MD}[1]{\color{magenta}\textsc{From Mathieu: }#1\color{black}}
 \newcommand{\HL}[1]{\hl{#1}}
 
 \title{A Detailed Analysis of Performance Bottlenecks in MRI Pre-Processing}
 
 
-\author{Mathieu Dugr\'e, Tristan Glatard}
+\author{Mathieu Dugr\'e, Tristan Glatard \TG{I think Yohan should be co-author given his technical input}}
 
 \begin{document}
+
 \maketitle
 
 \begin{abstract}
-	% TODO
-																																																																																																																																																						
+	% TODO																
 \end{abstract}
 
 \section{Introduction}
 % Intro: Large dataset, long processing time, I/O intensive (derivatives), focus on MRI, no current study, pipelines?
 % **Main question:** What are the main bottleneck in MRI pre-processing?
 % **Why:** Performance of neuroimaging pipeline is critical (larger study, clinical use). However, limited study on performance profile.
-Magnetic Resonance Imaging (MRI) is a standard tool used by neuroscientists to perform clinical diagnosis and for researchers to develop a better understanding of the brain. Three main MRI techniques exist: structural MRI (sMRI), functional MRI (fMRI), and diffusion MRI (dMRI). While other modalities such as EEG, CT, and PET exist, we focus on MRIs for their broad adoption and non-invasive property. However, MRI data analysis is challenging due to computationally expensive pre-processing and large output and intermediate data size.
+
+\TG{Good intro but I think it would deserve a better logic. You could start by explaining that computational bottlenecks 
+have been one of the main bottlenecks to the processing of large cohorts in neuroimaging, that the community is constantly searching for ways to process data faster (HPC, cloud, GPUs, DL models), and that your paper takes a step back by analyzing the computational bottlenecks in order to subsequently focus on their optimization. 
+}
+
+Magnetic Resonance Imaging (MRI) is a standard tool used by neuroscientists to perform clinical diagnosis and for researchers to develop a better understanding of the brain. Three main MRI techniques exist: structural MRI (sMRI), functional MRI (fMRI), and diffusion MRI (dMRI). While other modalities such as EEG, CT, and PET exist \TG{define acronyms}, we focus on MRIs for their broad adoption and non-invasive property. However, MRI data analysis is challenging due to computationally expensive pre-processing and large output and intermediate data size.
 
 Neuroscientists developed various toolboxes to tackle the challenging task of pre-processing MRI data. Among those, some openly available and commonly accepted emerged: AFNI~\cite{Cox1996-sl}, ANTs~\cite{Avants_undated-fu}, FreeSurfer~\cite{Fischl2012-bp}, FSL~\cite{Jenkinson2012-cq}, and SPM~\cite{Friston2007-ag}. While the previous pipelines focus on specific steps of MRI pre-processing, tools like fMRIPrep~\cite{Esteban2019-og} and dMRIPrep~\cite{Michael2021-4515513} combine various pipelines to produce a complete pre-processing workflow.
 
@@ -45,20 +50,22 @@ The first step to improve performance of an application is to understand its per
 
 The neuroimaging community is well aware that MRI pre-precessing pipelines require long computation time. However, to the best of our knowledge, there is no comprehensive study of the performance bottlenecks in MRI pre-processing. In this paper, we characterize computational cost of several commonly adopted MRI pre-processing pipelines. The results of our analysis serve as a reference for future efforts to optimize MRI pre-processing workflows.
 
+\TG{you could summarize the method (vtune profiler) in the intro.}
+
 \section{Methods}
 \subsection{Infrastructure}
-For our experiments, we used the \textit{Slashbin cluster} at Concordia University. The cluster has eight compute nodes, each configured with two 16-core Intel(R) Xeon(R) Gold 6130 CPU @ \SI{2.10}{\giga\hertz}, \SI{250}{\gibi\byte} of RAM, \SI{126}{\gibi\byte} of tmpfs, six \SI{447}{\gibi\byte} SSDs with the XFS file system (no RAID enabled), CentOS~8.1 and Linux kernel \textit{4.18.0-240.1.1.el8\_lustre.x86\_64}.
+For our experiments, we used the \textit{Slashbin cluster} at Concordia University. The cluster has eight compute nodes, each configured with two 16-core Intel(R) Xeon(R) Gold 6130 CPU @ \SI{2.10}{\giga\hertz}, \SI{250}{\gibi\byte} of RAM, \SI{126}{\gibi\byte} of tmpfs, six \SI{447}{\gibi\byte} SSDs with the XFS file system (no RAID enabled), CentOS~8.1 and Linux kernel \textit{4.18.0-240.1.1.el8\_lustre.x86\_64}. \TG{I would defer this subsection to later in the methods as it's not the most central one}
 
 \subsection{Data}
-To ensure the performance profiles of the applications derived from our work are inclusive of different population, we used data with a wide range of age and equal distribution of sex (biological). Using a diverse dataset should help to prevent findings of potential performance bottleneck associated to a specific population.
+To ensure the performance profiles of the applications derived from our work are inclusive of different populations, we used data with a wide range of age and equal distribution of sex (biological). Using a diverse dataset should help to prevent findings of potential performance bottleneck associated to a specific population.
 
-We used the the OpenNeuro ds004513 v.1.0.2 dataset~\cite{ds004513:1.0.2}. The anatomical, functional, and diffusion data from 20 health individuals was acquired from two different cohorts. The within-subject cohort has nine participants (mean age=43, std=7; 4 females) with two session: eyes open and eyes closed. The replication cohort has eleven participants (mean age=27, std=5; 6 females) with only the eyes open session. We profiled the application using both cohort on the eyes open session, unless explicitly specified.
+We used the the OpenNeuro ds004513 v.1.0.2 dataset~\cite{ds004513:1.0.2}. The anatomical, functional, and diffusion data from 20 health individuals was acquired from two different cohorts. The within-subject cohort has nine participants (mean age=43~yrs, std=7~yrs; 4 females) with two session: eyes open and eyes closed. The replication cohort has eleven participants (mean age=27~yrs, std=5~yrs; 6 females) with only the eyes open session. We profiled the application using both cohort on the eyes open session, unless explicitly specified.
 
 \subsection{Pipelines}
 % TODO rework
 In this analysis, we aim to cover the pre-processing performance for different MRI modalities. We study the performance bottleneck of large toolboxes and individual pipelines. Moreover, we use several pipelines from the LivingPark project~\cite{livingpark} as a real use case of MRI pre-processing.
 
-First, we profile these commonly accepted workflows: fMRIPrep anatomical only without and without FreeSurfer, fMRIPrep complete workflow, and dMRIPrep. This let us study the coarse grain performance of workflows for anatomical, functional, and diffusion MRI pre-processing.
+First, we profile these commonly accepted workflows: fMRIPrep anatomical only without and without FreeSurfer, fMRIPrep complete workflow, and dMRIPrep. This lets us study the coarse grain performance of workflows for anatomical, functional, and diffusion MRI pre-processing.
 
 Second, we perform a finer grain analysis of the aforementioned workflows' sub-components. We list the different sub-workflow and describe the key steps for each modality in the section below.
 
@@ -139,7 +146,7 @@ First, to obtain human readable information on function and module names in VTun
 	tabsize=2,
 ]{vtune-example.sh}
 
-Second, to estimate an average performance profile, we aggregate the profiling results of each pipeline across all subjects. Combining the Pareto's law and VTune hotspots report, we present the functions accounting for most of the CPU time up to 80\% of the total cpu time of the application. This heuristic allows us to focus our efforts on the performance critical sections of a pipeline. We report the mean and standard deviation of the execution time for those functions.
+Second, to estimate an average performance profile, we aggregate the profiling results of each pipeline across all subjects. Combining the Pareto's law and VTune hotspots report \TG{It would be useful to define these terms}, we present the functions accounting for most of the CPU time up to 80\% of the total CPU time of the application \TG{check wording}. This heuristic allows us to focus our efforts on the performance critical sections of a pipeline. We report the mean and standard deviation of the execution time for those functions.
 
 Last, we profile the application two threading configuration: single-threaded and 32 threads. On the one hand, the single-threaded approach limits the potential overhead from I/O on the profiling. On the other hand, we evaluate the multi-threading performance of the applications using maximum number of CPU core available on our system (i.e. 32).
 
@@ -148,6 +155,8 @@ Before profiling each application, we transfer the input data from the shared fi
 The data generated by the VTune profiler is written to a shared file system, for administrative reasons. Theoretically, this increase the profiling overhead. However, in practice there is no impact since the data generated by the VTune profiler is very small and is not written on the same file system as the data from applications.
 
 \section{Results}
+\TG{Interesting results but presentation needs to be worked out. This section should be structured with sub-headings summarizing the main findings, for instance: "Interpolation is the main bottleneck", etc}
+
 % TODO
 % 2-step approach:
 % 1. Which pipeline constitute the long execution time in preprocessing?
@@ -159,22 +168,25 @@ The data generated by the VTune profiler is written to a shared file system, for
 \subsection{Makespan}
 % Identify which tools take the longest to execute.
 % This will let us decided which pipeline to investigate more.
-Figure~\ref{fig:makespan-1thread} shows the mean and standard deviation of the makespan, in seconds, while using 1 thread for one execution of all subjects.
+Figure~\ref{fig:makespan-1thread} shows the mean and standard deviation of the makespan \TG{define makespan}, in seconds, while using 1 thread for one execution of all subjects.
 Unexpectedly, we observe that both ANTS~BrainExtration and ANTS~RegistrationSyN are slower when using single precision compared to double precision.
 % TODO Stat test between mean for single and double precision.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\linewidth]{figures/makespan-1thread.png}
-	\caption{Profiling of the pipelines using 1 thread.}
+	\caption{Profiling of the pipelines using 1 thread. \TG{Font size in the figure is too small, it should be similar to the caption font size}}
 	\label{fig:makespan-1thread}
 \end{figure}
 
 \subsection{Hotspots}
-Figure~\ref{fig:hotspots-fmriprep-anat-subworkflow} depicts the hotspot observed from profiling the fMRIPrep anatomical sub-workflows. In each sub-figure, the x-axis shows the function ID grouped by parent module, which are ordered by CPU time of (1) the modules, then (2) the functions within a module. The function ID are found in the supplementary material Section~\ref{sec:supplementary}. The bars show the average CPU time in seconds of a function and the error bars indicate the standard deviation, with the left y-axis showing the scale. The light-green dots represent the functions cumulative percentage makespan of the application, with the right y-axis showing the scale. The color of the bar indicate the percentage of calls, for the function, that were ``stalled due to demand memory loads and stores''\footnote{\href{https://www.intel.com/content/www/us/en/docs/vtune-profiler/user-guide/2023-0/cpu-metrics-reference.html\#MEMORY-BOUND}{Vtune Memory Bound metric}}, with the left color bar showing the scale.
+
+Figure~\ref{fig:hotspots-fmriprep-anat-subworkflow} depicts the hotspots observed from profiling the fMRIPrep anatomical sub-workflows. In each sub-figure, the x-axis shows the function ID grouped by parent module, which are ordered by CPU time of (1) the modules, then (2) the functions within a module. The function ID are found in the supplementary material Section~\ref{sec:supplementary}. The bars show the average CPU time in seconds of a function and the error bars indicate the standard deviation, with the left y-axis showing the scale. The light-green dots represent the functions cumulative percentage makespan of the application, with the right y-axis showing the scale. The color of the bar indicate the percentage of calls, for the function, that were ``stalled due to demand memory loads and stores''\footnote{\href{https://www.intel.com/content/www/us/en/docs/vtune-profiler/user-guide/2023-0/cpu-metrics-reference.html\#MEMORY-BOUND}{Vtune Memory Bound metric}}, with the left color bar showing the scale.
+
+\TG{I'd move the graphical explanations to the figure caption so that the text can focus on observations}
 
 In figure~\ref{subfig:hotspots-ants-brainExtraction}, we observe that the function 1 and 2 account for a significant portion of the application execution time. Moreover, calls from function~1 are memory bound $51.84\pm{4.55}$ percent of the time. Table~\ref{extab:hotspots-1thread-ants-brainExtraction} shows that both functions are part of the ITK linear interpolation module.
 
-Similarly, figure~\ref{subfig:hotspots-ants-brainExtraction-fp} shows the same two function accounting for the most time, although in flipped order. Calls from function~2 are memory bound $36.30\pm{4.98}$ percent of the time. Compared to the double precision version of ANTS brainExtraction, the third function runtime is significantly larger. It is an ITK function transforming points while calculating the displacement field of the image.
+Similarly, figure~\ref{subfig:hotspots-ants-brainExtraction-fp} shows the same two functions accounting for the most time, although in flipped order. Calls from function~2 are memory bound $36.30\pm{4.98}$ percent of the time. Compared to the double precision version of ANTS brainExtraction, the third function runtime is significantly larger. It is an ITK function transforming points while calculating the displacement field of the image.
 
 Figure~\ref{subfig:hotspots-ants-registrationSyN} and figure~\ref{subfig:hotspots-ants-registrationSyN-fp} show that the execution time for ANTS registrationSyN is dominated by a single function. In both case, the ITK function evaluating point during linear interpolation. The next two function are also shared between the application, although in flipped order. These functions show some memory bound in the range of 16--27.5. We also note the three most expensive functions are the same as in both versions of ANTS brainExtraction.
 
@@ -229,9 +241,10 @@ In figure~\ref{subfig:hotspots-32threads-freesurfer-reconall}, we observe that O
 		\label{subfig:hotspots-fsl-fast}
 		\includegraphics[width=\textwidth]{figures/hotspots-1thread-fsl-fast.png}
 	\end{subfigure}
-																																																																			
+
 	\caption{Hotspots profiling of fMRIPrep's anatomical sub-workflows.}
 	\label{fig:hotspots-fmriprep-anat-subworkflow}
+	
 	% TODO: Describe the plot components. Plots are quite complex so this will be necessary for proper understanding.
 \end{figure*}
 
@@ -248,11 +261,12 @@ In figure~\ref{subfig:hotspots-32threads-freesurfer-reconall}, we observe that O
 	\begin{subfigure}[t]{0.49\textwidth}
 		\caption{}
 		\label{subfig:hotspots-fsl-flirt}
+
 		\includegraphics[width=\textwidth]{figures/hotspots-1thread-fsl-flirt.png}
 	\end{subfigure}
-																																																
 	\caption{Hotspots profiling of fMRIPrep's functional sub-workflows.}
-	\label{fig:hotspots-fmriprep-func-subworkflow}
+	\label{fig:hotspots-fmriprep-func-subworkflow}														
+	
 	% TODO: Describe the plot components. Plots are quite complex so this will be necessary for proper understanding.
 \end{figure*}
 
@@ -352,6 +366,7 @@ The authors report no conflict of interests.
 % FreeSurfer recon-all
 \csvtable{tables/hotspots-1thread-freesurfer-reconall.csv}{FreeSurfer recon-all (1 thread): Top functions accouting for 80\% of the application makespan.}{extab:hotspots-1thread-freesurfer-reconall}
 \csvtable{tables/hotspots-32threads-freesurfer-reconall.csv}{FreeSurfer recon-all (32 threads): Top functions accouting for 80\% of the application makespan.}{extab:hotspots-32threads-freesurfer-reconall}
+
 
 % FSL FAST
 \csvtable{tables/hotspots-1thread-fsl-fast.csv}{FSL FAST (1 thread): Top functions accouting for 80\% of the application makespan.}{extab:hotspots-1thread-fsl-fast}
