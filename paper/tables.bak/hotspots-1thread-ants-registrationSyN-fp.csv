@@ -1,0 +1,13 @@
+,module_short,func_short,mean_cpu,std_cpu
+1,libantsUtilities.so,itk::VectorLinearInterpolateImageFunction::EvaluateAtContinuousIndex,2142.7242186,22.121105167370402
+2,libantsUtilities.so,itk::DisplacementFieldTransform::TransformPoint,956.173960425,8.706631134555975
+3,libantsUtilities.so,itk::LinearInterpolateImageFunction::EvaluateOptimized,571.6965441,15.783522626139998
+4,libantsUtilities.so,itk::ANTSNeighborhoodCorrelationImageToImageMetricv4GetValueAndDerivativeThreader::UpdateQueuesToNextScanWindow,266.8382717,4.984732027638264
+5,libantsUtilities.so,itk::ImageToImageMetricv4::TransformAndEvaluateMovingPoint,175.23190315,2.548814715905293
+6,libantsUtilities.so,itk::ImageBase,172.79609943541666,206.32763289034904
+7,libantsUtilities.so,itk::InterpolateImageFunction::Evaluate,132.660983575,1.5630708379638223
+8,libantsUtilities.so,itk::ConstNeighborhoodIterator::operator++,131.834671425,2.143217338649656
+9,libantsUtilities.so,itk::ImageToImageMetricv4::TransformAndEvaluateFixedPoint,126.05988425000001,2.6078576004259557
+10,libantsUtilities.so,itk::VectorNeighborhoodInnerProduct::operator(),110.61668239999999,1.6296500121566095
+11,libantsUtilities.so,itk::LinearInterpolateImageFunction::EvaluateAtContinuousIndex,106.92415122499999,1.9564928624551858
+12,libantsUtilities.so,itk::Matrix::operator*,101.54532256532067,101.43721198821784
