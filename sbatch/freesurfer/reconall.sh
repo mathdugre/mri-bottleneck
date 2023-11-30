@@ -28,7 +28,7 @@ mkdir -p /data/derivatives/freesurfer/reconall
 recon-all \
     -sd /data/derivatives/freesurfer/reconall \
     -subjid sub-${SUBJECT_ID} \
-    -i /data/sub-${SUBJECT_ID}/ses-1/anat/sub-${SUBJECT_ID}_ses-1_run-1_T1w.nii.gz \
+    -i /data/sub-${SUBJECT_ID}/ses-open/anat/sub-${SUBJECT_ID}_ses-open_T1w.nii.gz \
     -autorecon1 \
     -noskullstrip -noT2pial -noFLAIRpial \
     -threads ${NTHREAD}
@@ -36,7 +36,7 @@ recon-all \
 # Step 2
 python3 ./sbatch/freesurfer/skull_strip_extern.py \
     /data/derivatives/freesurfer/reconall/sub-${SUBJECT_ID}/mri \
-    /data/derivatives/ants/brainExtraction/sub-${SUBJECT_ID}/ses-1/anat/BrainExtractionBrain.nii.gz
+    /data/derivatives/ants/brainExtraction/sub-${SUBJECT_ID}/ses-open/anat/BrainExtractionBrain.nii.gz
 
 # Step 3
 recon-all \
@@ -83,8 +83,8 @@ recon-all \
     -threads ${NTHREAD}
 EOT
 
-export SINGULARITYENV_ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS=$NTHREAD
-export SINGULARITYENV_OMP_NUM_THREADS=$NTHREAD
+export APPTAINERENV_ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS=$NTHREAD
+export APPTAINERENV_OMP_NUM_THREADS=$NTHREAD
 source ./sbatch/vtune.sh bash ${TMP_SCRIPT}/${RANDOM_STRING}.sh
 
 source ./sbatch/post_run.sh

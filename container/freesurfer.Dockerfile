@@ -5,6 +5,7 @@ ENV DEBIAN_FRONTEND="noninteractive"
 RUN : \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
+        build-essential \
         gfortran \
         git \
         git-annex \
@@ -168,7 +169,7 @@ RUN : \
     && :
 
 # Setup Intel OpenMP
-ENV LD_LIBRARY_PATH="/opt/intel/oneapi/compiler/2023.1.0/linux/compiler/lib/intel64_lin:$LD_LIBRARY_PATH"
+ENV LD_LIBRARY_PATH="/opt/intel/oneapi/compiler/latest/lib:$LD_LIBRARY_PATH"
 
 WORKDIR /data
 

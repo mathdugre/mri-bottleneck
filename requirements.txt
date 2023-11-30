@@ -1,6 +1,9 @@
+bokeh
 chromedriver-binary
+jupyter_bokeh
 jupyterlab
 matplotlib
 numpy
 pandas
 selenium
+scipy

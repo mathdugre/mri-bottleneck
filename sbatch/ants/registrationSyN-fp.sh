@@ -25,12 +25,12 @@ TMPLT="/templateflow/tpl-MNI152NLin2009cAsym/"
 antsRegistrationSyN.sh \
     -d 3 \
     -f \${TMPLT}/tpl-MNI152NLin2009cAsym_res-01_desc-brain_T1w.nii.gz\
-    -m /data/derivatives/fsl/fast/sub-${SUBJECT_ID}/ses-1/anat/BrainExtractionBrain_seg.nii.gz \
-    -o /data/derivatives/ants/registrationSyN-fp/sub-${SUBJECT_ID}/ses-1/anat/ \
+    -m /data/derivatives/fsl/fast/sub-${SUBJECT_ID}/ses-open/anat/BrainExtractionBrain_seg.nii.gz \
+    -o /data/derivatives/ants/registrationSyN-fp/sub-${SUBJECT_ID}/ses-open/anat/ \
     -p f
 EOT
 
-export SINGULARITYENV_ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS=$NTHREAD
+export APPTAINERENV_ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS=$NTHREAD
 source ./sbatch/vtune.sh bash ${TMP_SCRIPT}/${RANDOM_STRING}.sh
 
 source ./sbatch/post_run.sh

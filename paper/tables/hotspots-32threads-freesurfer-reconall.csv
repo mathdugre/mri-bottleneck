@@ -1,4 +1,3 @@
 ,module_short,func_short,mean_cpu,std_cpu
-1,libiomp5.so,__kmp_fork_barrier,136855.00735248334,15122.673438700074
-2,libiomp5.so,__kmp_api_omp_set_lock,32489.985264450002,4626.0598902940155
-3,[Outside any module],[Outside any known module],4382.333258,
+1,libiomp5.so,__kmp_fork_barrier,134063.89932599998,12810.813820159035
+2,libiomp5.so,omp_set_lock,34815.55207375,3599.58898506832

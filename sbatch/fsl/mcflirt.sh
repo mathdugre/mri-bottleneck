@@ -20,13 +20,13 @@ source ./sbatch/pre_run.sh fsl mcflirt -j ${SLURM_CPUS_PER_TASK} $@
 
 cat <<EOT >> ${TMP_SCRIPT}/${RANDOM_STRING}.sh
 source /fsl_env.sh
-mkdir -p /data/derivatives/fsl/mcflirt/sub-${SUBJECT_ID}/ses-1/func/
+mkdir -p /data/derivatives/fsl/mcflirt/sub-${SUBJECT_ID}/ses-open/func/
 mcflirt \
-    -o /data/derivatives/fsl/mcflirt/sub-${SUBJECT_ID}/ses-1/func/sub-${SUBJECT_ID}_ses-1_task-rest_run-1_bold_mcf.nii.gz \
-    /data/sub-${SUBJECT_ID}/ses-1/func/sub-${SUBJECT_ID}_ses-1_task-rest_run-1_bold.nii.gz
+    -o /data/derivatives/fsl/mcflirt/sub-${SUBJECT_ID}/ses-open/func/sub-${SUBJECT_ID}_ses-open_task-rest_bold_mcf.nii.gz \
+    /data/sub-${SUBJECT_ID}/ses-open/func/sub-${SUBJECT_ID}_ses-open_task-rest_bold.nii.gz
 EOT
 
-export SINGULARITYENV_OMP_NUM_THREADS=$NTHREAD
+export APPTAINERENV_OMP_NUM_THREADS=$NTHREAD
 source ./sbatch/vtune.sh bash ${TMP_SCRIPT}/${RANDOM_STRING}.sh
 
 source ./sbatch/post_run.sh

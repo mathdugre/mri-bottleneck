@@ -1,0 +1,8 @@
+,module_short,func_short,mean_cpu,std_cpu
+1,libfsl-newimage.so,NEWIMAGE::q_tri_interpolation,13.81616075,0.29326709159199765
+2,libfsl-newimage.so,NEWIMAGE::p_normcorr_smoothed,9.2940524,0.24432187597692548
+3,libfsl-newimage.so,NEWIMAGE::findrangex,3.45059465,0.1317433291822738
+4,libfsl-newimage.so,NEWIMAGE::volume::interpolatevalue,0.88557755,0.036759460737804756
+5,libz.so,longest_match,5.4583044,0.23669290994037406
+6,libz.so,deflate_slow,0.9259221500000001,0.06129235403872082
+7,libc-2.31.so,__libc_fork,2.84492395,0.11088547003361765

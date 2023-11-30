@@ -1,7 +1,7 @@
 ,module_short,func_short,mean_cpu,std_cpu
-1,libfsl-newimage.so,NEWIMAGE::q_tri_interpolation,13.666286350000002,0.3473732603677997
-2,libfsl-newimage.so,NEWIMAGE::p_normcorr_smoothed,9.20307375,0.2412397057167466
-3,libfsl-newimage.so,NEWIMAGE::findrangex,3.3333138,0.146088192767462
-4,libz.so,longest_match,5.5480055,0.26127809364761767
-5,[Outside any module],[Outside any known module],5.290735833333334,4.095070919188894
-6,libc-2.31.so,__libc_fork,1.7691473000000002,0.2733173107815395
+1,libfsl-newimage.so,NEWIMAGE::q_tri_interpolation,13.7482293,0.28719794419292455
+2,libfsl-newimage.so,NEWIMAGE::p_normcorr_smoothed,9.34966785,0.23022166977302894
+3,libfsl-newimage.so,NEWIMAGE::findrangex,3.41851365,0.11112911330911909
+4,libz.so,longest_match,5.481099,0.23100027124750536
+5,libz.so,deflate_slow,0.9264219,0.06335825312658667
+6,libc-2.31.so,__libc_fork,2.84266395,0.0969172010089975

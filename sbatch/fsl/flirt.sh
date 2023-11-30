@@ -22,15 +22,15 @@ export SIF_OPTION="-B $HOME/.cache/templateflow:/templateflow"
 cat <<EOT >> ${TMP_SCRIPT}/${RANDOM_STRING}.sh
 source /fsl_env.sh
 TMPLT="/templateflow/tpl-MNI152NLin2009cAsym/"
-mkdir -p /data/derivatives/fsl/flirt/sub-${SUBJECT_ID}/ses-1/anat/
+mkdir -p /data/derivatives/fsl/flirt/sub-${SUBJECT_ID}/ses-open/anat/
 
 flirt \
-    -in /data/sub-${SUBJECT_ID}/ses-1/anat/sub-${SUBJECT_ID}_ses-1_run-1_T1w.nii.gz \
+    -in /data/sub-${SUBJECT_ID}/ses-open/anat/sub-${SUBJECT_ID}_ses-open_T1w.nii.gz \
     -ref \${TMPLT}/tpl-MNI152NLin2009cAsym_res-01_desc-brain_T1w.nii.gz \
-    -out /data/sub-${SUBJECT_ID}/ses-1/anat/sub-${SUBJECT_ID}_ses-1_run-1_T1w_flirt.nii.gz
+    -out /data/sub-${SUBJECT_ID}/ses-open/anat/sub-${SUBJECT_ID}_ses-open_T1w_flirt.nii.gz
 EOT
 
-export SINGULARITYENV_OMP_NUM_THREADS=$NTHREAD
+export APPTAINERENV_OMP_NUM_THREADS=$NTHREAD
 source ./sbatch/vtune.sh bash ${TMP_SCRIPT}/${RANDOM_STRING}.sh
 
 source ./sbatch/post_run.sh

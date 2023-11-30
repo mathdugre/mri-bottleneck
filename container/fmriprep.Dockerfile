@@ -1,4 +1,4 @@
-FROM compilers:debug as compilers
+FROM intel-compilers as compilers
 FROM freesurfer:debug as freesurfer
 FROM ants:debug as ants
 FROM fsl:debug as fsl

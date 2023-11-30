@@ -1,0 +1,5 @@
+,module_short,func_short,mean_cpu,std_cpu
+1,libfsl-newimage.so,NEWIMAGE::q_tri_interpolation,31.30291895,2.428670014451303
+2,libfsl-newimage.so,NEWIMAGE::p_corr_ratio_smoothed,7.50259695,0.5317114548914542
+3,libfsl-newimage.so,NEWIMAGE::findrangex,3.42778975,0.26860617091960504
+4,flirt,NEWIMAGE::convolve,5.49313365,0.20733472813335962

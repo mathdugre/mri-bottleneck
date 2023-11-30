@@ -109,7 +109,7 @@ export NTHREAD
 export DATASET=$(basename ${DATA_DIR})
 
 [[ -z ${SLURM_ARRAY_TASK_ID:+x} ]] && SLURM_ARRAY_TASK_ID=1
-export SUBJECT_ID=$(find ${DATA_DIR} -maxdepth 1 -name "sub-*" -exec basename {} \;| sed -n 5p | sed -e "s/^sub-//")
+export SUBJECT_ID=$(find ${DATA_DIR} -maxdepth 1 -name "sub-*" -exec basename {} \;| sed -n ${SLURM_ARRAY_TASK_ID}p | sed -e "s/^sub-//")
 
 export RANDOM_STRING=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 export PROFILING_DIR=${PROJECT_DIR}/vtune_output/${NTHREAD}-threads/${TOOLKIT}/${PIPELINE}/${DATASET}/sub-${SUBJECT_ID}/${RANDOM_STRING}
@@ -122,6 +122,7 @@ NTHREAD: ${NTHREAD}
 
 DATASET: ${DATASET}
 SUBJECT_ID: ${SUBJECT_ID}
+SLURM_ARRAY_TASK_ID: ${SLURM_ARRAY_TASK_ID}
 
 SIF_IMG: ${SIF_IMG}
 DATA_DIR: ${DATA_DIR}
@@ -133,7 +134,6 @@ PROFILING_DIR: ${PROFILING_DIR}
 mkdir -p ${PROJECT_DIR}
 
 # Transfer dataset to compute node.
-rm -rf ${SLURM_TMPDIR}
 mkdir -p ${SLURM_TMPDIR}/sub-${SUBJECT_ID}
 rsync -aLq --info=progress2 \
     ${DATA_DIR}/sub-${SUBJECT_ID}/ \
@@ -157,6 +157,8 @@ rsync -aLq \
     ${DATA_DIR}/derivatives/ \
     ${SLURM_TMPDIR}/derivatives/
 
+# Prevent data caching
+rm -rf ${SLURM_TMPDIR}/derivatives/${TOOLKIT}/${PIPELINE}/sub-${SUBJECT_ID}
 
 # Create temp directory for pipeline scripts.
 export TMP_SCRIPT=tmp-scripts

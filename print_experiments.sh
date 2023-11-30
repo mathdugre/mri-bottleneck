@@ -2,7 +2,7 @@
 set -e
 set -u
 
-NTHREAD=32
+NTHREAD=1
 MAX_JOBS=8
 PROJECT_DIR=/mnt/lustre/mathdugre/mri-bottleneck
 SIF_DIR=/mnt/lustre/mathdugre/containers
@@ -30,27 +30,31 @@ cat << EOF
 ######################
 EOF
 ## Anatomical MRI preprocessing
-echo sbatch --array=1-${N_SUBJECTS}%${MAX_JOBS} --cpus-per-task=${NTHREAD} sbatch/ants/brainExtraction.sh $SIF_DIR/ants-debug.sif -d ${DATA_DIR} -p ${PROJECT_DIR}
-echo sbatch --array=1-${N_SUBJECTS}%${MAX_JOBS} --cpus-per-task=${NTHREAD} sbatch/ants/brainExtraction-fp.sh $SIF_DIR/ants-debug.sif -d ${DATA_DIR} -p ${PROJECT_DIR}
+echo sbatch --array=1-${N_SUBJECTS}%${MAX_JOBS} --cpus-per-task=${NTHREAD} sbatch/ants/brainExtraction.sh $SIF_DIR/ants-debug.simg -d ${DATA_DIR} -p ${PROJECT_DIR}
+echo sbatch --array=1-${N_SUBJECTS}%${MAX_JOBS} --cpus-per-task=${NTHREAD} sbatch/ants/brainExtraction-fp.sh $SIF_DIR/ants-debug.simg -d ${DATA_DIR} -p ${PROJECT_DIR}
 
-echo sbatch --array=1-${N_SUBJECTS}%${MAX_JOBS} --cpus-per-task=${NTHREAD} sbatch/fsl/fast.sh $SIF_DIR/fsl-debug.sif -d ${DATA_DIR} -p ${PROJECT_DIR}
+echo sbatch --array=1-${N_SUBJECTS}%${MAX_JOBS} --cpus-per-task=${NTHREAD} sbatch/fsl/fast.sh $SIF_DIR/fsl-debug.simg -d ${DATA_DIR} -p ${PROJECT_DIR}
 
-echo sbatch --array=1-${N_SUBJECTS}%${MAX_JOBS} --cpus-per-task=${NTHREAD} sbatch/ants/registrationSyN.sh $SIF_DIR/ants-debug.sif -d ${DATA_DIR} -p ${PROJECT_DIR}
-echo sbatch --array=1-${N_SUBJECTS}%${MAX_JOBS} --cpus-per-task=${NTHREAD} sbatch/ants/registrationSyN-fp.sh $SIF_DIR/ants-debug.sif -d ${DATA_DIR} -p ${PROJECT_DIR}
+echo sbatch --array=1-${N_SUBJECTS}%${MAX_JOBS} --cpus-per-task=${NTHREAD} sbatch/ants/registrationSyN.sh $SIF_DIR/ants-debug.simg -d ${DATA_DIR} -p ${PROJECT_DIR}
+echo sbatch --array=1-${N_SUBJECTS}%${MAX_JOBS} --cpus-per-task=${NTHREAD} sbatch/ants/registrationSyN-fp.sh $SIF_DIR/ants-debug.simg -d ${DATA_DIR} -p ${PROJECT_DIR}
 
-echo sbatch --array=1-${N_SUBJECTS}%${MAX_JOBS} --cpus-per-task=${NTHREAD} sbatch/freesurfer/reconall.sh $SIF_DIR/freesurfer-idebug.sif -d ${DATA_DIR} -p ${PROJECT_DIR}
+echo sbatch --array=1-${N_SUBJECTS}%${MAX_JOBS} --cpus-per-task=${NTHREAD} sbatch/freesurfer/reconall.sh $SIF_DIR/freesurfer-debug.simg -d ${DATA_DIR} -p ${PROJECT_DIR}
 
 ## BOLD preprecessing
-echo sbatch --array=1-${N_SUBJECTS}%${MAX_JOBS} --cpus-per-task=${NTHREAD} sbatch/fsl/mcflirt.sh $SIF_DIR/fsl-debug.sif -d ${DATA_DIR} -p ${PROJECT_DIR}
+echo sbatch --array=1-${N_SUBJECTS}%${MAX_JOBS} --cpus-per-task=${NTHREAD} sbatch/fsl/mcflirt.sh $SIF_DIR/fsl-debug.simg -d ${DATA_DIR} -p ${PROJECT_DIR}
 
-echo sbatch --array=1-${N_SUBJECTS}%${MAX_JOBS} --cpus-per-task=${NTHREAD} sbatch/fsl/flirt.sh $SIF_DIR/fsl-debug.sif -d ${DATA_DIR} -p ${PROJECT_DIR}
+echo sbatch --array=1-${N_SUBJECTS}%${MAX_JOBS} --cpus-per-task=${NTHREAD} sbatch/fsl/flirt.sh $SIF_DIR/fsl-debug.simg -d ${DATA_DIR} -p ${PROJECT_DIR}
 
 # AFNI 3dTshift
-echo sbatch --array=1-${N_SUBJECTS}%${MAX_JOBS} --cpus-per-task=${NTHREAD} sbatch/afni/3dTshift.sh $SIF_DIR/afni-debug.sif -d ${DATA_DIR} -p ${PROJECT_DIR}
+echo sbatch --array=1-${N_SUBJECTS}%${MAX_JOBS} --cpus-per-task=${NTHREAD} sbatch/afni/3dTshift.sh $SIF_DIR/afni-debug.simg -d ${DATA_DIR} -p ${PROJECT_DIR}
 
 # TODO
 # FreeSurfer bbregister (?h.white)
 # FSL MELODIC
 
 ## fMRIPrep workflow
-echo sbatch --array=1-${N_SUBJECTS}%${MAX_JOBS} --cpus-per-task=${NTHREAD} sbatch/fmriprep/full.sh $SIF_DIR/fmriprep-debug.sif -d ${DATA_DIR} -p ${PROJECT_DIR}
+echo sbatch --array=1-${N_SUBJECTS}%${MAX_JOBS} --cpus-per-task=${NTHREAD} sbatch/fmriprep/full.sh $SIF_DIR/fmriprep-debug.simg -d ${DATA_DIR} -p ${PROJECT_DIR}
+
+## dMRIPrep workflow
+#echo sbatch --array=1-${N_SUBJECTS}%${MAX_JOBS} --cpus-per-task=${NTHREAD} sbatch/dmriprep/full.sh $SIF_DIR/dmriprep-debug.simg -d ${DATA_DIR} -p ${PROJECT_DIR}
+

@@ -24,13 +24,13 @@ TMPLT="/opt/templates/OASIS"
 antsBrainExtraction.sh \
     -q 1 \
     -d 3 \
-    -a /data/sub-${SUBJECT_ID}/ses-1/anat/sub-${SUBJECT_ID}_ses-1_run-1_T1w.nii.gz \
+    -a /data/sub-${SUBJECT_ID}/ses-open/anat/sub-${SUBJECT_ID}_ses-open_T1w.nii.gz \
     -e \${TMPLT}/T_template0.nii.gz \
     -m \${TMPLT}/T_template0_BrainCerebellumProbabilityMask.nii.gz \
-    -o /data/derivatives/ants/brainExtraction-fp/sub-${SUBJECT_ID}/ses-1/anat/
+    -o /data/derivatives/ants/brainExtraction-fp/sub-${SUBJECT_ID}/ses-open/anat/
 EOT
 
-export SINGULARITYENV_ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS=$NTHREAD
+export APPTAINERENV_ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS=$NTHREAD
 source ./sbatch/vtune.sh bash ${TMP_SCRIPT}/${RANDOM_STRING}.sh
 
 source ./sbatch/post_run.sh
