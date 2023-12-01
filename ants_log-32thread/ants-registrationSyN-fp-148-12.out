@@ -1,0 +1,1142 @@
+---------------------
+Profiling information
+
+Pipeline: ants registrationSyN-fp
+NTHREAD: 32
+
+DATASET: ds004513
+SUBJECT_ID: s032
+
+SIF_IMG: /mnt/lustre/mathdugre/containers/ants-debug.simg
+DATA_DIR: /mnt/lustre/mathdugre/mri-bottleneck/datasets/ds004513
+
+PROJECT_DIR: /mnt/lustre/mathdugre/mri-bottleneck
+PROFILING_DIR: /mnt/lustre/mathdugre/mri-bottleneck/vtune_output/32-threads/ants/registrationSyN-fp/ds004513/sub-s032/Guum7C2crrCvZGU28H66kZbRjmtcQjv9
+---------------------
+
+Command to profile: bash tmp-scripts/Guum7C2crrCvZGU28H66kZbRjmtcQjv9.sh
+
+--------------------------------------------------------------------------------------
+ Mapping parameters
+--------------------------------------------------------------------------------------
+ ANTSPATH is /opt/ants/bin
+
+ Dimensionality:           3
+ Output name prefix:       /data/derivatives/ants/registrationSyN-fp/sub-s032/ses-open/anat/
+ Fixed images:             /templateflow/tpl-MNI152NLin2009cAsym//tpl-MNI152NLin2009cAsym_res-01_desc-brain_T1w.nii.gz
+ Moving images:            /data/derivatives/fsl/fast/sub-s032/ses-open/anat/BrainExtractionBrain_seg.nii.gz
+ Mask images:              
+ Initial transforms:       
+ Number of threads:        32
+ Spline distance:          26
+ SyN gradient step:        0.1
+ Transform type:           s
+ CC radius:                4
+ Precision:                f
+ Use histogram matching    0
+ Repro                     0
+======================================================================================
+ antsRegistration call:
+--------------------------------------------------------------------------------------
+/opt/ants/bin/antsRegistration --verbose 1 --dimensionality 3 --float 1 --collapse-output-transforms 1 --output [ /data/derivatives/ants/registrationSyN-fp/sub-s032/ses-open/anat/,/data/derivatives/ants/registrationSyN-fp/sub-s032/ses-open/anat/Warped.nii.gz,/data/derivatives/ants/registrationSyN-fp/sub-s032/ses-open/anat/InverseWarped.nii.gz ] --interpolation Linear --use-histogram-matching 0 --winsorize-image-intensities [ 0.005,0.995 ] --initial-moving-transform [ /templateflow/tpl-MNI152NLin2009cAsym//tpl-MNI152NLin2009cAsym_res-01_desc-brain_T1w.nii.gz,/data/derivatives/fsl/fast/sub-s032/ses-open/anat/BrainExtractionBrain_seg.nii.gz,1 ] --transform Rigid[ 0.1 ] --metric MI[ /templateflow/tpl-MNI152NLin2009cAsym//tpl-MNI152NLin2009cAsym_res-01_desc-brain_T1w.nii.gz,/data/derivatives/fsl/fast/sub-s032/ses-open/anat/BrainExtractionBrain_seg.nii.gz,1,32,Regular,0.25 ] --convergence [ 1000x500x250x100,1e-6,10 ] --shrink-factors 8x4x2x1 --smoothing-sigmas 3x2x1x0vox --transform Affine[ 0.1 ] --metric MI[ /templateflow/tpl-MNI152NLin2009cAsym//tpl-MNI152NLin2009cAsym_res-01_desc-brain_T1w.nii.gz,/data/derivatives/fsl/fast/sub-s032/ses-open/anat/BrainExtractionBrain_seg.nii.gz,1,32,Regular,0.25 ] --convergence [ 1000x500x250x100,1e-6,10 ] --shrink-factors 8x4x2x1 --smoothing-sigmas 3x2x1x0vox --transform SyN[ 0.1,3,0 ] --metric CC[ /templateflow/tpl-MNI152NLin2009cAsym//tpl-MNI152NLin2009cAsym_res-01_desc-brain_T1w.nii.gz,/data/derivatives/fsl/fast/sub-s032/ses-open/anat/BrainExtractionBrain_seg.nii.gz,1,4 ] --convergence [ 100x70x50x20,1e-6,10 ] --shrink-factors 8x4x2x1 --smoothing-sigmas 3x2x1x0vox
+--------------------------------------------------------------------------------------
+All_Command_lines_OK
+Using single precision for computations.
+=============================================================================
+The composite transform comprises the following transforms (in order): 
+  1. Center of mass alignment using fixed image: /templateflow/tpl-MNI152NLin2009cAsym//tpl-MNI152NLin2009cAsym_res-01_desc-brain_T1w.nii.gz and moving image: /data/derivatives/fsl/fast/sub-s032/ses-open/anat/BrainExtractionBrain_seg.nii.gz (type = Euler3DTransform)
+=============================================================================
+  number of levels = 4
+  number of levels = 4
+  number of levels = 4
+  fixed image: /templateflow/tpl-MNI152NLin2009cAsym//tpl-MNI152NLin2009cAsym_res-01_desc-brain_T1w.nii.gz
+  moving image: /data/derivatives/fsl/fast/sub-s032/ses-open/anat/BrainExtractionBrain_seg.nii.gz
+  fixed image: /templateflow/tpl-MNI152NLin2009cAsym//tpl-MNI152NLin2009cAsym_res-01_desc-brain_T1w.nii.gz
+  moving image: /data/derivatives/fsl/fast/sub-s032/ses-open/anat/BrainExtractionBrain_seg.nii.gz
+  fixed image: /templateflow/tpl-MNI152NLin2009cAsym//tpl-MNI152NLin2009cAsym_res-01_desc-brain_T1w.nii.gz
+  moving image: /data/derivatives/fsl/fast/sub-s032/ses-open/anat/BrainExtractionBrain_seg.nii.gz
+Dimension = 3
+Number of stages = 3
+Use histogram matching = false
+Winsorize image intensities = true
+  Lower quantile = 0.005
+  Upper quantile = 0.995
+
+
+Stage 1 State
+   Image metric = Mattes
+     Fixed image = Image (0x560544bf82b0)
+  RTTI typeinfo:   itk::Image<float, 3u>
+  Reference Count: 2
+  Modified Time: 1717
+  Debug: Off
+  Object Name: 
+  Observers: 
+    none
+  Source: (none)
+  Source output name: (none)
+  Release Data: Off
+  Data Released: False
+  Global Release Data: Off
+  PipelineMTime: 0
+  UpdateMTime: 1502
+  RealTimeStamp: 0 seconds 
+  LargestPossibleRegion: 
+    Dimension: 3
+    Index: [0, 0, 0]
+    Size: [193, 229, 193]
+  BufferedRegion: 
+    Dimension: 3
+    Index: [0, 0, 0]
+    Size: [193, 229, 193]
+  RequestedRegion: 
+    Dimension: 3
+    Index: [0, 0, 0]
+    Size: [193, 229, 193]
+  Spacing: [1, 1, 1]
+  Origin: [96, 132, -78]
+  Direction: 
+-1 0 0
+0 -1 0
+0 0 1
+
+  IndexToPointMatrix: 
+-1 0 0
+0 -1 0
+0 0 1
+
+  PointToIndexMatrix: 
+-1 0 0
+0 -1 0
+0 0 1
+
+  Inverse Direction: 
+-1 0 0
+0 -1 0
+0 0 1
+
+  PixelContainer: 
+    ImportImageContainer (0x560544c00e50)
+      RTTI typeinfo:   itk::ImportImageContainer<unsigned long, float>
+      Reference Count: 1
+      Modified Time: 1499
+      Debug: Off
+      Object Name: 
+      Observers: 
+        none
+      Pointer: 0x7f4297b9d010
+      Container manages memory: true
+      Size: 8530021
+      Capacity: 8530021
+
+     Moving image = Image (0x560544bf9630)
+  RTTI typeinfo:   itk::Image<float, 3u>
+  Reference Count: 2
+  Modified Time: 1718
+  Debug: Off
+  Object Name: 
+  Observers: 
+    none
+  Source: (none)
+  Source output name: (none)
+  Release Data: Off
+  Data Released: False
+  Global Release Data: Off
+  PipelineMTime: 0
+  UpdateMTime: 1715
+  RealTimeStamp: 0 seconds 
+  LargestPossibleRegion: 
+    Dimension: 3
+    Index: [0, 0, 0]
+    Size: [160, 240, 256]
+  BufferedRegion: 
+    Dimension: 3
+    Index: [0, 0, 0]
+    Size: [160, 240, 256]
+  RequestedRegion: 
+    Dimension: 3
+    Index: [0, 0, 0]
+    Size: [160, 240, 256]
+  Spacing: [1, 1, 1]
+  Origin: [73.279, 104.707, -131.187]
+  Direction: 
+-0.997527 0.0645574 -0.0278053
+-0.0645323 -0.997914 -0.00179875
+-0.0278634 4.01097e-08 0.999612
+
+  IndexToPointMatrix: 
+-0.997527 0.0645574 -0.0278053
+-0.0645323 -0.997914 -0.00179875
+-0.0278634 4.01097e-08 0.999612
+
+  PointToIndexMatrix: 
+-0.997527 -0.0645323 -0.0278634
+0.0645574 -0.997914 4.01049e-08
+-0.0278053 -0.00179875 0.999612
+
+  Inverse Direction: 
+-0.997527 -0.0645323 -0.0278634
+0.0645574 -0.997914 4.01049e-08
+-0.0278053 -0.00179875 0.999612
+
+  PixelContainer: 
+    ImportImageContainer (0x560544bf92c0)
+      RTTI typeinfo:   itk::ImportImageContainer<unsigned long, float>
+      Reference Count: 1
+      Modified Time: 1712
+      Debug: Off
+      Object Name: 
+      Observers: 
+        none
+      Pointer: 0x7f429561c010
+      Container manages memory: true
+      Size: 9830400
+      Capacity: 9830400
+
+     Weighting = 1
+     Sampling strategy = regular
+     Number of bins = 32
+     Radius = 4
+     Sampling percentage  = 0.25
+   Transform = Rigid
+     Gradient step = 0.1
+     Update field sigma (voxel space) = 0
+     Total field sigma (voxel space) = 0
+     Update field time sigma = 0
+     Total field time sigma  = 0
+     Number of time indices = 0
+     Number of time point samples = 0
+Stage 2 State
+   Image metric = Mattes
+     Fixed image = Image (0x560544c0af80)
+  RTTI typeinfo:   itk::Image<float, 3u>
+  Reference Count: 2
+  Modified Time: 2145
+  Debug: Off
+  Object Name: 
+  Observers: 
+    none
+  Source: (none)
+  Source output name: (none)
+  Release Data: Off
+  Data Released: False
+  Global Release Data: Off
+  PipelineMTime: 0
+  UpdateMTime: 1930
+  RealTimeStamp: 0 seconds 
+  LargestPossibleRegion: 
+    Dimension: 3
+    Index: [0, 0, 0]
+    Size: [193, 229, 193]
+  BufferedRegion: 
+    Dimension: 3
+    Index: [0, 0, 0]
+    Size: [193, 229, 193]
+  RequestedRegion: 
+    Dimension: 3
+    Index: [0, 0, 0]
+    Size: [193, 229, 193]
+  Spacing: [1, 1, 1]
+  Origin: [96, 132, -78]
+  Direction: 
+-1 0 0
+0 -1 0
+0 0 1
+
+  IndexToPointMatrix: 
+-1 0 0
+0 -1 0
+0 0 1
+
+  PointToIndexMatrix: 
+-1 0 0
+0 -1 0
+0 0 1
+
+  Inverse Direction: 
+-1 0 0
+0 -1 0
+0 0 1
+
+  PixelContainer: 
+    ImportImageContainer (0x560544c072c0)
+      RTTI typeinfo:   itk::ImportImageContainer<unsigned long, float>
+      Reference Count: 1
+      Modified Time: 1927
+      Debug: Off
+      Object Name: 
+      Observers: 
+        none
+      Pointer: 0x7f4293591010
+      Container manages memory: true
+      Size: 8530021
+      Capacity: 8530021
+
+     Moving image = Image (0x560544c57e80)
+  RTTI typeinfo:   itk::Image<float, 3u>
+  Reference Count: 2
+  Modified Time: 2146
+  Debug: Off
+  Object Name: 
+  Observers: 
+    none
+  Source: (none)
+  Source output name: (none)
+  Release Data: Off
+  Data Released: False
+  Global Release Data: Off
+  PipelineMTime: 0
+  UpdateMTime: 2143
+  RealTimeStamp: 0 seconds 
+  LargestPossibleRegion: 
+    Dimension: 3
+    Index: [0, 0, 0]
+    Size: [160, 240, 256]
+  BufferedRegion: 
+    Dimension: 3
+    Index: [0, 0, 0]
+    Size: [160, 240, 256]
+  RequestedRegion: 
+    Dimension: 3
+    Index: [0, 0, 0]
+    Size: [160, 240, 256]
+  Spacing: [1, 1, 1]
+  Origin: [73.279, 104.707, -131.187]
+  Direction: 
+-0.997527 0.0645574 -0.0278053
+-0.0645323 -0.997914 -0.00179875
+-0.0278634 4.01097e-08 0.999612
+
+  IndexToPointMatrix: 
+-0.997527 0.0645574 -0.0278053
+-0.0645323 -0.997914 -0.00179875
+-0.0278634 4.01097e-08 0.999612
+
+  PointToIndexMatrix: 
+-0.997527 -0.0645323 -0.0278634
+0.0645574 -0.997914 4.01049e-08
+-0.0278053 -0.00179875 0.999612
+
+  Inverse Direction: 
+-0.997527 -0.0645323 -0.0278634
+0.0645574 -0.997914 4.01049e-08
+-0.0278053 -0.00179875 0.999612
+
+  PixelContainer: 
+    ImportImageContainer (0x560544c58640)
+      RTTI typeinfo:   itk::ImportImageContainer<unsigned long, float>
+      Reference Count: 1
+      Modified Time: 2140
+      Debug: Off
+      Object Name: 
+      Observers: 
+        none
+      Pointer: 0x7f4291010010
+      Container manages memory: true
+      Size: 9830400
+      Capacity: 9830400
+
+     Weighting = 1
+     Sampling strategy = regular
+     Number of bins = 32
+     Radius = 4
+     Sampling percentage  = 0.25
+   Transform = Affine
+     Gradient step = 0.1
+     Update field sigma (voxel space) = 0
+     Total field sigma (voxel space) = 0
+     Update field time sigma = 0
+     Total field time sigma  = 0
+     Number of time indices = 0
+     Number of time point samples = 0
+Stage 3 State
+   Image metric = CC
+     Fixed image = Image (0x560544c5a420)
+  RTTI typeinfo:   itk::Image<float, 3u>
+  Reference Count: 2
+  Modified Time: 2573
+  Debug: Off
+  Object Name: 
+  Observers: 
+    none
+  Source: (none)
+  Source output name: (none)
+  Release Data: Off
+  Data Released: False
+  Global Release Data: Off
+  PipelineMTime: 0
+  UpdateMTime: 2358
+  RealTimeStamp: 0 seconds 
+  LargestPossibleRegion: 
+    Dimension: 3
+    Index: [0, 0, 0]
+    Size: [193, 229, 193]
+  BufferedRegion: 
+    Dimension: 3
+    Index: [0, 0, 0]
+    Size: [193, 229, 193]
+  RequestedRegion: 
+    Dimension: 3
+    Index: [0, 0, 0]
+    Size: [193, 229, 193]
+  Spacing: [1, 1, 1]
+  Origin: [96, 132, -78]
+  Direction: 
+-1 0 0
+0 -1 0
+0 0 1
+
+  IndexToPointMatrix: 
+-1 0 0
+0 -1 0
+0 0 1
+
+  PointToIndexMatrix: 
+-1 0 0
+0 -1 0
+0 0 1
+
+  Inverse Direction: 
+-1 0 0
+0 -1 0
+0 0 1
+
+  PixelContainer: 
+    ImportImageContainer (0x560544c5aa80)
+      RTTI typeinfo:   itk::ImportImageContainer<unsigned long, float>
+      Reference Count: 1
+      Modified Time: 2355
+      Debug: Off
+      Object Name: 
+      Observers: 
+        none
+      Pointer: 0x7f428ef85010
+      Container manages memory: true
+      Size: 8530021
+      Capacity: 8530021
+
+     Moving image = Image (0x560544c56430)
+  RTTI typeinfo:   itk::Image<float, 3u>
+  Reference Count: 2
+  Modified Time: 2574
+  Debug: Off
+  Object Name: 
+  Observers: 
+    none
+  Source: (none)
+  Source output name: (none)
+  Release Data: Off
+  Data Released: False
+  Global Release Data: Off
+  PipelineMTime: 0
+  UpdateMTime: 2571
+  RealTimeStamp: 0 seconds 
+  LargestPossibleRegion: 
+    Dimension: 3
+    Index: [0, 0, 0]
+    Size: [160, 240, 256]
+  BufferedRegion: 
+    Dimension: 3
+    Index: [0, 0, 0]
+    Size: [160, 240, 256]
+  RequestedRegion: 
+    Dimension: 3
+    Index: [0, 0, 0]
+    Size: [160, 240, 256]
+  Spacing: [1, 1, 1]
+  Origin: [73.279, 104.707, -131.187]
+  Direction: 
+-0.997527 0.0645574 -0.0278053
+-0.0645323 -0.997914 -0.00179875
+-0.0278634 4.01097e-08 0.999612
+
+  IndexToPointMatrix: 
+-0.997527 0.0645574 -0.0278053
+-0.0645323 -0.997914 -0.00179875
+-0.0278634 4.01097e-08 0.999612
+
+  PointToIndexMatrix: 
+-0.997527 -0.0645323 -0.0278634
+0.0645574 -0.997914 4.01049e-08
+-0.0278053 -0.00179875 0.999612
+
+  Inverse Direction: 
+-0.997527 -0.0645323 -0.0278634
+0.0645574 -0.997914 4.01049e-08
+-0.0278053 -0.00179875 0.999612
+
+  PixelContainer: 
+    ImportImageContainer (0x560544c07640)
+      RTTI typeinfo:   itk::ImportImageContainer<unsigned long, float>
+      Reference Count: 1
+      Modified Time: 2568
+      Debug: Off
+      Object Name: 
+      Observers: 
+        none
+      Pointer: 0x7f428ca04010
+      Container manages memory: true
+      Size: 9830400
+      Capacity: 9830400
+
+     Weighting = 1
+     Sampling strategy = none
+     Number of bins = 32
+     Radius = 4
+     Sampling percentage  = 1
+   Transform = SyN
+     Gradient step = 0.1
+     Update field sigma (voxel space) = 3
+     Total field sigma (voxel space) = 0
+     Update field time sigma = 0
+     Total field time sigma  = 0
+     Number of time indices = 0
+     Number of time point samples = 0
+Registration using 3 total stages.
+
+Stage 0
+  iterations = 1000x500x250x100
+  convergence threshold = 1e-06
+  convergence window size = 10
+  number of levels = 4
+  using the Mattes MI metric (number of bins = 32, weight = 1, use gradient filter = 0)
+  preprocessing:  winsorizing the image intensities
+  Shrink factors (level 1 out of 4): [8, 8, 8]
+  Shrink factors (level 2 out of 4): [4, 4, 4]
+  Shrink factors (level 3 out of 4): [2, 2, 2]
+  Shrink factors (level 4 out of 4): [1, 1, 1]
+  smoothing sigmas per level: [3, 2, 1, 0]
+  regular sampling (percentage = 0.25)
+
+*** Running Euler3DTransform registration ***
+
+DIAGNOSTIC,Iteration,metricValue,convergenceValue,ITERATION_TIME_INDEX,SINCE_LAST
+ 2DIAGNOSTIC,     1, -5.811700224876e-01, inf, 1.3762e-01, 1.3762e-01, 
+ 2DIAGNOSTIC,     2, -5.841249227524e-01, inf, 1.4509e-01, 7.4670e-03, 
+ 2DIAGNOSTIC,     3, -5.899279713631e-01, inf, 1.5070e-01, 5.6100e-03, 
+ 2DIAGNOSTIC,     4, -5.971310138702e-01, inf, 1.5630e-01, 5.5981e-03, 
+ 2DIAGNOSTIC,     5, -6.061831116676e-01, inf, 1.6192e-01, 5.6200e-03, 
+ 2DIAGNOSTIC,     6, -6.232725381851e-01, inf, 1.6762e-01, 5.7030e-03, 
+ 2DIAGNOSTIC,     7, -6.488845944405e-01, inf, 1.7441e-01, 6.7921e-03, 
+ 2DIAGNOSTIC,     8, -6.594120860100e-01, inf, 1.8285e-01, 8.4441e-03, 
+ 2DIAGNOSTIC,     9, -6.611674427986e-01, inf, 1.8944e-01, 6.5861e-03, 
+ 2DIAGNOSTIC,    10, -6.633760929108e-01, 1.030582003295e-02, 2.0937e-01, 1.9927e-02, 
+ 2DIAGNOSTIC,    11, -6.641521453857e-01, 9.019671939313e-03, 2.1958e-01, 1.0211e-02, 
+ 2DIAGNOSTIC,    12, -6.644039750099e-01, 7.259908597916e-03, 2.2691e-01, 7.3309e-03, 
+ 2DIAGNOSTIC,    13, -6.645817756653e-01, 5.337531212717e-03, 2.3342e-01, 6.5100e-03, 
+ 2DIAGNOSTIC,    14, -6.646825671196e-01, 3.463840810582e-03, 2.4039e-01, 6.9690e-03, 
+ 2DIAGNOSTIC,    15, -6.650508642197e-01, 1.815415802412e-03, 2.4764e-01, 7.2498e-03, 
+ 2DIAGNOSTIC,    16, -6.655076146126e-01, 6.879153079353e-04, 2.5432e-01, 6.6800e-03, 
+ 2DIAGNOSTIC,    17, -6.664277315140e-01, 3.225125838071e-04, 2.6094e-01, 6.6190e-03, 
+ 2DIAGNOSTIC,    18, -6.668578982353e-01, 2.389954752289e-04, 2.6846e-01, 7.5181e-03, 
+ 2DIAGNOSTIC,    19, -6.670132875443e-01, 1.860704360297e-04, 2.7723e-01, 8.7790e-03, 
+ 2DIAGNOSTIC,    20, -6.686207652092e-01, 2.055813383777e-04, 2.9133e-01, 1.4095e-02, 
+ 2DIAGNOSTIC,    21, -6.687324643135e-01, 2.217203291366e-04, 2.9728e-01, 5.9540e-03, 
+ 2DIAGNOSTIC,    22, -6.688641309738e-01, 2.235272258986e-04, 3.0351e-01, 6.2308e-03, 
+ 2DIAGNOSTIC,    23, -6.689967513084e-01, 2.107680920744e-04, 3.0979e-01, 6.2759e-03, 
+ 2DIAGNOSTIC,    24, -6.690858602524e-01, 1.829685497796e-04, 3.1582e-01, 6.0320e-03, 
+ 2DIAGNOSTIC,    25, -6.691206693649e-01, 1.471131108701e-04, 3.2259e-01, 6.7730e-03, 
+ 2DIAGNOSTIC,    26, -6.691299080849e-01, 1.078276836779e-04, 3.2855e-01, 5.9519e-03, 
+ 2DIAGNOSTIC,    27, -6.690444946289e-01, 7.525480032200e-05, 3.3535e-01, 6.8052e-03, 
+ 2DIAGNOSTIC,    28, -6.690580844879e-01, 4.527955024969e-05, 3.4800e-01, 1.2652e-02, 
+ 2DIAGNOSTIC,    29, -6.690587401390e-01, 1.492062892794e-05, 3.5675e-01, 8.7502e-03, 
+ 2DIAGNOSTIC,    30, -6.690575480461e-01, 8.648297807667e-06, 3.6375e-01, 6.9931e-03, 
+ 2DIAGNOSTIC,    31, -6.690573692322e-01, 3.636450855993e-06, 3.7468e-01, 1.0932e-02, 
+DIAGNOSTIC,Iteration,metricValue,convergenceValue,ITERATION_TIME_INDEX,SINCE_LAST
+ 2DIAGNOSTIC,     1, -5.294751524925e-01, inf, 5.0243e-01, 1.2775e-01, 
+ 2DIAGNOSTIC,     2, -5.302128791809e-01, inf, 5.1667e-01, 1.4235e-02, 
+ 2DIAGNOSTIC,     3, -5.312597751617e-01, inf, 5.3093e-01, 1.4269e-02, 
+ 2DIAGNOSTIC,     4, -5.322644710541e-01, inf, 5.4117e-01, 1.0236e-02, 
+ 2DIAGNOSTIC,     5, -5.329674482346e-01, inf, 5.5087e-01, 9.7041e-03, 
+ 2DIAGNOSTIC,     6, -5.332698822021e-01, inf, 5.6126e-01, 1.0387e-02, 
+ 2DIAGNOSTIC,     7, -5.337691903114e-01, inf, 5.6890e-01, 7.6370e-03, 
+ 2DIAGNOSTIC,     8, -5.348530411720e-01, inf, 5.7676e-01, 7.8621e-03, 
+ 2DIAGNOSTIC,     9, -5.386821031570e-01, inf, 5.8803e-01, 1.1271e-02, 
+ 2DIAGNOSTIC,    10, -5.392104387283e-01, 1.090230070986e-03, 5.9587e-01, 7.8399e-03, 
+ 2DIAGNOSTIC,    11, -5.397319793701e-01, 1.063844189048e-03, 6.0417e-01, 8.3010e-03, 
+ 2DIAGNOSTIC,    12, -5.410950779915e-01, 1.041194889694e-03, 6.1400e-01, 9.8300e-03, 
+ 2DIAGNOSTIC,    13, -5.420752167702e-01, 1.008014543913e-03, 6.2200e-01, 7.9970e-03, 
+ 2DIAGNOSTIC,    14, -5.428764224052e-01, 9.535913704894e-04, 6.3012e-01, 8.1239e-03, 
+ 2DIAGNOSTIC,    15, -5.450222492218e-01, 9.201697539538e-04, 6.4208e-01, 1.1953e-02, 
+ 2DIAGNOSTIC,    16, -5.457485914230e-01, 8.411629823968e-04, 6.5109e-01, 9.0091e-03, 
+ 2DIAGNOSTIC,    17, -5.466149449348e-01, 7.372265099548e-04, 6.5937e-01, 8.2889e-03, 
+ 2DIAGNOSTIC,    18, -5.514736175537e-01, 7.481913780794e-04, 6.6838e-01, 9.0010e-03, 
+ 2DIAGNOSTIC,    19, -5.532257556915e-01, 8.400586084463e-04, 6.7682e-01, 8.4400e-03, 
+ 2DIAGNOSTIC,    20, -5.534412264824e-01, 8.642205502838e-04, 6.8562e-01, 8.8022e-03, 
+ 2DIAGNOSTIC,    21, -5.537115335464e-01, 8.269832469523e-04, 6.9318e-01, 7.5610e-03, 
+ 2DIAGNOSTIC,    22, -5.542029738426e-01, 7.605715654790e-04, 7.0330e-01, 1.0118e-02, 
+ 2DIAGNOSTIC,    23, -5.546913146973e-01, 6.606670795009e-04, 7.1146e-01, 8.1670e-03, 
+ 2DIAGNOSTIC,    24, -5.549378395081e-01, 5.284264916554e-04, 7.1910e-01, 7.6342e-03, 
+ 2DIAGNOSTIC,    25, -5.552304983139e-01, 4.099684301764e-04, 7.2710e-01, 8.0011e-03, 
+ 2DIAGNOSTIC,    26, -5.553165674210e-01, 2.799249195959e-04, 7.3600e-01, 8.9049e-03, 
+ 2DIAGNOSTIC,    27, -5.560071468353e-01, 1.612872438272e-04, 7.4742e-01, 1.1415e-02, 
+ 2DIAGNOSTIC,    28, -5.566697120667e-01, 1.379250606988e-04, 7.5591e-01, 8.4860e-03, 
+ 2DIAGNOSTIC,    29, -5.570210218430e-01, 1.409475662513e-04, 7.6478e-01, 8.8780e-03, 
+ 2DIAGNOSTIC,    30, -5.585328936577e-01, 1.607181475265e-04, 7.7695e-01, 1.2163e-02, 
+ 2DIAGNOSTIC,    31, -5.589470267296e-01, 1.749505172484e-04, 7.8574e-01, 8.7938e-03, 
+ 2DIAGNOSTIC,    32, -5.591168403625e-01, 1.824206410674e-04, 7.9401e-01, 8.2729e-03, 
+ 2DIAGNOSTIC,    33, -5.602155327797e-01, 1.973554171855e-04, 8.0298e-01, 8.9650e-03, 
+ 2DIAGNOSTIC,    34, -5.629845261574e-01, 2.383190876571e-04, 8.1411e-01, 1.1129e-02, 
+ 2DIAGNOSTIC,    35, -5.647009611130e-01, 2.830078883562e-04, 8.2282e-01, 8.7118e-03, 
+ 2DIAGNOSTIC,    36, -5.652012825012e-01, 3.065297496505e-04, 8.3194e-01, 9.1188e-03, 
+ 2DIAGNOSTIC,    37, -5.658521652222e-01, 3.191994037479e-04, 8.4397e-01, 1.2034e-02, 
+ 2DIAGNOSTIC,    38, -5.661525726318e-01, 3.140176122542e-04, 8.5263e-01, 8.6579e-03, 
+ 2DIAGNOSTIC,    39, -5.668107271194e-01, 2.915365912486e-04, 8.6200e-01, 9.3710e-03, 
+ 2DIAGNOSTIC,    40, -5.674044489861e-01, 2.692308044061e-04, 8.7268e-01, 1.0676e-02, 
+ 2DIAGNOSTIC,    41, -5.674033164978e-01, 2.280598419020e-04, 8.8085e-01, 8.1758e-03, 
+ 2DIAGNOSTIC,    42, -5.674403905869e-01, 1.701827568468e-04, 8.8874e-01, 7.8888e-03, 
+ 2DIAGNOSTIC,    43, -5.675828456879e-01, 1.131687895395e-04, 8.9707e-01, 8.3311e-03, 
+ 2DIAGNOSTIC,    44, -5.677376389503e-01, 8.174151298590e-05, 9.0544e-01, 8.3721e-03, 
+ 2DIAGNOSTIC,    45, -5.679179430008e-01, 6.553550338140e-05, 9.1757e-01, 1.2123e-02, 
+ 2DIAGNOSTIC,    46, -5.679808855057e-01, 5.007456638850e-05, 9.2637e-01, 8.8019e-03, 
+ 2DIAGNOSTIC,    47, -5.679945349693e-01, 3.795862721745e-05, 9.3490e-01, 8.5268e-03, 
+ 2DIAGNOSTIC,    48, -5.680312514305e-01, 2.628188485687e-05, 9.4200e-01, 7.1080e-03, 
+ 2DIAGNOSTIC,    49, -5.680568218231e-01, 1.960214831342e-05, 9.5047e-01, 8.4682e-03, 
+ 2DIAGNOSTIC,    50, -5.681202411652e-01, 1.812091431930e-05, 9.5901e-01, 8.5371e-03, 
+ 2DIAGNOSTIC,    51, -5.682345628738e-01, 1.616902045498e-05, 9.6983e-01, 1.0820e-02, 
+ 2DIAGNOSTIC,    52, -5.682916641235e-01, 1.371479538648e-05, 9.7958e-01, 9.7480e-03, 
+ 2DIAGNOSTIC,    53, -5.682653188705e-01, 1.121172590501e-05, 9.8761e-01, 8.0330e-03, 
+ 2DIAGNOSTIC,    54, -5.685834288597e-01, 1.225928735948e-05, 9.9652e-01, 8.9090e-03, 
+ 2DIAGNOSTIC,    55, -5.687151551247e-01, 1.495180458733e-05, 1.0050e+00, 8.4710e-03, 
+ 2DIAGNOSTIC,    56, -5.687141418457e-01, 1.671242534940e-05, 1.0135e+00, 8.5039e-03, 
+ 2DIAGNOSTIC,    57, -5.687232017517e-01, 1.711629738566e-05, 1.0212e+00, 7.6640e-03, 
+ 2DIAGNOSTIC,    58, -5.687600970268e-01, 1.659021836531e-05, 1.0299e+00, 8.7080e-03, 
+ 2DIAGNOSTIC,    59, -5.687940120697e-01, 1.500333291915e-05, 1.0383e+00, 8.4341e-03, 
+ 2DIAGNOSTIC,    60, -5.688248276711e-01, 1.282598350372e-05, 1.0469e+00, 8.6031e-03, 
+ 2DIAGNOSTIC,    61, -5.689025521278e-01, 1.117303690990e-05, 1.0551e+00, 8.2049e-03, 
+ 2DIAGNOSTIC,    62, -5.691600441933e-01, 1.118549153034e-05, 1.0646e+00, 9.4941e-03, 
+ 2DIAGNOSTIC,    63, -5.697507858276e-01, 1.463055014028e-05, 1.0744e+00, 9.7539e-03, 
+ 2DIAGNOSTIC,    64, -5.706728696823e-01, 2.636232056830e-05, 1.0833e+00, 8.9791e-03, 
+ 2DIAGNOSTIC,    65, -5.711517333984e-01, 3.990801997134e-05, 1.0915e+00, 8.1520e-03, 
+ 2DIAGNOSTIC,    66, -5.760136842728e-01, 8.683286432642e-05, 1.1017e+00, 1.0243e-02, 
+ 2DIAGNOSTIC,    67, -5.790330171585e-01, 1.460700586904e-04, 1.1105e+00, 8.7402e-03, 
+ 2DIAGNOSTIC,    68, -5.800610184669e-01, 1.971956080524e-04, 1.1193e+00, 8.8739e-03, 
+ 2DIAGNOSTIC,    69, -5.808466672897e-01, 2.343947562622e-04, 1.1373e+00, 1.7921e-02, 
+ 2DIAGNOSTIC,    70, -5.808634757996e-01, 2.484377764631e-04, 1.1458e+00, 8.4920e-03, 
+ 2DIAGNOSTIC,    71, -5.808711051941e-01, 2.383897517575e-04, 1.1551e+00, 9.3641e-03, 
+ 2DIAGNOSTIC,    72, -5.808889865875e-01, 2.072269417113e-04, 1.1649e+00, 9.7570e-03, 
+ 2DIAGNOSTIC,    73, -5.808997750282e-01, 1.613854838070e-04, 1.1741e+00, 9.2590e-03, 
+ 2DIAGNOSTIC,    74, -5.809059739113e-01, 1.082057060557e-04, 1.1830e+00, 8.9090e-03, 
+ 2DIAGNOSTIC,    75, -5.808883309364e-01, 4.861850902671e-05, 1.1917e+00, 8.6470e-03, 
+ 2DIAGNOSTIC,    76, -5.809038877487e-01, 1.815295763663e-05, 1.2003e+00, 8.6460e-03, 
+ 2DIAGNOSTIC,    77, -5.810198783875e-01, 7.303865004360e-06, 1.2168e+00, 1.6444e-02, 
+ 2DIAGNOSTIC,    78, -5.810673236847e-01, 2.897594185924e-06, 1.2276e+00, 1.0840e-02, 
+ 2DIAGNOSTIC,    79, -5.810370445251e-01, 3.211508555978e-06, 1.2399e+00, 1.2286e-02, 
+ 2DIAGNOSTIC,    80, -5.810331106186e-01, 3.352476369400e-06, 1.2496e+00, 9.6929e-03, 
+ 2DIAGNOSTIC,    81, -5.810138583183e-01, 3.130782488370e-06, 1.2586e+00, 9.0029e-03, 
+ 2DIAGNOSTIC,    82, -5.810387730598e-01, 2.898837237808e-06, 1.2680e+00, 9.3949e-03, 
+ 2DIAGNOSTIC,    83, -5.810589790344e-01, 2.606394900795e-06, 1.2777e+00, 9.6998e-03, 
+ 2DIAGNOSTIC,    84, -5.810529589653e-01, 2.122776095348e-06, 1.2867e+00, 8.9970e-03, 
+ 2DIAGNOSTIC,    85, -5.810750722885e-01, 1.526815367470e-06, 1.2956e+00, 8.8639e-03, 
+DIAGNOSTIC,Iteration,metricValue,convergenceValue,ITERATION_TIME_INDEX,SINCE_LAST
+ 2DIAGNOSTIC,     1, -5.127761363983e-01, inf, 1.6057e+00, 3.1014e-01, 
+ 2DIAGNOSTIC,     2, -5.131815671921e-01, inf, 1.6667e+00, 6.1025e-02, 
+ 2DIAGNOSTIC,     3, -5.135921239853e-01, inf, 1.7277e+00, 6.0935e-02, 
+ 2DIAGNOSTIC,     4, -5.137245655060e-01, inf, 1.7744e+00, 4.6691e-02, 
+ 2DIAGNOSTIC,     5, -5.138219594955e-01, inf, 1.8180e+00, 4.3662e-02, 
+ 2DIAGNOSTIC,     6, -5.139873027802e-01, inf, 1.8638e+00, 4.5820e-02, 
+ 2DIAGNOSTIC,     7, -5.140536427498e-01, inf, 1.9037e+00, 3.9876e-02, 
+ 2DIAGNOSTIC,     8, -5.142249464989e-01, inf, 1.9494e+00, 4.5680e-02, 
+ 2DIAGNOSTIC,     9, -5.147378444672e-01, inf, 2.0026e+00, 5.3160e-02, 
+ 2DIAGNOSTIC,    10, -5.153378248215e-01, 2.545984170865e-04, 2.0495e+00, 4.6987e-02, 
+ 2DIAGNOSTIC,    11, -5.154305696487e-01, 2.383357787039e-04, 2.0956e+00, 4.6030e-02, 
+ 2DIAGNOSTIC,    12, -5.154340863228e-01, 2.226110082120e-04, 2.1485e+00, 5.2935e-02, 
+ 2DIAGNOSTIC,    13, -5.154336690903e-01, 2.071360795526e-04, 2.2089e+00, 6.0402e-02, 
+ 2DIAGNOSTIC,    14, -5.154337882996e-01, 1.801370090107e-04, 2.2580e+00, 4.9095e-02, 
+ 2DIAGNOSTIC,    15, -5.154333710670e-01, 1.435840968043e-04, 2.3054e+00, 4.7353e-02, 
+ 2DIAGNOSTIC,    16, -5.154321193695e-01, 1.044656746672e-04, 2.3523e+00, 4.6945e-02, 
+ 2DIAGNOSTIC,    17, -5.154321789742e-01, 6.302883411990e-05, 2.3995e+00, 4.7208e-02, 
+ 2DIAGNOSTIC,    18, -5.154305696487e-01, 2.557731204433e-05, 2.4453e+00, 4.5826e-02, 
+ 2DIAGNOSTIC,    19, -5.154305100441e-01, 4.308724783186e-06, 2.5046e+00, 5.9266e-02, 
+ 2DIAGNOSTIC,    20, -5.154305696487e-01, 1.419994646312e-06, 2.5487e+00, 4.4098e-02, 
+ 2DIAGNOSTIC,    21, -5.154299139977e-01, 1.241299628418e-06, 2.5931e+00, 4.4359e-02, 
+ 2DIAGNOSTIC,    22, -5.154301524162e-01, 1.199711164190e-06, 2.6522e+00, 5.9109e-02, 
+ 2DIAGNOSTIC,    23, -5.154300928116e-01, 1.173136865873e-06, 2.6987e+00, 4.6579e-02, 
+ 2DIAGNOSTIC,    24, -5.154300928116e-01, 1.171326744043e-06, 2.7432e+00, 4.4458e-02, 
+ 2DIAGNOSTIC,    25, -5.154299736023e-01, 1.172770339508e-06, 2.7878e+00, 4.4616e-02, 
+ 2DIAGNOSTIC,    26, -5.154300928116e-01, 1.159359840130e-06, 2.8327e+00, 4.4899e-02, 
+ 2DIAGNOSTIC,    27, -5.154300332069e-01, 1.153931521003e-06, 2.8789e+00, 4.6158e-02, 
+ 2DIAGNOSTIC,    28, -5.154300332069e-01, 1.119431431107e-06, 2.9248e+00, 4.5931e-02, 
+ 2DIAGNOSTIC,    29, -5.154299139977e-01, 1.085518647415e-06, 2.9713e+00, 4.6462e-02, 
+ 2DIAGNOSTIC,    30, -5.154299736023e-01, 1.057695158124e-06, 3.0218e+00, 5.0505e-02, 
+ 2DIAGNOSTIC,    31, -5.154299736023e-01, 1.020127001539e-06, 3.0693e+00, 4.7495e-02, 
+DIAGNOSTIC,Iteration,metricValue,convergenceValue,ITERATION_TIME_INDEX,SINCE_LAST
+ 2DIAGNOSTIC,     1, -4.709098339081e-01, inf, 3.8308e+00, 7.6158e-01, 
+ 2DIAGNOSTIC,     2, -4.709423184395e-01, inf, 4.0701e+00, 2.3928e-01, 
+ 2DIAGNOSTIC,     3, -4.709550738335e-01, inf, 4.3475e+00, 2.7737e-01, 
+ 2DIAGNOSTIC,     4, -4.709544777870e-01, inf, 4.6040e+00, 2.5650e-01, 
+ 2DIAGNOSTIC,     5, -4.709552228451e-01, inf, 4.8580e+00, 2.5399e-01, 
+ 2DIAGNOSTIC,     6, -4.709549546242e-01, inf, 5.0847e+00, 2.2673e-01, 
+ 2DIAGNOSTIC,     7, -4.709548652172e-01, inf, 5.3160e+00, 2.3132e-01, 
+ 2DIAGNOSTIC,     8, -4.709543883801e-01, inf, 5.5931e+00, 2.7705e-01, 
+ 2DIAGNOSTIC,     9, -4.709546267986e-01, inf, 5.8214e+00, 2.2833e-01, 
+ 2DIAGNOSTIC,    10, -4.709541797638e-01, 6.485251105914e-06, 6.0752e+00, 2.5378e-01, 
+ 2DIAGNOSTIC,    11, -4.709542393684e-01, 3.486571358735e-06, 6.3538e+00, 2.7858e-01, 
+ 2DIAGNOSTIC,    12, -4.709541499615e-01, 2.545418965383e-06, 6.6034e+00, 2.4965e-01, 
+ 2DIAGNOSTIC,    13, -4.709542393684e-01, 2.356026925554e-06, 6.8355e+00, 2.3206e-01, 
+ 2DIAGNOSTIC,    14, -4.709542095661e-01, 2.173709162889e-06, 7.1009e+00, 2.6537e-01, 
+ 2DIAGNOSTIC,    15, -4.709541201591e-01, 2.051297087746e-06, 7.3315e+00, 2.3062e-01, 
+ 2DIAGNOSTIC,    16, -4.709541499615e-01, 1.941758682733e-06, 7.5694e+00, 2.3793e-01, 
+ 2DIAGNOSTIC,    17, -4.709540605545e-01, 1.843305653892e-06, 7.7993e+00, 2.2987e-01, 
+ 2DIAGNOSTIC,    18, -4.709540903568e-01, 1.743015673128e-06, 8.0408e+00, 2.4157e-01, 
+ 2DIAGNOSTIC,    19, -4.709541201591e-01, 1.664399519541e-06, 8.2722e+00, 2.3140e-01, 
+ 2DIAGNOSTIC,    20, -4.709541499615e-01, 1.581914034432e-06, 8.5073e+00, 2.3508e-01, 
+ 2DIAGNOSTIC,    21, -4.709540009499e-01, 1.505610839558e-06, 8.7427e+00, 2.3534e-01, 
+ 2DIAGNOSTIC,    22, -4.709540009499e-01, 1.434701744074e-06, 8.9758e+00, 2.3315e-01, 
+ 2DIAGNOSTIC,    23, -4.709541499615e-01, 1.377228386445e-06, 9.2389e+00, 2.6306e-01, 
+ 2DIAGNOSTIC,    24, -4.709541201591e-01, 1.323441438217e-06, 9.4703e+00, 2.3144e-01, 
+ 2DIAGNOSTIC,    25, -4.709539711475e-01, 1.268415871891e-06, 9.7088e+00, 2.3846e-01, 
+ 2DIAGNOSTIC,    26, -4.709540009499e-01, 1.219663204211e-06, 9.9401e+00, 2.3139e-01, 
+ 2DIAGNOSTIC,    27, -4.709539711475e-01, 1.172145175588e-06, 1.0180e+01, 2.3949e-01, 
+ 2DIAGNOSTIC,    28, -4.709540009499e-01, 1.129731231231e-06, 1.0419e+01, 2.3958e-01, 
+ 2DIAGNOSTIC,    29, -4.709540009499e-01, 1.091401600206e-06, 1.0653e+01, 2.3382e-01, 
+ 2DIAGNOSTIC,    30, -4.709540605545e-01, 1.058128418663e-06, 1.0881e+01, 2.2790e-01, 
+ 2DIAGNOSTIC,    31, -4.709540307522e-01, 1.023734853334e-06, 1.1108e+01, 2.2750e-01, 
+  Elapsed time (stage 0): 1.1336e+01
+
+
+Stage 1
+  iterations = 1000x500x250x100
+  convergence threshold = 1.0000e-06
+  convergence window size = 10
+  number of levels = 4
+  using the Mattes MI metric (number of bins = 32, weight = 1.0000e+00, use gradient filter = 0)
+  preprocessing:  winsorizing the image intensities
+  Shrink factors (level 1 out of 4): [8, 8, 8]
+  Shrink factors (level 2 out of 4): [4, 4, 4]
+  Shrink factors (level 3 out of 4): [2, 2, 2]
+  Shrink factors (level 4 out of 4): [1, 1, 1]
+  smoothing sigmas per level: [3, 2, 1, 0]
+  regular sampling (percentage = 2.5000e-01)
+
+*** Running AffineTransform registration ***
+
+DIAGNOSTIC,Iteration,metricValue,convergenceValue,ITERATION_TIME_INDEX,SINCE_LAST
+ 2DIAGNOSTIC,     1, -6.992216110229e-01, inf, 1.0895e-01, 1.0895e-01, 
+ 2DIAGNOSTIC,     2, -7.013971805573e-01, inf, 1.1545e-01, 6.5012e-03, 
+ 2DIAGNOSTIC,     3, -7.058656215668e-01, inf, 1.2367e-01, 8.2221e-03, 
+ 2DIAGNOSTIC,     4, -7.126576304436e-01, inf, 1.3097e-01, 7.2908e-03, 
+ 2DIAGNOSTIC,     5, -7.207484245300e-01, inf, 1.3789e-01, 6.9239e-03, 
+ 2DIAGNOSTIC,     6, -7.431006431580e-01, inf, 1.4453e-01, 6.6390e-03, 
+ 2DIAGNOSTIC,     7, -7.556837201118e-01, inf, 1.5144e-01, 6.9091e-03, 
+ 2DIAGNOSTIC,     8, -7.584177255630e-01, inf, 1.6319e-01, 1.1749e-02, 
+ 2DIAGNOSTIC,     9, -7.593165040016e-01, inf, 1.7007e-01, 6.8841e-03, 
+ 2DIAGNOSTIC,    10, -7.598147988319e-01, 6.679731421173e-03, 1.7962e-01, 9.5448e-03, 
+ 2DIAGNOSTIC,    11, -7.618582248688e-01, 5.632725078613e-03, 1.9246e-01, 1.2843e-02, 
+ 2DIAGNOSTIC,    12, -7.627345919609e-01, 4.352347925305e-03, 1.9967e-01, 7.2141e-03, 
+ 2DIAGNOSTIC,    13, -7.640756964684e-01, 3.060458693653e-03, 2.0705e-01, 7.3819e-03, 
+ 2DIAGNOSTIC,    14, -7.658907771111e-01, 1.923527568579e-03, 2.1699e-01, 9.9401e-03, 
+ 2DIAGNOSTIC,    15, -7.662777304649e-01, 9.719016961753e-04, 2.2385e-01, 6.8531e-03, 
+ 2DIAGNOSTIC,    16, -7.666676640511e-01, 5.893887719139e-04, 2.3149e-01, 7.6380e-03, 
+ 2DIAGNOSTIC,    17, -7.669740915298e-01, 4.868723335676e-04, 2.4006e-01, 8.5759e-03, 
+ 2DIAGNOSTIC,    18, -7.673035860062e-01, 4.157554358244e-04, 2.4647e-01, 6.4111e-03, 
+ 2DIAGNOSTIC,    19, -7.672703862190e-01, 3.311005129945e-04, 2.5409e-01, 7.6182e-03, 
+ 2DIAGNOSTIC,    20, -7.680321931839e-01, 2.478706301190e-04, 2.6564e-01, 1.1548e-02, 
+ 2DIAGNOSTIC,    21, -7.685399651527e-01, 1.958101493074e-04, 2.7714e-01, 1.1498e-02, 
+ 2DIAGNOSTIC,    22, -7.690953612328e-01, 1.547066349303e-04, 2.8611e-01, 8.9719e-03, 
+ 2DIAGNOSTIC,    23, -7.695343494415e-01, 1.314757828368e-04, 2.9452e-01, 8.4159e-03, 
+ 2DIAGNOSTIC,    24, -7.705354094505e-01, 1.423399080522e-04, 3.0420e-01, 9.6710e-03, 
+ 2DIAGNOSTIC,    25, -7.707164883614e-01, 1.471959694754e-04, 3.1402e-01, 9.8200e-03, 
+ 2DIAGNOSTIC,    26, -7.707120180130e-01, 1.434820005670e-04, 3.2394e-01, 9.9230e-03, 
+ 2DIAGNOSTIC,    27, -7.706561088562e-01, 1.302757009398e-04, 3.3079e-01, 6.8512e-03, 
+ 2DIAGNOSTIC,    28, -7.705234885216e-01, 1.086459160433e-04, 3.3904e-01, 8.2510e-03, 
+ 2DIAGNOSTIC,    29, -7.706595063210e-01, 7.943116361275e-05, 3.4778e-01, 8.7390e-03, 
+ 2DIAGNOSTIC,    30, -7.707883119583e-01, 5.579087519436e-05, 3.5460e-01, 6.8250e-03, 
+ 2DIAGNOSTIC,    31, -7.707701921463e-01, 3.447825656622e-05, 3.6282e-01, 8.2169e-03, 
+ 2DIAGNOSTIC,    32, -7.710936665535e-01, 2.176631824113e-05, 3.7028e-01, 7.4580e-03, 
+ 2DIAGNOSTIC,    33, -7.720685005188e-01, 2.358640267630e-05, 3.7814e-01, 7.8590e-03, 
+ 2DIAGNOSTIC,    34, -7.730096578598e-01, 4.421721678227e-05, 3.8665e-01, 8.5142e-03, 
+ 2DIAGNOSTIC,    35, -7.736257910728e-01, 6.791124906158e-05, 3.9887e-01, 1.2216e-02, 
+ 2DIAGNOSTIC,    36, -7.738428711891e-01, 8.621673623566e-05, 4.0646e-01, 7.5941e-03, 
+ 2DIAGNOSTIC,    37, -7.739423513412e-01, 9.599090117263e-05, 4.1395e-01, 7.4880e-03, 
+ 2DIAGNOSTIC,    38, -7.744330763817e-01, 9.957343718270e-05, 4.2443e-01, 1.0484e-02, 
+ 2DIAGNOSTIC,    39, -7.744745612144e-01, 9.498131112196e-05, 4.3148e-01, 7.0419e-03, 
+ 2DIAGNOSTIC,    40, -7.745314240456e-01, 8.349501149496e-05, 4.3817e-01, 6.6912e-03, 
+ 2DIAGNOSTIC,    41, -7.746921777725e-01, 6.615930760745e-05, 4.4674e-01, 8.5700e-03, 
+ 2DIAGNOSTIC,    42, -7.753439545631e-01, 5.197158316150e-05, 4.5909e-01, 1.2354e-02, 
+ 2DIAGNOSTIC,    43, -7.753701210022e-01, 4.190544859739e-05, 4.6751e-01, 8.4200e-03, 
+ 2DIAGNOSTIC,    44, -7.754009366035e-01, 3.656233820948e-05, 4.7436e-01, 6.8500e-03, 
+ 2DIAGNOSTIC,    45, -7.753075361252e-01, 3.246325286455e-05, 4.8133e-01, 6.9699e-03, 
+ 2DIAGNOSTIC,    46, -7.753314375877e-01, 2.747748658294e-05, 4.8849e-01, 7.1609e-03, 
+ 2DIAGNOSTIC,    47, -7.753437757492e-01, 2.082868195430e-05, 4.9994e-01, 1.1446e-02, 
+ 2DIAGNOSTIC,    48, -7.753545045853e-01, 1.640693881200e-05, 5.0788e-01, 7.9410e-03, 
+ 2DIAGNOSTIC,    49, -7.753561735153e-01, 1.107254502131e-05, 5.1510e-01, 7.2229e-03, 
+ 2DIAGNOSTIC,    50, -7.753594517708e-01, 5.444692760648e-06, 5.2221e-01, 7.1108e-03, 
+DIAGNOSTIC,Iteration,metricValue,convergenceValue,ITERATION_TIME_INDEX,SINCE_LAST
+ 2DIAGNOSTIC,     1, -6.161128282547e-01, inf, 6.7156e-01, 1.4935e-01, 
+ 2DIAGNOSTIC,     2, -6.168739795685e-01, inf, 6.8559e-01, 1.4033e-02, 
+ 2DIAGNOSTIC,     3, -6.180858612061e-01, inf, 6.9680e-01, 1.1209e-02, 
+ 2DIAGNOSTIC,     4, -6.191405057907e-01, inf, 7.0803e-01, 1.1229e-02, 
+ 2DIAGNOSTIC,     5, -6.200775504112e-01, inf, 7.2024e-01, 1.2204e-02, 
+ 2DIAGNOSTIC,     6, -6.204546093941e-01, inf, 7.3567e-01, 1.5431e-02, 
+ 2DIAGNOSTIC,     7, -6.205722689629e-01, inf, 7.4842e-01, 1.2752e-02, 
+ 2DIAGNOSTIC,     8, -6.205363273621e-01, inf, 7.5959e-01, 1.1171e-02, 
+ 2DIAGNOSTIC,     9, -6.205852031708e-01, inf, 7.7047e-01, 1.0882e-02, 
+ 2DIAGNOSTIC,    10, -6.205776929855e-01, 4.693632945418e-04, 7.8170e-01, 1.1231e-02, 
+ 2DIAGNOSTIC,    11, -6.205810904503e-01, 3.003847377840e-04, 8.0132e-01, 1.9619e-02, 
+ 2DIAGNOSTIC,    12, -6.205765008926e-01, 1.615117507754e-04, 8.1657e-01, 1.5247e-02, 
+ 2DIAGNOSTIC,    13, -6.205784082413e-01, 7.207399175968e-05, 8.2935e-01, 1.2781e-02, 
+ 2DIAGNOSTIC,    14, -6.205604076385e-01, 2.237808439531e-05, 8.4046e-01, 1.1113e-02, 
+ 2DIAGNOSTIC,    15, -6.205631494522e-01, 5.921863703406e-06, 8.5167e-01, 1.1212e-02, 
+ 2DIAGNOSTIC,    16, -6.205665469170e-01, 1.986882352867e-06, 8.6236e-01, 1.0681e-02, 
+ 2DIAGNOSTIC,    17, -6.205707788467e-01, 1.835768784986e-06, 8.7175e-01, 9.3970e-03, 
+DIAGNOSTIC,Iteration,metricValue,convergenceValue,ITERATION_TIME_INDEX,SINCE_LAST
+ 2DIAGNOSTIC,     1, -5.492333173752e-01, inf, 1.1139e+00, 2.4219e-01, 
+ 2DIAGNOSTIC,     2, -5.496389865875e-01, inf, 1.1614e+00, 4.7467e-02, 
+ 2DIAGNOSTIC,     3, -5.501671433449e-01, inf, 1.2066e+00, 4.5210e-02, 
+ 2DIAGNOSTIC,     4, -5.507681965828e-01, inf, 1.2526e+00, 4.5954e-02, 
+ 2DIAGNOSTIC,     5, -5.515226125717e-01, inf, 1.2969e+00, 4.4325e-02, 
+ 2DIAGNOSTIC,     6, -5.522481799126e-01, inf, 1.3522e+00, 5.5327e-02, 
+ 2DIAGNOSTIC,     7, -5.523993372917e-01, inf, 1.4021e+00, 4.9857e-02, 
+ 2DIAGNOSTIC,     8, -5.526722073555e-01, inf, 1.4578e+00, 5.5745e-02, 
+ 2DIAGNOSTIC,     9, -5.529692173004e-01, inf, 1.5040e+00, 4.6129e-02, 
+ 2DIAGNOSTIC,    10, -5.539677739143e-01, 5.330980638973e-04, 1.5794e+00, 7.5483e-02, 
+ 2DIAGNOSTIC,    11, -5.539845824242e-01, 4.605088324752e-04, 1.6258e+00, 4.6357e-02, 
+ 2DIAGNOSTIC,    12, -5.540494322777e-01, 3.798521065619e-04, 1.6692e+00, 4.3409e-02, 
+ 2DIAGNOSTIC,    13, -5.540709495544e-01, 2.998405543622e-04, 1.7189e+00, 4.9730e-02, 
+ 2DIAGNOSTIC,    14, -5.540937185287e-01, 2.264954237035e-04, 1.7747e+00, 5.5749e-02, 
+ 2DIAGNOSTIC,    15, -5.540974736214e-01, 1.674064114923e-04, 1.8256e+00, 5.0942e-02, 
+ 2DIAGNOSTIC,    16, -5.541011095047e-01, 1.240167475771e-04, 1.8719e+00, 4.6281e-02, 
+ 2DIAGNOSTIC,    17, -5.541123747826e-01, 7.976421329658e-05, 1.9239e+00, 5.1948e-02, 
+ 2DIAGNOSTIC,    18, -5.541279911995e-01, 4.157127841609e-05, 1.9673e+00, 4.3468e-02, 
+ 2DIAGNOSTIC,    19, -5.541445016861e-01, 1.144468660641e-05, 2.0097e+00, 4.2366e-02, 
+ 2DIAGNOSTIC,    20, -5.541864633560e-01, 1.018719649437e-05, 2.0544e+00, 4.4713e-02, 
+ 2DIAGNOSTIC,    21, -5.542692542076e-01, 1.063595846063e-05, 2.1040e+00, 4.9554e-02, 
+ 2DIAGNOSTIC,    22, -5.543015003204e-01, 1.241106292582e-05, 2.1488e+00, 4.4856e-02, 
+ 2DIAGNOSTIC,    23, -5.544005036354e-01, 1.569519736222e-05, 2.2157e+00, 6.6846e-02, 
+ 2DIAGNOSTIC,    24, -5.544204711914e-01, 1.824737410061e-05, 2.2845e+00, 6.8877e-02, 
+ 2DIAGNOSTIC,    25, -5.544201135635e-01, 1.908338163048e-05, 2.3410e+00, 5.6437e-02, 
+ 2DIAGNOSTIC,    26, -5.544180274010e-01, 1.821719888540e-05, 2.4025e+00, 6.1530e-02, 
+ 2DIAGNOSTIC,    27, -5.544185638428e-01, 1.603173768672e-05, 2.4549e+00, 5.2356e-02, 
+ 2DIAGNOSTIC,    28, -5.544178485870e-01, 1.286569568038e-05, 2.5044e+00, 4.9525e-02, 
+ 2DIAGNOSTIC,    29, -5.544160604477e-01, 9.064755431609e-06, 2.5575e+00, 5.3094e-02, 
+ 2DIAGNOSTIC,    30, -5.544158816338e-01, 5.473390501720e-06, 2.6100e+00, 5.2551e-02, 
+ 2DIAGNOSTIC,    31, -5.544158816338e-01, 3.078220515818e-06, 2.6657e+00, 5.5694e-02, 
+ 2DIAGNOSTIC,    32, -5.544159412384e-01, 1.114945575864e-06, 2.7167e+00, 5.0964e-02, 
+DIAGNOSTIC,Iteration,metricValue,convergenceValue,ITERATION_TIME_INDEX,SINCE_LAST
+ 2DIAGNOSTIC,     1, -5.041419863701e-01, inf, 3.5533e+00, 8.3665e-01, 
+ 2DIAGNOSTIC,     2, -5.044293999672e-01, inf, 3.8576e+00, 3.0429e-01, 
+ 2DIAGNOSTIC,     3, -5.047327280045e-01, inf, 4.1516e+00, 2.9395e-01, 
+ 2DIAGNOSTIC,     4, -5.052502155304e-01, inf, 4.4559e+00, 3.0432e-01, 
+ 2DIAGNOSTIC,     5, -5.064429044724e-01, inf, 4.7505e+00, 2.9459e-01, 
+ 2DIAGNOSTIC,     6, -5.069773793221e-01, inf, 5.2268e+00, 4.7635e-01, 
+ 2DIAGNOSTIC,     7, -5.069785714149e-01, inf, 5.6112e+00, 3.8433e-01, 
+ 2DIAGNOSTIC,     8, -5.069789886475e-01, inf, 5.9300e+00, 3.1883e-01, 
+ 2DIAGNOSTIC,     9, -5.069784522057e-01, inf, 6.2506e+00, 3.2056e-01, 
+ 2DIAGNOSTIC,    10, -5.069777965546e-01, 4.264167801011e-04, 6.5772e+00, 3.2663e-01, 
+ 2DIAGNOSTIC,    11, -5.069777965546e-01, 3.078723675571e-04, 6.8962e+00, 3.1901e-01, 
+ 2DIAGNOSTIC,    12, -5.069772005081e-01, 1.958965731319e-04, 7.2122e+00, 3.1600e-01, 
+ 2DIAGNOSTIC,    13, -5.069770216942e-01, 9.717672946863e-05, 7.5328e+00, 3.2055e-01, 
+ 2DIAGNOSTIC,    14, -5.069761872292e-01, 2.358140045544e-05, 7.8809e+00, 3.4817e-01, 
+ 2DIAGNOSTIC,    15, -5.069756507874e-01, 1.907249725264e-06, 8.2000e+00, 3.1911e-01, 
+ 2DIAGNOSTIC,    16, -5.069754719734e-01, 1.707591422928e-06, 8.5699e+00, 3.6988e-01, 
+ 2DIAGNOSTIC,    17, -5.069752335548e-01, 1.587880319676e-06, 9.0207e+00, 4.5073e-01, 
+ 2DIAGNOSTIC,    18, -5.069754123688e-01, 1.526803202978e-06, 9.3352e+00, 3.1450e-01, 
+ 2DIAGNOSTIC,    19, -5.069752931595e-01, 1.475693011344e-06, 9.6505e+00, 3.1533e-01, 
+ 2DIAGNOSTIC,    20, -5.069752931595e-01, 1.430032511962e-06, 9.9693e+00, 3.1885e-01, 
+ 2DIAGNOSTIC,    21, -5.069752335548e-01, 1.402457314725e-06, 1.0295e+01, 3.2601e-01, 
+ 2DIAGNOSTIC,    22, -5.069751739502e-01, 1.371032908537e-06, 1.0608e+01, 3.1260e-01, 
+ 2DIAGNOSTIC,    23, -5.069751143456e-01, 1.343990106761e-06, 1.0921e+01, 3.1321e-01, 
+ 2DIAGNOSTIC,    24, -5.069748759270e-01, 1.298141910411e-06, 1.1245e+01, 3.2368e-01, 
+ 2DIAGNOSTIC,    25, -5.069751143456e-01, 1.252183892575e-06, 1.1563e+01, 3.1862e-01, 
+ 2DIAGNOSTIC,    26, -5.069749951363e-01, 1.205276134897e-06, 1.1882e+01, 3.1821e-01, 
+ 2DIAGNOSTIC,    27, -5.069750547409e-01, 1.159872226708e-06, 1.2193e+01, 3.1136e-01, 
+ 2DIAGNOSTIC,    28, -5.069749951363e-01, 1.122012349697e-06, 1.2520e+01, 3.2745e-01, 
+ 2DIAGNOSTIC,    29, -5.069751143456e-01, 1.088208477995e-06, 1.2893e+01, 3.7211e-01, 
+ 2DIAGNOSTIC,    30, -5.069749951363e-01, 1.055212806023e-06, 1.3214e+01, 3.2134e-01, 
+ 2DIAGNOSTIC,    31, -5.069750547409e-01, 1.024930384119e-06, 1.3531e+01, 3.1742e-01, 
+  Elapsed time (stage 1): 1.3779e+01
+
+
+Stage 2
+  iterations = 100x70x50x20
+  convergence threshold = 1.0000e-06
+  convergence window size = 10
+  number of levels = 4
+  using the CC metric (radius = 4, weight = 1.0000e+00, use gradient filter = 0)
+  preprocessing:  winsorizing the image intensities
+  Shrink factors (level 1 out of 4): [8, 8, 8]
+  Shrink factors (level 2 out of 4): [4, 4, 4]
+  Shrink factors (level 3 out of 4): [2, 2, 2]
+  Shrink factors (level 4 out of 4): [1, 1, 1]
+  smoothing sigmas per level: [3, 2, 1, 0]
+  Using default NONE metricSamplingStrategy 
+
+*** Running SyN registration (varianceForUpdateField = 3.0000e+00, varianceForTotalField = 0.0000e+00) ***
+
+XXDIAGNOSTIC,Iteration,metricValue,convergenceValue,ITERATION_TIME_INDEX,SINCE_LAST
+ 1DIAGNOSTIC,     1, -8.642116189003e-01, inf, 1.6726e-01, 1.6726e-01, 
+ 1DIAGNOSTIC,     2, -8.758862018585e-01, inf, 2.5662e-01, 8.9364e-02, 
+ 1DIAGNOSTIC,     3, -8.886030912399e-01, inf, 3.5104e-01, 9.4425e-02, 
+ 1DIAGNOSTIC,     4, -8.992419242859e-01, inf, 4.5443e-01, 1.0338e-01, 
+ 1DIAGNOSTIC,     5, -9.083566069603e-01, inf, 5.3951e-01, 8.5086e-02, 
+ 1DIAGNOSTIC,     6, -9.151169657707e-01, inf, 6.4283e-01, 1.0332e-01, 
+ 1DIAGNOSTIC,     7, -9.210360050201e-01, inf, 7.2253e-01, 7.9692e-02, 
+ 1DIAGNOSTIC,     8, -9.260587096214e-01, inf, 8.0340e-01, 8.0874e-02, 
+ 1DIAGNOSTIC,     9, -9.301866292953e-01, inf, 8.9194e-01, 8.8535e-02, 
+ 1DIAGNOSTIC,    10, -9.328461289406e-01, 4.822679329664e-03, 9.8388e-01, 9.1943e-02, 
+ 1DIAGNOSTIC,    11, -9.347354769707e-01, 3.655493492261e-03, 1.0801e+00, 9.6223e-02, 
+ 1DIAGNOSTIC,    12, -9.362384080887e-01, 2.698597963899e-03, 1.1687e+00, 8.8586e-02, 
+ 1DIAGNOSTIC,    13, -9.375066161156e-01, 1.980031607673e-03, 1.2561e+00, 8.7421e-02, 
+ 1DIAGNOSTIC,    14, -9.385786056519e-01, 1.443386077881e-03, 1.3398e+00, 8.3730e-02, 
+ 1DIAGNOSTIC,    15, -9.395011067390e-01, 1.054077059962e-03, 1.4212e+00, 8.1400e-02, 
+ 1DIAGNOSTIC,    16, -9.403003454208e-01, 7.629102910869e-04, 1.5077e+00, 8.6437e-02, 
+ 1DIAGNOSTIC,    17, -9.409562945366e-01, 5.548770423047e-04, 1.6038e+00, 9.6080e-02, 
+ 1DIAGNOSTIC,    18, -9.415004253387e-01, 4.135369672440e-04, 1.7037e+00, 9.9958e-02, 
+ 1DIAGNOSTIC,    19, -9.419285058975e-01, 3.224073152523e-04, 1.7913e+00, 8.7571e-02, 
+ 1DIAGNOSTIC,    20, -9.423231482506e-01, 2.573336532805e-04, 1.8713e+00, 8.0013e-02, 
+ 1DIAGNOSTIC,    21, -9.426820278168e-01, 2.073264186038e-04, 1.9676e+00, 9.6282e-02, 
+ 1DIAGNOSTIC,    22, -9.430177211761e-01, 1.681241119513e-04, 2.0614e+00, 9.3861e-02, 
+ 1DIAGNOSTIC,    23, -9.433323740959e-01, 1.377017470077e-04, 2.1508e+00, 8.9319e-02, 
+ 1DIAGNOSTIC,    24, -9.436388015747e-01, 1.145149362856e-04, 2.2418e+00, 9.1069e-02, 
+ 1DIAGNOSTIC,    25, -9.439465999603e-01, 9.749990567798e-05, 2.3347e+00, 9.2856e-02, 
+ 1DIAGNOSTIC,    26, -9.442625045776e-01, 8.575035462854e-05, 2.4218e+00, 8.7134e-02, 
+ 1DIAGNOSTIC,    27, -9.445853829384e-01, 7.788943185005e-05, 2.5097e+00, 8.7874e-02, 
+ 1DIAGNOSTIC,    28, -9.449213147163e-01, 7.288051710930e-05, 2.5984e+00, 8.8738e-02, 
+ 1DIAGNOSTIC,    29, -9.452763795853e-01, 6.960954488022e-05, 2.7027e+00, 1.0424e-01, 
+ 1DIAGNOSTIC,    30, -9.456600546837e-01, 6.791934720241e-05, 2.8030e+00, 1.0033e-01, 
+ 1DIAGNOSTIC,    31, -9.460732340813e-01, 6.752682384104e-05, 2.9071e+00, 1.0410e-01, 
+ 1DIAGNOSTIC,    32, -9.464387297630e-01, 6.745990685886e-05, 3.0059e+00, 9.8826e-02, 
+ 1DIAGNOSTIC,    33, -9.469459652901e-01, 6.862805457786e-05, 3.0909e+00, 8.4923e-02, 
+ 1DIAGNOSTIC,    34, -9.474250078201e-01, 7.024587830529e-05, 3.1848e+00, 9.3939e-02, 
+ 1DIAGNOSTIC,    35, -9.480001926422e-01, 7.278457633220e-05, 3.2843e+00, 9.9468e-02, 
+ 1DIAGNOSTIC,    36, -9.485816955566e-01, 7.584495324409e-05, 3.3775e+00, 9.3260e-02, 
+ 1DIAGNOSTIC,    37, -9.491193294525e-01, 7.860184996389e-05, 3.4813e+00, 1.0379e-01, 
+ 1DIAGNOSTIC,    38, -9.497947692871e-01, 8.183533645933e-05, 3.5787e+00, 9.7395e-02, 
+ 1DIAGNOSTIC,    39, -9.504333138466e-01, 8.481400436722e-05, 3.6644e+00, 8.5698e-02, 
+ 1DIAGNOSTIC,    40, -9.510546922684e-01, 8.716705633560e-05, 3.7530e+00, 8.8595e-02, 
+ 1DIAGNOSTIC,    41, -9.516595602036e-01, 8.864125265973e-05, 3.8678e+00, 1.1485e-01, 
+ 1DIAGNOSTIC,    42, -9.521397948265e-01, 8.768530096859e-05, 3.9628e+00, 9.4999e-02, 
+ 1DIAGNOSTIC,    43, -9.525872468948e-01, 8.514977525920e-05, 4.0554e+00, 9.2554e-02, 
+ 1DIAGNOSTIC,    44, -9.529750943184e-01, 8.055460784817e-05, 4.1456e+00, 9.0205e-02, 
+ 1DIAGNOSTIC,    45, -9.532595872879e-01, 7.425103103742e-05, 4.2339e+00, 8.8333e-02, 
+ 1DIAGNOSTIC,    46, -9.535171389580e-01, 6.667715206277e-05, 4.3331e+00, 9.9174e-02, 
+ 1DIAGNOSTIC,    47, -9.537514448166e-01, 5.802546729683e-05, 4.4182e+00, 8.5077e-02, 
+ 1DIAGNOSTIC,    48, -9.539698362350e-01, 4.982760583516e-05, 4.5133e+00, 9.5142e-02, 
+ 1DIAGNOSTIC,    49, -9.541670680046e-01, 4.236086169840e-05, 4.6070e+00, 9.3631e-02, 
+ 1DIAGNOSTIC,    50, -9.544260501862e-01, 3.647041376098e-05, 4.7244e+00, 1.1746e-01, 
+ 1DIAGNOSTIC,    51, -9.545696377754e-01, 3.176616519340e-05, 4.8192e+00, 9.4798e-02, 
+ 1DIAGNOSTIC,    52, -9.547871351242e-01, 2.828087963280e-05, 4.9092e+00, 9.0021e-02, 
+ 1DIAGNOSTIC,    53, -9.548933506012e-01, 2.538513763284e-05, 5.0071e+00, 9.7818e-02, 
+ 1DIAGNOSTIC,    54, -9.550821781158e-01, 2.342632797081e-05, 5.1028e+00, 9.5750e-02, 
+ 1DIAGNOSTIC,    55, -9.551549553871e-01, 2.127301740984e-05, 5.1888e+00, 8.5969e-02, 
+ 1DIAGNOSTIC,    56, -9.552234411240e-01, 1.895436071209e-05, 5.2748e+00, 8.6023e-02, 
+ 1DIAGNOSTIC,    57, -9.552856683731e-01, 1.651314232731e-05, 5.3725e+00, 9.7676e-02, 
+ 1DIAGNOSTIC,    58, -9.553399682045e-01, 1.402849920851e-05, 5.4674e+00, 9.4947e-02, 
+ 1DIAGNOSTIC,    59, -9.553855061531e-01, 1.154818437499e-05, 5.5693e+00, 1.0191e-01, 
+ 1DIAGNOSTIC,    60, -9.554201364517e-01, 9.563840649207e-06, 5.6736e+00, 1.0428e-01, 
+ 1DIAGNOSTIC,    61, -9.554305076599e-01, 7.524101874878e-06, 5.7708e+00, 9.7236e-02, 
+ 1DIAGNOSTIC,    62, -9.554460048676e-01, 6.011387995386e-06, 5.8794e+00, 1.0851e-01, 
+ 1DIAGNOSTIC,    63, -9.554501175880e-01, 4.525932581601e-06, 5.9792e+00, 9.9823e-02, 
+ 1DIAGNOSTIC,    64, -9.554445743561e-01, 3.560024197213e-06, 6.0803e+00, 1.0117e-01, 
+ 1DIAGNOSTIC,    65, -9.554318189621e-01, 2.605490180940e-06, 6.1790e+00, 9.8663e-02, 
+ 1DIAGNOSTIC,    66, -9.554145336151e-01, 1.709342654976e-06, 6.2747e+00, 9.5666e-02, 
+ 1DIAGNOSTIC,    67, -9.553948640823e-01, 9.119560218096e-07, 6.3688e+00, 9.4121e-02, 
+XXDIAGNOSTIC,Iteration,metricValue,convergenceValue,ITERATION_TIME_INDEX,SINCE_LAST
+ 1DIAGNOSTIC,     1, -9.017014503479e-01, inf, 6.8888e+00, 5.1997e-01, 
+ 1DIAGNOSTIC,     2, -9.041938781738e-01, inf, 7.2975e+00, 4.0870e-01, 
+ 1DIAGNOSTIC,     3, -9.068326354027e-01, inf, 7.7025e+00, 4.0502e-01, 
+ 1DIAGNOSTIC,     4, -9.091874361038e-01, inf, 8.1194e+00, 4.1697e-01, 
+ 1DIAGNOSTIC,     5, -9.111730456352e-01, inf, 8.5231e+00, 4.0369e-01, 
+ 1DIAGNOSTIC,     6, -9.127700328827e-01, inf, 8.9526e+00, 4.2945e-01, 
+ 1DIAGNOSTIC,     7, -9.142394661903e-01, inf, 9.3799e+00, 4.2729e-01, 
+ 1DIAGNOSTIC,     8, -9.154482483864e-01, inf, 9.8355e+00, 4.5567e-01, 
+ 1DIAGNOSTIC,     9, -9.165261983871e-01, inf, 1.0259e+01, 4.2387e-01, 
+ 1DIAGNOSTIC,    10, -9.175171852112e-01, 1.103283953853e-03, 1.0666e+01, 4.0618e-01, 
+ 1DIAGNOSTIC,    11, -9.184265136719e-01, 8.802947704680e-04, 1.1085e+01, 4.1910e-01, 
+ 1DIAGNOSTIC,    12, -9.192746877670e-01, 7.015686132945e-04, 1.1509e+01, 4.2455e-01, 
+ 1DIAGNOSTIC,    13, -9.200732111931e-01, 5.686820368282e-04, 1.1929e+01, 4.2020e-01, 
+ 1DIAGNOSTIC,    14, -9.206539392471e-01, 4.678968107328e-04, 1.2357e+01, 4.2730e-01, 
+ 1DIAGNOSTIC,    15, -9.211455583572e-01, 3.889743820764e-04, 1.2783e+01, 4.2578e-01, 
+ 1DIAGNOSTIC,    16, -9.215769767761e-01, 3.234172181692e-04, 1.3203e+01, 4.2097e-01, 
+ 1DIAGNOSTIC,    17, -9.219559431076e-01, 2.694010618143e-04, 1.3635e+01, 4.3181e-01, 
+ 1DIAGNOSTIC,    18, -9.223050475121e-01, 2.232430415461e-04, 1.4066e+01, 4.3065e-01, 
+ 1DIAGNOSTIC,    19, -9.226160049438e-01, 1.838792231865e-04, 1.4480e+01, 4.1414e-01, 
+ 1DIAGNOSTIC,    20, -9.228821992874e-01, 1.508487912361e-04, 1.4906e+01, 4.2557e-01, 
+ 1DIAGNOSTIC,    21, -9.231207370758e-01, 1.238333934452e-04, 1.5349e+01, 4.4372e-01, 
+ 1DIAGNOSTIC,    22, -9.233387708664e-01, 1.026780737448e-04, 1.5780e+01, 4.3028e-01, 
+ 1DIAGNOSTIC,    23, -9.235436320305e-01, 8.727715612622e-05, 1.6192e+01, 4.1247e-01, 
+ 1DIAGNOSTIC,    24, -9.237502813339e-01, 7.516040932387e-05, 1.6642e+01, 4.5019e-01, 
+ 1DIAGNOSTIC,    25, -9.239553809166e-01, 6.561500049429e-05, 1.7107e+01, 4.6494e-01, 
+ 1DIAGNOSTIC,    26, -9.241515398026e-01, 5.814482938149e-05, 1.7539e+01, 4.3136e-01, 
+ 1DIAGNOSTIC,    27, -9.243509173393e-01, 5.242255429039e-05, 1.7983e+01, 4.4396e-01, 
+ 1DIAGNOSTIC,    28, -9.245528578758e-01, 4.829506360693e-05, 1.8417e+01, 4.3414e-01, 
+ 1DIAGNOSTIC,    29, -9.247538447380e-01, 4.539583824226e-05, 1.8835e+01, 4.1870e-01, 
+ 1DIAGNOSTIC,    30, -9.249342083931e-01, 4.304777758080e-05, 1.9268e+01, 4.3260e-01, 
+ 1DIAGNOSTIC,    31, -9.250561594963e-01, 4.042888031108e-05, 1.9674e+01, 4.0587e-01, 
+ 1DIAGNOSTIC,    32, -9.251163005829e-01, 3.690200537676e-05, 2.0104e+01, 4.3057e-01, 
+ 1DIAGNOSTIC,    33, -9.251267910004e-01, 3.217993798899e-05, 2.0539e+01, 4.3461e-01, 
+ 1DIAGNOSTIC,    34, -9.251137971878e-01, 2.651113209140e-05, 2.0967e+01, 4.2826e-01, 
+ 1DIAGNOSTIC,    35, -9.250814318657e-01, 2.024036439252e-05, 2.1411e+01, 4.4362e-01, 
+ 1DIAGNOSTIC,    36, -9.250373840332e-01, 1.377069020236e-05, 2.1853e+01, 4.4201e-01, 
+ 1DIAGNOSTIC,    37, -9.249814748764e-01, 7.614194601047e-06, 2.2288e+01, 4.3509e-01, 
+ 1DIAGNOSTIC,    38, -9.249305725098e-01, 2.357069433856e-06, 2.2723e+01, 4.3457e-01, 
+ 1DIAGNOSTIC,    39, -9.248772859573e-01, -1.622367676646e-06, 2.3165e+01, 4.4207e-01, 
+XXDIAGNOSTIC,Iteration,metricValue,convergenceValue,ITERATION_TIME_INDEX,SINCE_LAST
+ 1DIAGNOSTIC,     1, -8.623874187469e-01, inf, 2.5872e+01, 2.7070e+00, 
+ 1DIAGNOSTIC,     2, -8.642767071724e-01, inf, 2.8454e+01, 2.5820e+00, 
+ 1DIAGNOSTIC,     3, -8.665442466736e-01, inf, 3.0966e+01, 2.5124e+00, 
+ 1DIAGNOSTIC,     4, -8.687403798103e-01, inf, 3.3559e+01, 2.5924e+00, 
+ 1DIAGNOSTIC,     5, -8.708415031433e-01, inf, 3.6143e+01, 2.5848e+00, 
+ 1DIAGNOSTIC,     6, -8.727010488510e-01, inf, 3.8810e+01, 2.6667e+00, 
+ 1DIAGNOSTIC,     7, -8.743672370911e-01, inf, 4.1381e+01, 2.5714e+00, 
+ 1DIAGNOSTIC,     8, -8.757541775703e-01, inf, 4.4145e+01, 2.7634e+00, 
+ 1DIAGNOSTIC,     9, -8.771228790283e-01, inf, 4.6748e+01, 2.6033e+00, 
+ 1DIAGNOSTIC,    10, -8.782626390457e-01, 1.193993142806e-03, 4.9347e+01, 2.5992e+00, 
+ 1DIAGNOSTIC,    11, -8.794269561768e-01, 1.005787285976e-03, 5.1982e+01, 2.6341e+00, 
+ 1DIAGNOSTIC,    12, -8.803954720497e-01, 8.357039187104e-04, 5.4588e+01, 2.6063e+00, 
+ 1DIAGNOSTIC,    13, -8.812909126282e-01, 6.950466777198e-04, 5.7159e+01, 2.5715e+00, 
+ 1DIAGNOSTIC,    14, -8.821254372597e-01, 5.812715971842e-04, 5.9931e+01, 2.7717e+00, 
+ 1DIAGNOSTIC,    15, -8.828995823860e-01, 4.914539167657e-04, 6.2568e+01, 2.6365e+00, 
+ 1DIAGNOSTIC,    16, -8.836271762848e-01, 4.199328250252e-04, 6.5160e+01, 2.5926e+00, 
+ 1DIAGNOSTIC,    17, -8.843172788620e-01, 3.629168204498e-04, 6.7767e+01, 2.6071e+00, 
+ 1DIAGNOSTIC,    18, -8.849709033966e-01, 3.152427671012e-04, 7.0342e+01, 2.5748e+00, 
+ 1DIAGNOSTIC,    19, -8.855923414230e-01, 2.771823783405e-04, 7.2880e+01, 2.5381e+00, 
+ 1DIAGNOSTIC,    20, -8.861841559410e-01, 2.450250904076e-04, 7.5497e+01, 2.6163e+00, 
+ 1DIAGNOSTIC,    21, -8.867486119270e-01, 2.196433342760e-04, 7.8089e+01, 2.5926e+00, 
+ 1DIAGNOSTIC,    22, -8.872886300087e-01, 1.981524110306e-04, 8.0713e+01, 2.6239e+00, 
+ 1DIAGNOSTIC,    23, -8.878136277199e-01, 1.798829907784e-04, 8.3264e+01, 2.5514e+00, 
+ 1DIAGNOSTIC,    24, -8.883278369904e-01, 1.643735449761e-04, 8.5802e+01, 2.5375e+00, 
+ 1DIAGNOSTIC,    25, -8.888288736343e-01, 1.510938891442e-04, 8.8369e+01, 2.5666e+00, 
+ 1DIAGNOSTIC,    26, -8.893207311630e-01, 1.397257001372e-04, 9.1007e+01, 2.6384e+00, 
+ 1DIAGNOSTIC,    27, -8.898072242737e-01, 1.300677686231e-04, 9.3599e+01, 2.5921e+00, 
+ 1DIAGNOSTIC,    28, -8.902823925018e-01, 1.218054967467e-04, 9.6235e+01, 2.6358e+00, 
+ 1DIAGNOSTIC,    29, -8.907427787781e-01, 1.146131617134e-04, 9.8825e+01, 2.5906e+00, 
+ 1DIAGNOSTIC,    30, -8.911859989166e-01, 1.081662703655e-04, 1.0146e+02, 2.6325e+00, 
+ 1DIAGNOSTIC,    31, -8.916119337082e-01, 1.021795833367e-04, 1.0408e+02, 2.6207e+00, 
+ 1DIAGNOSTIC,    32, -8.920257091522e-01, 9.647696424508e-05, 1.0673e+02, 2.6489e+00, 
+ 1DIAGNOSTIC,    33, -8.924244046211e-01, 9.097439760808e-05, 1.0930e+02, 2.5772e+00, 
+ 1DIAGNOSTIC,    34, -8.928114175797e-01, 8.568807243137e-05, 1.1189e+02, 2.5823e+00, 
+ 1DIAGNOSTIC,    35, -8.931849598885e-01, 8.060286199907e-05, 1.1455e+02, 2.6646e+00, 
+ 1DIAGNOSTIC,    36, -8.935475945473e-01, 7.577197538922e-05, 1.1722e+02, 2.6636e+00, 
+ 1DIAGNOSTIC,    37, -8.938993811607e-01, 7.127915159799e-05, 1.1983e+02, 2.6114e+00, 
+ 1DIAGNOSTIC,    38, -8.942400217056e-01, 6.713985931128e-05, 1.2250e+02, 2.6700e+00, 
+ 1DIAGNOSTIC,    39, -8.945709466934e-01, 6.334156205412e-05, 1.2507e+02, 2.5689e+00, 
+ 1DIAGNOSTIC,    40, -8.948911428452e-01, 5.983345909044e-05, 1.2762e+02, 2.5537e+00, 
+ 1DIAGNOSTIC,    41, -8.952035903931e-01, 5.658178270096e-05, 1.3029e+02, 2.6753e+00, 
+ 1DIAGNOSTIC,    42, -8.954976797104e-01, 5.350618448574e-05, 1.3286e+02, 2.5661e+00, 
+ 1DIAGNOSTIC,    43, -8.957772850990e-01, 5.054090433987e-05, 1.3546e+02, 2.5983e+00, 
+ 1DIAGNOSTIC,    44, -8.960403203964e-01, 4.763813922182e-05, 1.3800e+02, 2.5369e+00, 
+ 1DIAGNOSTIC,    45, -8.962910175323e-01, 4.477780748857e-05, 1.4062e+02, 2.6273e+00, 
+ 1DIAGNOSTIC,    46, -8.965331912041e-01, 4.199397517368e-05, 1.4324e+02, 2.6128e+00, 
+ 1DIAGNOSTIC,    47, -8.967653512955e-01, 3.931318860850e-05, 1.4584e+02, 2.6041e+00, 
+ 1DIAGNOSTIC,    48, -8.969838023186e-01, 3.673557148431e-05, 1.4847e+02, 2.6292e+00, 
+ 1DIAGNOSTIC,    49, -8.971955776215e-01, 3.431782897678e-05, 1.5103e+02, 2.5639e+00, 
+ 1DIAGNOSTIC,    50, -8.973991870880e-01, 3.208770067431e-05, 1.5364e+02, 2.6040e+00, 
+XXDIAGNOSTIC,Iteration,metricValue,convergenceValue,ITERATION_TIME_INDEX,SINCE_LAST
+ 1DIAGNOSTIC,     1, -8.421649932861e-01, inf, 1.7290e+02, 1.9261e+01, 
+ 1DIAGNOSTIC,     2, -8.430347442627e-01, inf, 1.9196e+02, 1.9064e+01, 
+ 1DIAGNOSTIC,     3, -8.442186117172e-01, inf, 2.1078e+02, 1.8817e+01, 
+ 1DIAGNOSTIC,     4, -8.454065918922e-01, inf, 2.2921e+02, 1.8433e+01, 
+ 1DIAGNOSTIC,     5, -8.465952873230e-01, inf, 2.4783e+02, 1.8617e+01, 
+ 1DIAGNOSTIC,     6, -8.476974964142e-01, inf, 2.6669e+02, 1.8862e+01, 
+ 1DIAGNOSTIC,     7, -8.486719131470e-01, inf, 2.8537e+02, 1.8680e+01, 
+ 1DIAGNOSTIC,     8, -8.495081663132e-01, inf, 3.0394e+02, 1.8569e+01, 
+ 1DIAGNOSTIC,     9, -8.503130674362e-01, inf, 3.2256e+02, 1.8620e+01, 
+ 1DIAGNOSTIC,    10, -8.510389924049e-01, 6.962926127017e-04, 3.4135e+02, 1.8795e+01, 
+ 1DIAGNOSTIC,    11, -8.517050743103e-01, 6.003956659697e-04, 3.5981e+02, 1.8457e+01, 
+ 1DIAGNOSTIC,    12, -8.523169755936e-01, 5.077828536741e-04, 3.7849e+02, 1.8679e+01, 
+ 1DIAGNOSTIC,    13, -8.529619574547e-01, 4.304993199185e-04, 3.9697e+02, 1.8479e+01, 
+ 1DIAGNOSTIC,    14, -8.535014390945e-01, 3.661787195597e-04, 4.1562e+02, 1.8650e+01, 
+ 1DIAGNOSTIC,    15, -8.540167212486e-01, 3.148106916342e-04, 4.3422e+02, 1.8605e+01, 
+ 1DIAGNOSTIC,    16, -8.544505834579e-01, 2.729677653406e-04, 4.5306e+02, 1.8830e+01, 
+ 1DIAGNOSTIC,    17, -8.549659252167e-01, 2.401506353635e-04, 4.7193e+02, 1.8872e+01, 
+ 1DIAGNOSTIC,    18, -8.554258942604e-01, 2.127058542101e-04, 4.9049e+02, 1.8566e+01, 
+ 1DIAGNOSTIC,    19, -8.559094667435e-01, 1.910082210088e-04, 5.0930e+02, 1.8806e+01, 
+ 1DIAGNOSTIC,    20, -8.563947081566e-01, 1.739141735015e-04, 5.2810e+02, 1.8800e+01, 
+  Elapsed time (stage 2): 528.4
+
+
+Total elapsed time: 553.5
+ Registration finished. The antsRegistration call was:
+--------------------------------------------------------------------------------------
+/opt/ants/bin/antsRegistration --verbose 1 --dimensionality 3 --float 1 --collapse-output-transforms 1 --output [ /data/derivatives/ants/registrationSyN-fp/sub-s032/ses-open/anat/,/data/derivatives/ants/registrationSyN-fp/sub-s032/ses-open/anat/Warped.nii.gz,/data/derivatives/ants/registrationSyN-fp/sub-s032/ses-open/anat/InverseWarped.nii.gz ] --interpolation Linear --use-histogram-matching 0 --winsorize-image-intensities [ 0.005,0.995 ] --initial-moving-transform [ /templateflow/tpl-MNI152NLin2009cAsym//tpl-MNI152NLin2009cAsym_res-01_desc-brain_T1w.nii.gz,/data/derivatives/fsl/fast/sub-s032/ses-open/anat/BrainExtractionBrain_seg.nii.gz,1 ] --transform Rigid[ 0.1 ] --metric MI[ /templateflow/tpl-MNI152NLin2009cAsym//tpl-MNI152NLin2009cAsym_res-01_desc-brain_T1w.nii.gz,/data/derivatives/fsl/fast/sub-s032/ses-open/anat/BrainExtractionBrain_seg.nii.gz,1,32,Regular,0.25 ] --convergence [ 1000x500x250x100,1e-6,10 ] --shrink-factors 8x4x2x1 --smoothing-sigmas 3x2x1x0vox --transform Affine[ 0.1 ] --metric MI[ /templateflow/tpl-MNI152NLin2009cAsym//tpl-MNI152NLin2009cAsym_res-01_desc-brain_T1w.nii.gz,/data/derivatives/fsl/fast/sub-s032/ses-open/anat/BrainExtractionBrain_seg.nii.gz,1,32,Regular,0.25 ] --convergence [ 1000x500x250x100,1e-6,10 ] --shrink-factors 8x4x2x1 --smoothing-sigmas 3x2x1x0vox --transform SyN[ 0.1,3,0 ] --metric CC[ /templateflow/tpl-MNI152NLin2009cAsym//tpl-MNI152NLin2009cAsym_res-01_desc-brain_T1w.nii.gz,/data/derivatives/fsl/fast/sub-s032/ses-open/anat/BrainExtractionBrain_seg.nii.gz,1,4 ] --convergence [ 100x70x50x20,1e-6,10 ] --shrink-factors 8x4x2x1 --smoothing-sigmas 3x2x1x0vox
+--------------------------------------------------------------------------------------
+Moving image resampled into fixed space: /data/derivatives/ants/registrationSyN-fp/sub-s032/ses-open/anat/Warped.nii.gz
+Fixed image resampled into moving space: /data/derivatives/ants/registrationSyN-fp/sub-s032/ses-open/anat/InverseWarped.nii.gz
+--------------------------------------------------------------------------------------
+Elapsed Time: 557.337s
+    SP GFLOPS: 3.064
+    DP GFLOPS: 11.471
+    x87 GFLOPS: 0.000
+    CPI Rate: 0.552
+    Average CPU Frequency: 2.770 GHz
+    Total Thread Count: 77
+Effective Physical Core Utilization: 81.5% (26.085 out of 32)
+    Effective Logical Core Utilization: 42.5% (27.231 out of 64)
+     | The metric value is low, which may signal a poor utilization of logical
+     | CPU cores while the utilization of physical cores is acceptable. Consider
+     | using logical cores, which in some cases can improve processor throughput
+     | and overall performance of multi-threaded applications.
+     |
+Memory Bound: 20.6% of Pipeline Slots
+ | The metric value is high. This can indicate that the significant fraction of
+ | execution pipeline slots could be stalled due to demand memory load and
+ | stores. Use Memory Access analysis to have the metric breakdown by memory
+ | hierarchy, memory bandwidth information, correlation by memory objects.
+ |
+    Cache Bound: 12.6% of Clockticks
+    DRAM Bound: 0.2% of Clockticks
+        DRAM Bandwidth Bound: 0.0% of Elapsed Time
+    NUMA: % of Remote Accesses: 66.7%
+
+    Bandwidth Utilization
+    Bandwidth Domain             Platform Maximum  Observed Maximum  Average  % of Elapsed Time with High BW Utilization(%)
+    ---------------------------  ----------------  ----------------  -------  ---------------------------------------------
+    DRAM, GB/sec                 214                         83.900    1.496                                           0.0%
+    DRAM Single-Package, GB/sec  107                         68.900    1.124                                           0.0%
+Vectorization: 0.0% of Packed FP Operations
+ | This code has floating point operations and is not vectorized. Consider
+ | either recompiling the code with optimization options that allow
+ | vectorization or using Intel Advisor to vectorize the loops.
+ |
+    Instruction Mix
+        SP FLOPs: 2.7% of uOps
+            Packed: 0.0% from SP FP
+                128-bit: 0.0% from SP FP
+                256-bit: 0.0% from SP FP
+                512-bit: 0.0% from SP FP
+            Scalar: 100.0% from SP FP
+             | This code has floating point operations and is not vectorized.
+             | Consider either recompiling the code with optimization options
+             | that allow vectorization or using Intel Advisor to vectorize the
+             | loops.
+             |
+        DP FLOPs: 10.3% of uOps
+            Packed: 0.0% from DP FP
+                128-bit: 0.0% from DP FP
+                256-bit: 0.0% from DP FP
+                512-bit: 0.0% from DP FP
+            Scalar: 100.0% from DP FP
+             | This code has floating point operations and is not vectorized.
+             | Consider either recompiling the code with optimization options
+             | that allow vectorization or using Intel Advisor to vectorize the
+             | loops.
+             |
+        x87 FLOPs: 0.0% of uOps
+        Non-FP: 87.0% of uOps
+    FP Arith/Mem Rd Instr. Ratio: 0.491
+     | The metric value is low. This can be a result of unaligned access to data
+     | for vector operations. Use Intel Advisor to find possible data access
+     | inefficiencies for vector operations.
+     |
+    FP Arith/Mem Wr Instr. Ratio: 1.030
+Collection and Platform Info
+    Application Command Line: bash "tmp-scripts/Guum7C2crrCvZGU28H66kZbRjmtcQjv9.sh" 
+    Operating System: 4.18.0-477.10.1.el8_lustre.x86_64 DISTRIB_ID=Ubuntu DISTRIB_RELEASE=20.04 DISTRIB_CODENAME=focal DISTRIB_DESCRIPTION="Ubuntu 20.04.5 LTS"
+    Computer Name: comp01
+    Result Size: 5.2 GB 
+    Collection start time: 09:00:49 26/11/2023 UTC
+    Collection stop time: 09:10:07 26/11/2023 UTC
+    Collector Type: Driverless Perf per-process sampling
+    CPU
+        Name: Intel(R) Xeon(R) Processor code named Skylake
+        Frequency: 2.095 GHz
+        Logical CPU Count: 64
+        Max DRAM Single-Package Bandwidth: 107.000 GB/s
+        LLC size: 23.1 MB 
+
+If you want to skip descriptions of detected performance issues in the report,
+enter: vtune -report summary -report-knob show-issues=false -r <my_result_dir>.
+Alternatively, you may view the report in the csv format: vtune -report
+<report_name> -format=csv.
