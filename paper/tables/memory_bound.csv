@@ -1,0 +1,9 @@
+pipeline, Memory Bound (%), L1 Bound(%), L2 Bound (%), L3 Bound (%), DRAM Bound (%), Store Bound (%)
+ants/brainExtraction,22.61,7.08,0.47,0.81,5.08,0.23
+ants/brainExtraction-fp,20.59,9.11,0.24,0.39,2.48,0.12
+ants/registrationSyN,16.02,6.61,0.79,0.33,0.71,0.44
+ants/registrationSyN-fp,17.97,9.65,0.30,0.08,0.30,0.16
+fsl/fast,9.87,2.87,0.40,0.51,1.61,1.67
+fsl/mcflirt,6.79,3.57,1.96,0.19,0.16,0.10
+fsl/flirt,30.36,1.61,0.42,2.37,15.73,0.59
+freesurfer/reconall,34.07,4.11,2.50,4.69,13.83,1.23

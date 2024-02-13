@@ -30,12 +30,12 @@ RUN : \
     && :
 
 # Get FreeSurfer source
-ARG FS_VERSION="v7.3.3"
+ARG FS_TAG="v7.3.3"
 ENV FS_SOURCE=/tmp/freesurfer/source
 RUN : \
     && git clone https://github.com/freesurfer/freesurfer.git ${FS_SOURCE} \
     && cd ${FS_SOURCE} \
-    && git checkout ${FS_VERSION}\
+    && git checkout ${FS_TAG}\
     && git remote add datasrc https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/repo/annex.git \
     && git fetch datasrc \
     && git-annex get . \
@@ -77,6 +77,11 @@ RUN : \
 
 RUN : \
     && sed -i 's:-nofor_main:-nofor-main:g' ${FS_SOURCE}/talairach_avi/CMakeLists.txt \
+    && :
+
+# Hack to fix version for nipype
+RUN : \
+    && sed -i 's:set(BUILD_STAMP "freesurfer-local-build-\${TODAY}":set(BUILD_STAMP "freesurfer-local-build-'${FS_TAG}'-\${TODAY}-debug":g' ${FS_SOURCE}/CMakeLists.txt \
     && :
 
 # Build FreeSurfer

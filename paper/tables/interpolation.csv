@@ -1,0 +1,9 @@
+pipeline,# of functions with interpolation,% CPU Time with interpolation
+ants/brainExtraction,17,38.52
+ants/brainExtraction-fp,17,38.37
+ants/registrationSyN,7,43.67
+ants/registrationSyN-fp,8,47.14
+fsl/fast,1,42.97
+fsl/mcflirt,3,32.90
+fsl/flirt,4,62.07
+freesurfer/reconall,10,3.71

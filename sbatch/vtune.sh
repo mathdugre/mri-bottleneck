@@ -17,5 +17,6 @@ apptainer exec --cleanenv \
     -data-limit=0 \
     -knob enable-stack-collection=true \
     -knob analyze-openmp=true \
+    ${VTUNE_OPTION} \
     -result-dir ${PROFILING_DIR} \
     $@
