@@ -31,6 +31,7 @@ mkdir -p ${WORK_DIR}
 SIF_OPTION+=" -B ${SUBJECT_OUTPUT}:/output"
 SIF_OPTION+=" -B ${WORK_DIR}:/workdir"
 export SIF_OPTION+=" -B $HOME/.freesurfer.txt:/opt/freesurfer/.license"
+export VTUNE_OPTION+=" -finalization-mode=deferred"
 cat <<EOT >> ${TMP_SCRIPT}/${RANDOM_STRING}.sh
 FS_LICENSE=/opt/freesurfer/.license
 fmriprep \
@@ -44,7 +45,7 @@ fmriprep \
     --omp-nthreads ${NTHREAD}
 EOT
 
-export SINGULARITYENV_OMP_NUM_THREADS=$NTHREAD
+export APPTAINERENV_OMP_NUM_THREADS=$NTHREAD
 source ./sbatch/vtune.sh bash ${TMP_SCRIPT}/${RANDOM_STRING}.sh
 
 source ./sbatch/post_run.sh

@@ -81,7 +81,7 @@ RUN : \
     && :
 
 # Setup Intel OpenMP
-ENV LD_LIBRARY_PATH="/opt/intel/oneapi/compiler/2023.1.0/linux/compiler/lib/intel64_lin:$LD_LIBRARY_PATH"
+ENV LD_LIBRARY_PATH="/opt/intel/oneapi/compiler/latest/lib:$LD_LIBRARY_PATH"
 
 ########
 # ANTS #
