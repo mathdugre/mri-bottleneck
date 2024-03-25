@@ -1,8 +1,8 @@
-FROM intel-compilers as compilers
-FROM freesurfer:debug as freesurfer
-FROM ants:debug as ants
-FROM fsl:debug as fsl
-FROM afni:debug as afni
+FROM mathdugre/intel-compilers:debug-info as compilers
+FROM mathdugre/freesurfer:debug-info as freesurfer
+FROM mathdugre/ants:debug-info as ants
+FROM mathdugre/fsl:debug-info as fsl
+FROM mathdugre/afni:debug-info as afni
 
 
 FROM nipreps/fmriprep:23.0.2

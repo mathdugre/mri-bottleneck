@@ -1,4 +1,4 @@
-FROM cmake:focal-20221019 as builder
+FROM mathdugre/cmake:debug-info as builder
 
 ENV DEBIAN_FRONTEND="noninteractive"
 RUN : \

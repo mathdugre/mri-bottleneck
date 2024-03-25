@@ -539,6 +539,46 @@
 }
 
 
+@article{Jenkinson2002-fg,
+  title    = {Improved Optimization for the Robust and Accurate Linear
+              Registration and Motion Correction of Brain Images},
+  author   = {Jenkinson, Mark and Bannister, Peter and Brady, Michael and
+              Smith, Stephen},
+  abstract = {Linear registration and motion correction are important
+              components of structural and functional brain image analysis.
+              Most modern methods optimize some intensity-based cost function
+              to determine the best registration. To date, little attention has
+              been focused on the optimization method itself, even though the
+              success of most registration methods hinges on the quality of
+              this optimization. This paper examines the optimization process
+              in detail and demonstrates that the commonly used multiresolution
+              local optimization methods can, and do, get trapped in local
+              minima. To address this problem, two approaches are taken: (1) to
+              apodize the cost function and (2) to employ a novel hybrid
+              global--local optimization method. This new optimization method
+              is specifically designed for registering whole brain images. It
+              substantially reduces the likelihood of producing
+              misregistrations due to being trapped by local minima. The
+              increased robustness of the method, compared to other commonly
+              used methods, is demonstrated by a consistency test. In addition,
+              the accuracy of the registration is demonstrated by a series of
+              experiments with motion correction. These motion correction
+              experiments also investigate how the results are affected by
+              different cost functions and interpolation methods.},
+  journal  = {NeuroImage},
+  volume   = 17,
+  number   = 2,
+  pages    = {825--841},
+  month    = oct,
+  year     = 2002,
+  url      = {https://www.sciencedirect.com/science/article/pii/S1053811902911328},
+  keywords = {accuracy; affine transformation; global optimization; motion
+              correction; multimodal registration; multiresolution search;
+              robustness},
+  issn     = {1053-8119},
+  doi      = {10.1006/nimg.2002.1132}
+}
+
 @article{Jenkinson2002-od,
   title    = {Improved Optimization for the Robust and Accurate Linear
               Registration and Motion Correction of Brain Images},
@@ -607,6 +647,7 @@
   doi      = {10.1016/j.neuroimage.2011.09.015}
 }
 
+
 @incollection{Kukunas2015-jd,
   title     = {Chapter 6 - Introduction to Profiling},
   booktitle = {Power and Performance},
@@ -627,7 +668,6 @@
   isbn      = {9780128007266},
   doi       = {10.1016/B978-0-12-800726-6.00006-9}
 }
-
 
 @article{Kurtzer2017-bu,
   title    = {Singularity: Scientific containers for mobility of compute},
@@ -662,6 +702,8 @@
   pmc      = {PMC5426675}
 }
 
+
+
 @inproceedings{Pepe2023-dm,
   title     = {Numerical Uncertainty of Convolutional Neural Networks Inference
                for Structural Brain {MRI} Analysis},
@@ -690,8 +732,6 @@
   keywords  = {mri-bottleneck},
   doi       = {10.1007/978-3-031-44336-7\_7}
 }
-
-
 
 @article{Tustison2010-gg,
   title    = {{N4ITK}: improved {N3} bias correction},
@@ -782,6 +822,7 @@
   arxivid       = {1812.08011}
 }
 
+
 @article{Zhang2001-hx,
   title    = {Segmentation of brain {MR} images through a hidden Markov random
               field model and the expectation-maximization algorithm},
@@ -828,4 +869,42 @@
   issn     = {0278-0062},
   pmid     = {11293691},
   doi      = {10.1109/42.906424}
+}
+
+
+@inproceedings{Canelhas2018-vs,
+  title     = {A Survey of Voxel Interpolation Methods and an Evaluation of
+               Their Impact on Volumetric {Map-Based} Visual Odometry},
+  booktitle = {2018 {IEEE} International Conference on Robotics and Automation
+               ({ICRA})},
+  author    = {Canelhas, Daniel Ric{\~a}o and Stoyanov, Todor and Lilienthal,
+               Achim J},
+  abstract  = {Voxel volumes are simple to implement and lend themselves to
+               many of the tools and algorithms available for 2D images.
+               However, the additional dimension of voxels may be costly to
+               manage in memory when mapping large spaces at high resolutions.
+               While lowering the resolution and using interpolation is common
+               work-around, in the literature we often find that authors either
+               use trilinear interpolation or nearest neighbors and rarely any
+               of the intermediate options. This paper presents a survey of
+               geometric interpolation methods for voxel-based map
+               representations. In particular we study the truncated signed
+               distance field (TSDF) and the impact of using fewer than 8
+               samples to perform interpolation within a depth-camera pose
+               tracking and mapping scenario. We find that lowering the number
+               of samples fetched to perform the interpolation results in
+               performance similar to the commonly used trilinear interpolation
+               method, but leads to higher frame-rates. We also report that
+               lower bit-depth generally leads to performance degradation,
+               though not as much as may be expected, with voxels containing as
+               few as 3 bits sometimes resulting in adequate estimation of
+               camera trajectories.},
+  publisher = {IEEE},
+  pages     = {3637--3643},
+  month     = may,
+  year      = 2018,
+  url       = {http://dx.doi.org/10.1109/ICRA.2018.8461227},
+  issn      = {2577-087X},
+  isbn      = {9781538630815, 9781538630808},
+  doi       = {10.1109/ICRA.2018.8461227}
 }

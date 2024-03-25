@@ -25,7 +25,7 @@ cat <<EOT >> ${TMP_SCRIPT}/${RANDOM_STRING}.sh
     /data/sub-${SUBJECT_ID}/ses-open/func/sub-${SUBJECT_ID}_ses-open_task-rest_bold.nii.gz
 EOT
 
-export SINGULARITYENV_OMP_NUM_THREADS=$NTHREAD
+export APPTAINERENV_OMP_NUM_THREADS=$NTHREAD
 source ./sbatch/vtune.sh bash ${TMP_SCRIPT}/${RANDOM_STRING}.sh
 
 source ./sbatch/post_run.sh

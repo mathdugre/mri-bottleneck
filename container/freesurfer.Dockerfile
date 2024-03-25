@@ -1,4 +1,4 @@
-FROM intel-compilers as builder
+FROM mathdugre/intel-compilers:debug-info as builder
 
 # Prepare environment
 ENV DEBIAN_FRONTEND="noninteractive"
@@ -107,7 +107,7 @@ RUN : \
 # Move required MNI packages to the build package
 RUN mv /tmp/freesurfer/packages/mni/current /opt/freesurfer/mni
 
-FROM intel-compilers
+FROM mathdugre/intel-compilers:debug-info
 COPY --from=builder /opt/freesurfer /opt/freesurfer
 
 ENV DEBIAN_FRONTEND="noninteractive"

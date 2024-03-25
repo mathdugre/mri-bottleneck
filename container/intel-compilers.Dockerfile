@@ -1,4 +1,4 @@
-FROM cmake:focal-20221019
+FROM mathdugre/cmake:debug-info
 
 # Install Intel compilers and MKL library
 ENV DEBIAN_FRONTEND="noninteractive"
