@@ -2,6 +2,7 @@
 set -e
 set -u
 
+export VTUNE_OPTION=""
 TOOLKIT=$1; shift
 PIPELINE=$1; shift
 USAGE="
