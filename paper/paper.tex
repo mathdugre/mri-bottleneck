@@ -181,8 +181,7 @@ Figure~\ref{fig:makespan-ants} shows the makespan of ANTS brainExtraction and AN
 
 ANTs registrationSyN is a three stage process (Euler transform, affine transform, and SyN registration), each having 4 level with a specified number of maximum iterations. We focus on the SyN registration stage since it is multiple order longer to excecute. The number of iterations between both version of ANTs registrationSyN is similar. In fact, for the last two levels, the maximum specified number of iterations is reached across all but one execution. However, the single precision version of ANTS registrationSyN took \HL{approximately 20-25\%} longer per iteration than the double precision version for the last registration stage (Figure~\ref{fig:mean-time-per-iteration-ants}). Therefore, the slowdown is not due to the convergence of the algorithm, but rather the execution time for each iteration.
 
-After further analysis of the ANTs registrationSyN single-precision pipeline, we found that the template\footnote{\href{https://github.com/InsightSoftwareConsortium/ITK/blob/d9c585d96359bf304ad3047148cee81bf27ac0c1/Modules/Core/ImageFunction/include/itkVectorInterpolateImageFunction.h\#L46-L48}{itkVectorInterpolateImageFunction.h}} forces the output of its function to be in double precision, with it's \textit{EvaluateAtContinuousIndex} contributing most of the CPU time. Therefore, the pipeline wastes CPU cycles to convert the input data to double in ITK, and potentially to cast back to float in ANTS. We think this bug causes the slow-down. We tried recompiling a version of ITK to fix this issue, but we were unsuccessful due to the size and complexity of the code base. This example shows that the use of reduced precision is not trivial and require a deep understanding of the code base. Moreover, benchmark should be performed to ensure that the reduced precision does not impact the performance or accuracy of the pipeline.
-We reported the issue on ITK GitHub repository at: \href{}{} \MD{TODO open issue}
+After further analysis of the ANTs registrationSyN single-precision pipeline, we found that the template\footnote{\href{https://github.com/InsightSoftwareConsortium/ITK/blob/d9c585d96359bf304ad3047148cee81bf27ac0c1/Modules/Core/ImageFunction/include/itkVectorInterpolateImageFunction.h\#L46-L48}{itkVectorInterpolateImageFunction.h}} forces the output of its function to be in double precision, with it's \textit{EvaluateAtContinuousIndex} contributing most of the CPU time. Therefore, the pipeline wastes CPU cycles to convert the input data to double in ITK, and potentially to cast back to float in ANTS. We think this bug causes the slow-down. We tried recompiling a version of ITK to fix this issue, but we were unsuccessful due to the size and complexity of the code base. This example shows that the use of reduced precision is not trivial and require a deep understanding of the code base. Moreover, benchmark should be performed to ensure that the reduced precision does not impact the performance or accuracy of the pipeline. We reported the issue on ITK GitHub repository (see issue \#4593)~\footnote{\href{https://github.com/InsightSoftwareConsortium/ITK/issues/4593}{https://github.com/InsightSoftwareConsortium/ITK/issues/4593}}.
 
 \begin{figure}
 	\includegraphics[width=\linewidth]{figures/ants-registrationSyN-iteration-mean.png}
@@ -256,9 +255,9 @@ The container images for our profiling experiments are publicly on Docker Hub:
 \end{itemize}
 	
 Our profiling results from VTune are publicly available at:
-\\\href{URL}{\MD{TODO add Zenodo link}}
-% Waiting on data transfer from Compute Canada
-	
+\\\href{https://doi.org/10.5281/zenodo.10987491}{https://doi.org/10.5281/zenodo.10987491}
+\MD{TODO finalize the metadata entry and publish}
+
 \section{Code Availability}
 \label{sec:code-availability}
 The code download the data, compile and profile the pipelines, and generate the figures is publicly available at:
