@@ -111,7 +111,7 @@ The difference between the memory bound value and the sum of the other metrics r
 \subsection{Infrastructure}
 We used the \textit{Slashbin cluster} at Concordia University. The compute nodes are configured with two 16-core Intel(R) Xeon(R) Gold 6130 CPU @ \SI{2.10}{\giga\hertz}, \SI{250}{\gibi\byte} of RAM, \SI{126}{\gibi\byte} of tmpfs, six \SI{447}{\gibi\byte} SSDs with the XFS file system (no RAID enabled), Rocky~Linux~8.9 and Linux kernel \textit{4.18.0-477.10.1.el8\_lustre.x86\_64}.
 			
-\section{Results}
+\section{Results \& Discussion}
 In this section we present the aggregated profiling data obtained with VTune. First, we present a performance overview of the pipelines. We then analysis specific hotspots in the pipelines. Unless specified explicitly, we only present the profile data from using 1-thread since the results from 32-threads are similar.
 
 \HL{We aggregate the profiling results of each pipeline across all subjects to obtain an average performance profile. The Pareto principle is a power law which states that 80\% of the effects come from 20\% of the causes. We hypothesize that the Pareto principle applies to the performance of MRI pre-processing pipelines, which is consistent with the literature}~\cite{Kukunas2015-jd}. \HL{Therefore, for fine-grained analysis, we only study the functions with the largest contribution to CPU time, up to 80\% cumulative total runtime of the pipeline. This heuristic allows us to focus our efforts on the performance critical sections of a pipeline. We report the mean and standard deviation of the execution time for those functions.}
@@ -221,7 +221,7 @@ We opened an issue on FreeSurfer GitHub repository at: \href{}{} \MD{TODO open i
 			
 Future work should study the different configuration of OpenMP scheduling in FreeSurfer recon-all to improve the parallel efficiency. We believe that significant performance improvements could be achieved by optimizing the thread synchronization. This would lead to faster runtime time and higher CPU usage ration in HPC allocations.
 
-\subsection{VTune results finalization}
+\subsection{Experiencing using VTune}
 \HL{VTune profiler offered a rich and extensive amount of data for our analysis, which would have been difficult to retrieve otherwise. Thanks to it's low performance overhead, we were able to profile the pipeline with minimal impact on the runtime, allowing the use of more subjects to obtain a more accurate performance profile. The documentation provided by VTune is extensive and well-documented, which helped us to understand the different metrics and events available.}
 
 Unfortunately, VTune requires a finalization step is required to query the data and generate a report. We found this step to be both time consuming and resource intensive. For example, finalizing the results from a single FreeSurfer recon-all execution can requires over \SI{2}{\tera\byte} of RAM, while the developers recommend to use between \SI{8}{\giga\byte} to \SI{16}{\giga\byte} of RAM to run the pipeline. This significant difference in resource requirement creates a challenge to profile pipeline with long runtime, due to the potential difficulty to obtain access to compute nodes with enough RAM. This can be further challenging for researchers in early career or in developing countries, which might not have access to large HPC infrastructure.
