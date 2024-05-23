@@ -59,7 +59,7 @@ To profile the pipelines, we use the Intel VTune tool~\cite{vtune-profiler}, a m
 
 \section{Materials \& Methods}
 \subsection{Pipelines}
-fMRIPrep is a commonly used fMRI and sMRI pre-processing pipeline for neuroimaging, built on top of several well-known neuroimaging toolboxes such as ANTs, FSL, FreeSurfer and AFNI \TG{expand acronyms and add references for each toolbox}. Although processing steps may vary based on the type of input data, the sMRI pipeline generally uses ANTs BrainExtraction~\cite{Tustison2010-gg,Avants2008-ea} to perform intensity correction and skull-stripping of a T1 weighted image, FSL FAST~\cite{Zhang2001-hx} to segment the tissues of the extracted brain, and ANTs registrationSyN~\cite{Avants2008-ea} to register the segmented brain. When enabled, FreeSurfer recon-all~\cite{Dale1999-wu} is used for surface reconstruction. We benchmarked a recon-all command similar to  fMRIPrep's, which (1) performs autorecon1 without skull-stripping, (2) imports an external skull-strip from ANTs brainExtraction, and (3) resumes reconstruction with autorecon2 and autorecon3. The fMRI pipeline generally performs motion correction with FSL MCFLIRT~\cite{Jenkinson2002-od}, slice timing correction with AFNI 3dtshift~\cite{Cox1996-nk}, and co-registration with FSL FLIRT~\cite{Jenkinson2002-od,Jenkinson2001-eu,Greve2009-dw}.
+fMRIPrep is a commonly used fMRI and sMRI pre-processing pipeline for neuroimaging, built on top of several well-known neuroimaging toolboxes such as Advanced Normalization Tools (ANTs), FMRIB Software Library (FSL), FreeSurfer and Analysis of Functional NeuroImages (AFNI) \TG{add references for each toolbox}. Although processing steps may vary based on the type of input data, the sMRI pipeline generally uses ANTs BrainExtraction~\cite{Tustison2010-gg,Avants2008-ea} to perform intensity correction and skull-stripping of a T1 weighted image, FSL FAST~\cite{Zhang2001-hx} to segment the tissues of the extracted brain, and ANTs registrationSyN~\cite{Avants2008-ea} to register the segmented brain. When enabled, FreeSurfer recon-all~\cite{Dale1999-wu} is used for surface reconstruction. We benchmarked a recon-all command similar to  fMRIPrep's, which (1) performs autorecon1 without skull-stripping, (2) imports an external skull-strip from ANTs brainExtraction, and (3) resumes reconstruction with autorecon2 and autorecon3. The fMRI pipeline generally performs motion correction with FSL MCFLIRT~\cite{Jenkinson2002-od}, slice timing correction with AFNI 3dtshift~\cite{Cox1996-nk}, and co-registration with FSL FLIRT~\cite{Jenkinson2002-od,Jenkinson2001-eu,Greve2009-dw}.
 
 We profiled the entire fMRIPrep pipeline to obtain a coarse view of the pipeline's performance bottleneck. Additionally, to characterize the performance at a finer grain, we profiled the sub-pipelines of fMRIPrep, namely \TG{add list}. While we used the same sub-pipeline and order as in fMRIPrep, we used the default parameters for most of the sub-pipelines which may vary from the default parameters of fMRIPrep. We omitted some sub-pipelines of fMRIPrep as they were not compatible with our dataset. For example, slice-timing correction was already performed in our data.
 
@@ -76,7 +76,7 @@ The Intel VTune profiler addresses these challenges by offering multi-language s
 		
 First, to obtain human-readable information on function and module names in VTune, we re-compiled each pipeline with debug information in a Docker image. For use on HPC systems, we created Apptainer~\cite{Kurtzer2017-bu} images using Docker2Singularity\footnote{\href{https://github.com/singularityhub/docker2singularity}{https://github.com/singularityhub/docker2singularity}}. \lstlistingname~\ref{lst:vtune_example} illustrates the profiling of a pipeline by mounting the VTune binary to the Apptainer image during execution.
 
-\begin{minipage}{\linewidth}
+\begin{minipage}{0.9\linewidth}
 	\lstinputlisting[
 		language={sh},
 		caption={Profiling a pipeline within an Apptainer container, using VTune profiler.},
@@ -252,7 +252,6 @@ The container images for our profiling experiments are available on Docker Hub:
 	
 Our profiling results from VTune are available at:
 \\\href{https://doi.org/10.5281/zenodo.10987491}{https://doi.org/10.5281/zenodo.10987491}
-\MD{TODO finalize the metadata entry and publish}
 
 \section{Code Availability}
 \label{sec:code-availability}
