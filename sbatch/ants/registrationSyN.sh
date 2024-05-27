@@ -22,6 +22,8 @@ export SIF_OPTION="-B $HOME/.cache/templateflow:/templateflow"
 cat <<EOT >> ${TMP_SCRIPT}/${RANDOM_STRING}.sh
 TMPLT="/templateflow/tpl-MNI152NLin2009cAsym/"
 
+mkdir -p /data/derivatives/ants/registrationSyN/sub-${SUBJECT_ID}/ses-open/anat
+
 antsRegistrationSyN.sh \
     -d 3 \
     -f \${TMPLT}/tpl-MNI152NLin2009cAsym_res-01_desc-brain_T1w.nii.gz\
