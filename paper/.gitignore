@@ -7,5 +7,6 @@
 *.log
 *.out
 *.pdf
+!paper.pdf
 *.synctex.gz
 *.txt
