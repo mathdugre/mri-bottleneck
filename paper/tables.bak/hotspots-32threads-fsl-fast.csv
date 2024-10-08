@@ -1,8 +1,0 @@
-,module_short,func_short,mean_cpu,std_cpu
-1,fast,NEWIMAGE::convolve,68.0563099032258,0.7053432206998915
-2,fast,ZMRISegmentation::MRFWeightsInner,18.686061387096775,1.9773189066918142
-3,[Outside any module],[Outside any known module],58.21797445,55.90650763960877
-4,libm-2.31.so,func@0x80fa4,6.3445872,0.6032066399163918
-5,libm-2.31.so,exp,5.734872142857143,2.0247391519736726
-6,libc-2.31.so,func@0x18b644,5.3739865,1.7234775863090712
-7,libfsl-newimage.so,NEWIMAGE::maskedIterator::operator++,4.790199705882353,0.09006601100792995
