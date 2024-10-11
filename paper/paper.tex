@@ -168,7 +168,7 @@ ANTs registrationSyN is a three-stage process (Euler transform, affine transform
 
 After further analysis of the ANTs registrationSyN single-precision pipeline, we found that the use of templates in ITK's C++ code\footnote{\href{https://github.com/InsightSoftwareConsortium/ITK/blob/d9c585d96359bf304ad3047148cee81bf27ac0c1/Modules/Core/ImageFunction/include/itkVectorInterpolateImageFunction.h\#L46-L48}{itkVectorInterpolateImageFunction.h}} forces the output of the interpolation function to be in double precision, with \textit{EvaluateAtContinuousIndex} contributing most to the CPU time. As a result, the pipeline wastes CPU cycles by converting the input data to double-precision in ITK and potentially casting it back to single-precision in ANTs. We think this bug causes the slowdown. We tried re-compiling a version of ITK to fix this issue, but we were unsuccessful because of the size and complexity of the code base. This example shows that the use of reduced precision is not trivial and requires a deep understanding of the code base. Benchmarks should be performed to ensure that the reduced precision does not impact the performance or accuracy of the pipeline. We reported this issue in the ITK GitHub repository\footnote{\href{https://github.com/InsightSoftwareConsortium/ITK/issues/4593}{https://github.com/InsightSoftwareConsortium/ITK/issues/4593}}.
 
-\begin{figure}
+\begin{figure}[ht]
 	\includegraphics[width=\linewidth]{figures/ants-registrationSyN-iteration-mean.png}
 	\caption{Average time per iteration for ANTs registrationSyN in double and single precision. Only the SyN Registration stage is shown as the two earlier stages were near zero time. The error bars show the standard deviation across $n=20$ subjects.}
 	\label{fig:mean-time-per-iteration-ants}
@@ -177,7 +177,7 @@ After further analysis of the ANTs registrationSyN single-precision pipeline, we
 \subsection{FreeSurfer: Thread-Synchronization}
 Figure~\ref{fig:hotspots-freesurfer-reconall} shows a significant difference in the pipeline profile between single-threaded and multi-threaded executions. In the multi-threaded executions (Figure~\ref{subfig:hotspots-freesurfer-reconall-32threads}), the OpenMP multi-threading library was a major bottleneck for the pipeline, accounting for at least 76\% of the pipeline runtime. The y-axis scale is multi folds larger than for the single-threaded execution, showing that the multi-threaded execution was significantly slower than the single-threaded execution.
 					
-\begin{figure*}
+\begin{figure*}[ht]
 	\centering
 	\begin{subfigure}[t]{0.49\textwidth}
 		\caption{Single-threaded}
@@ -195,7 +195,7 @@ Figure~\ref{fig:hotspots-freesurfer-reconall} shows a significant difference in 
 
 While the makespan for FreeSurfer recon-all decreased with an increase in the number of threads, the benefits were limited (Figure~\ref{fig:freesurfer-threading}). The parallel efficiency decreased from 66\% with two threads down to 5\% with 32 threads. While Amdhal's law limits the maximum parallel efficiency of the pipeline, Figure~\ref{subfig:hotspots-freesurfer-reconall-32threads} shows that most of the CPU time is spent in libiomp, which suggests that thread synchronization had a larger impact on parallel efficiency.
 
-\begin{figure}
+\begin{figure}[ht]
 	\includegraphics[width=\linewidth]{figures/makespan-freesurfer.png}
 	\caption{Makespan and parallel efficiency of FreeSurfer recon-all while varying the number of threads from 1 to 32. The left y-axis shows the makespan in seconds, while the right y-axis shows the parallel efficiency in percent. The log-scaled x-axis shows the number of threads.}
 	\label{fig:freesurfer-threading}
