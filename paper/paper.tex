@@ -141,8 +141,8 @@ Optimizing the data access of the pipeline could reduce the number of data load.
 			
 \csvnames{csvcol}{1=\pipeline, 2=\mem, 3=\la, 4=\lb, 5=\lc, 6=\dram, 7=\store, 8=\disk}
 \csvstyle{memory_bound}{
-	tabular = |r|c|c|c|c|c|c|c|,
-	table head = \hline Pipeline &  \% Memory Bound &  \% L1 Bound &  \% L2 Bound &  \% L3 Bound & \% DRAM Bound & \% Store Bound & \% Disk Bound\\\hline\hline,
+	tabular = |r|c||c|c|c|c|c|c|,
+	table head = \hline Pipeline &  Total Memory Bound \% & L1 \% & L2 \% &  L3 \% & DRAM \% & Store \% & Disk Fetch \%\\\hline\hline,
 	late after line = \\\hline,
 	respect all,
 	csvcol
@@ -189,7 +189,7 @@ Figure~\ref{fig:hotspots-freesurfer-reconall} shows a significant difference in 
 		\label{subfig:hotspots-freesurfer-reconall-32threads}
 		\includegraphics[width=\textwidth]{figures/hotspots-32threads-freesurfer-reconall-simple.png}
 	\end{subfigure}
-	\caption{FreeSurfer recon-all analysis. The y-axis shows the average CPU time spent in each function, with error bars showing the standard deviation across n=20 subjects. The x-axis shows the function ordered by decreasing CPU time grouped by module. We only display module names and omitted function names for clarity.}
+	\caption{FreeSurfer recon-all analysis. Error bars show the standard deviation across n=20 subjects. The x-axis shows the function ordered by decreasing CPU time grouped by module. We only display module names and omitted function names for clarity.}
 	\label{fig:hotspots-freesurfer-reconall}
 \end{figure*}
 
